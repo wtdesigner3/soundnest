@@ -28,6 +28,21 @@ export default function Header({ onOpenConsultation }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [customService, setCustomService] = useState("");
+  const [siteSettings, setSiteSettings] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/admin/settings/')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data) setSiteSettings(data);
+      })
+      .catch(() => {});
+  }, []);
+
+  const currentPhone = siteSettings?.contact?.phone || companyInfo.phone;
+  const currentPhoneRaw = siteSettings?.contact?.phoneRaw || companyInfo.phoneRaw;
+  const currentLogo = siteSettings?.branding?.logo || '/images/logo.png';
+  const currentSiteName = siteSettings?.branding?.siteName || companyInfo.name;
 
   // Detect appropriate default service based on current route
   let detectedService = "Select Service Type";
@@ -95,10 +110,10 @@ export default function Header({ onOpenConsultation }) {
         <div className={`container ${styles.headerContainer}`}>
           {/* Logo */}
           <div className={styles.logoWrapper}>
-            <Link href="/" className={styles.logoLink} aria-label="Soundnest Home">
+            <Link href="/" className={styles.logoLink} aria-label={`${currentSiteName} Home`}>
               <Image
-                src="/images/logo.png"
-                alt="Soundnest - Home Automation"
+                src={currentLogo}
+                alt={`${currentSiteName} - Home Automation`}
                 width={240}
                 height={42}
                 priority
@@ -110,12 +125,12 @@ export default function Header({ onOpenConsultation }) {
           {/* Right Navigation Controls */}
           <div className={styles.navRight}>
             <a
-              href={`tel:${companyInfo.phoneRaw}`}
+              href={`tel:${currentPhoneRaw}`}
               className={styles.phoneLink}
-              title="Call Soundnest"
+              title={`Call ${currentSiteName}`}
             >
               <Phone className={styles.phoneIcon} />
-              <span>{companyInfo.phone}</span>
+              <span>{currentPhone}</span>
             </a>
 
             <button
@@ -149,8 +164,8 @@ export default function Header({ onOpenConsultation }) {
       >
         <div className={styles.drawerHeader}>
           <Image
-            src="/images/logo.png"
-            alt="Soundnest Logo"
+            src={currentLogo}
+            alt={`${currentSiteName} Logo`}
             width={160}
             height={32}
             className={styles.logoImg}
@@ -182,11 +197,11 @@ export default function Header({ onOpenConsultation }) {
 
         <div className={styles.drawerFooter}>
           <a
-            href={`tel:${companyInfo.phoneRaw}`}
+            href={`tel:${currentPhoneRaw}`}
             className={styles.drawerPhone}
           >
             <Phone size={18} />
-            <span>{companyInfo.phone}</span>
+            <span>{currentPhone}</span>
           </a>
           <button
             type="button"

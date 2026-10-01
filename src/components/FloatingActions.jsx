@@ -7,6 +7,19 @@ import styles from "./FloatingActions.module.css";
 
 export default function FloatingActions() {
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [siteSettings, setSiteSettings] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/admin/settings/')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data) setSiteSettings(data);
+      })
+      .catch(() => {});
+  }, []);
+
+  const phoneRaw = siteSettings?.contact?.phoneRaw || companyInfo.phoneRaw;
+  const whatsapp = siteSettings?.social?.whatsapp || companyInfo.whatsapp;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,7 +41,7 @@ export default function FloatingActions() {
     <>
       {/* Floating Call Now Button (Bottom-Left) */}
       <a
-        href={`tel:${companyInfo.phoneRaw}`}
+        href={`tel:${phoneRaw}`}
         className={styles.callBtn}
         aria-label="Call Now"
         title="Call Now"
@@ -40,7 +53,7 @@ export default function FloatingActions() {
       <div className={styles.whatsappWrapper}>
         <span className={styles.whatsappBadge}>WhatsApp us</span>
         <a
-          href={`https://api.whatsapp.com/send?phone=${companyInfo.whatsapp}`}
+          href={`https://api.whatsapp.com/send?phone=${whatsapp}`}
           target="_blank"
           rel="nofollow noopener noreferrer"
           className={styles.whatsappBtn}

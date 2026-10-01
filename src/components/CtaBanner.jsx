@@ -5,12 +5,14 @@ import Link from "next/link";
 import { ctaBannerData } from "@/data/homeData";
 import styles from "./CtaBanner.module.css";
 
-export default function CtaBanner({ onOpenConsultation }) {
+export default function CtaBanner({ onOpenConsultation, data = ctaBannerData }) {
+  const activeData = data || ctaBannerData;
+
   return (
     <section className={styles.ctaSection} id="cta-banner" aria-label="Book a free consultation">
       <div id="cta-banner-bg" className={styles.bgImage}>
         <Image
-          src={ctaBannerData.backgroundImage}
+          src={activeData.backgroundImage || ctaBannerData.backgroundImage}
           alt="Soundnest Smart Living Consultation Experience"
           fill
           sizes="100vw"
@@ -21,14 +23,13 @@ export default function CtaBanner({ onOpenConsultation }) {
       <div className={styles.overlay} />
 
       <div className={styles.content}>
-        <h2 className={styles.title}>
-          Ready to experience life in a smart home?<br />
-          Book a free consultation now!
+        <h2 className={styles.title} style={{ whiteSpace: 'pre-line' }}>
+          {activeData.title || ctaBannerData.title}
         </h2>
 
         <div className={styles.ctaBtnWrapper}>
           <Link
-            href={ctaBannerData.buttonLink}
+            href={activeData.buttonLink || ctaBannerData.buttonLink || '/contact-us/'}
             title="Contact Us"
             className="btn-pill-white"
             onClick={(e) => {
@@ -38,7 +39,7 @@ export default function CtaBanner({ onOpenConsultation }) {
               }
             }}
           >
-            {ctaBannerData.buttonText}
+            {activeData.buttonText || ctaBannerData.buttonText}
           </Link>
         </div>
       </div>

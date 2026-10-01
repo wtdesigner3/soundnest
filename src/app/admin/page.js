@@ -84,10 +84,14 @@ export default async function AdminDashboardPage() {
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.75rem' }}>
+        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+          <Link href="/admin/home" className={styles.btnSecondary}>
+            <Sparkles size={16} />
+            <span>Home CMS</span>
+          </Link>
           <Link href="/admin/services" className={styles.btnPrimary}>
             <PlusCircle size={16} />
-            <span>Add Service</span>
+            <span>Services</span>
           </Link>
           <Link href="/admin/blog" className={styles.btnSecondary}>
             <FileText size={16} />

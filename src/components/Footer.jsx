@@ -1,10 +1,31 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { companyInfo } from "@/data/homeData";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
+  const [siteSettings, setSiteSettings] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/admin/settings/')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data) setSiteSettings(data);
+      })
+      .catch(() => {});
+  }, []);
+
+  const phone = siteSettings?.contact?.phone || companyInfo.phone;
+  const phoneRaw = siteSettings?.contact?.phoneRaw || companyInfo.phoneRaw;
+  const email = siteSettings?.contact?.email || companyInfo.email;
+  const address = siteSettings?.contact?.address || companyInfo.address;
+  const instagram = siteSettings?.social?.instagram || companyInfo.instagram;
+  const copyright =
+    siteSettings?.branding?.copyright ||
+    `© ${new Date().getFullYear()} SOUNDNEST ALL RIGHTS RESERVED`;
+
   return (
     <footer className={styles.footer} role="contentinfo" aria-label="Site Footer">
       <div className="container">
@@ -15,19 +36,15 @@ export default function Footer() {
             <ul className={styles.contactList}>
               <li className={styles.contactItem}>
                 <Phone className={styles.icon} />
-                <a href={`tel:${companyInfo.phoneRaw}`}>
-                  {companyInfo.phone}
-                </a>
+                <a href={`tel:${phoneRaw}`}>{phone}</a>
               </li>
               <li className={styles.contactItem}>
                 <Mail className={styles.icon} />
-                <a href={`mailto:${companyInfo.email}`}>
-                  {companyInfo.email}
-                </a>
+                <a href={`mailto:${email}`}>{email}</a>
               </li>
               <li className={styles.contactItem}>
                 <MapPin className={styles.icon} />
-                <span>{companyInfo.address}</span>
+                <span>{address}</span>
               </li>
             </ul>
           </div>
@@ -35,7 +52,7 @@ export default function Footer() {
           {/* Right Column: Social Follow */}
           <div className={styles.socialWrapper}>
             <a
-              href={companyInfo.instagram}
+              href={instagram}
               target="_blank"
               rel="nofollow noopener noreferrer"
               aria-label="Follow Soundnest on Instagram"
@@ -51,7 +68,7 @@ export default function Footer() {
 
         {/* Copyright notice */}
         <div className={styles.copyrightBar}>
-          <p>© 2025 SOUNDNEST ALL RIGHTS RESERVED</p>
+          <p>{copyright}</p>
         </div>
       </div>
     </footer>

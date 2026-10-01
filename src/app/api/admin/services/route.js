@@ -94,63 +94,87 @@ export async function POST(request) {
       badge,
       heroImage,
       heroBgImage,
-      experienceKicker: 'SOUNDNEST EXPERIENCE',
-      experienceTitle: `Why Choose Soundnest ${name}?`,
-      experienceSubtitle: 'Engineered for luxury, reliability, and precision control.',
-      experienceDescription: `We combine world-class hardware with personalized integration to deliver unparalleled ${name.toLowerCase()} experiences.`,
-      experiencePoints: [
-        {
-          title: 'Custom Engineering',
-          description: 'Designed specifically for your architectural layout and lifestyle preferences.',
-          icon: 'sparkles',
-        },
-        {
-          title: 'Future-Ready Platform',
-          description: 'Modular hardware that easily integrates with whole-home automation protocols.',
-          icon: 'home',
-        },
-        {
-          title: 'Zero Complications',
-          description: 'Complete end-to-end turnkey installation and dedicated warranty-backed maintenance.',
-          icon: 'shield',
-        },
+      heroPills: body.heroPills || [
+        '100% Turnkey Solution',
+        'Quick Deployment',
+        'Manufacturer Warranty',
       ],
-      featuresKicker: 'WHAT WE OFFER',
-      featuresTitle: 'Intelligent Capabilities',
-      features: features.length > 0 ? features : [
-        {
-          title: 'Smart Centralized Controls',
-          description: 'Manage effortlessly from mobile app, touch keypads, or voice commands.',
-          icon: 'controls',
-        },
-        {
-          title: 'Energy Efficiency',
-          description: 'Intelligent automation schedules that reduce energy consumption and maximize comfort.',
-          icon: 'leaf',
-        },
-      ],
-      processKicker: 'OUR PROCESS',
-      processTitle: `Pinnacle of ${name}`,
-      processSubtitle: 'Turnkey design, hardware selection, and precision calibration.',
-      processParagraphs: [
-        `Soundnest provides complete turnkey consultation and deployment for ${name.toLowerCase()}. Our certified engineers ensure every detail is calibrated to perfection.`,
-        'We invite you to experience our solutions firsthand and discover how smart technology elevates your spaces.',
-      ],
-      gallery: gallery.length > 0 ? gallery : [
-        { url: '/images/slider-3.jpg', title: 'Smart App Control' },
-        { url: '/images/services/retrofit.jpg', title: 'Modular Integration' },
-        { url: '/images/about-us.jpg', title: 'Architectural Design' },
-      ],
-      faqs: faqs.length > 0 ? faqs : [
-        {
-          question: `How long does it take to implement ${name.toLowerCase()}?`,
-          answer: 'Typical residential installations are completed within 3 to 7 working days depending on the project scope.',
-        },
-        {
-          question: 'Is after-sales support provided?',
-          answer: 'Yes, all Soundnest systems include full manufacturer warranties and our dedicated priority customer support.',
-        },
-      ],
+      experienceKicker: body.experienceKicker || 'SOUNDNEST EXPERIENCE',
+      experienceTitle: body.experienceTitle || `Why Choose Soundnest ${name}?`,
+      experienceSubtitle: body.experienceSubtitle || 'Engineered for luxury, reliability, and precision control.',
+      experienceDescription:
+        body.experienceDescription ||
+        `We combine world-class hardware with personalized integration to deliver unparalleled ${name.toLowerCase()} experiences.`,
+      experiencePoints:
+        body.experiencePoints && body.experiencePoints.length > 0
+          ? body.experiencePoints
+          : [
+              {
+                title: 'Custom Engineering',
+                description: 'Designed specifically for your architectural layout and lifestyle preferences.',
+                icon: 'sparkles',
+              },
+              {
+                title: 'Future-Ready Platform',
+                description: 'Modular hardware that easily integrates with whole-home automation protocols.',
+                icon: 'home',
+              },
+              {
+                title: 'Zero Complications',
+                description: 'Complete end-to-end turnkey installation and dedicated warranty-backed maintenance.',
+                icon: 'shield',
+              },
+            ],
+      featuresKicker: body.featuresKicker || 'WHAT WE OFFER',
+      featuresTitle: body.featuresTitle || 'Intelligent Capabilities',
+      features:
+        features && features.length > 0
+          ? features
+          : [
+              {
+                title: 'Smart Centralized Controls',
+                description: 'Manage effortlessly from mobile app, touch keypads, or voice commands.',
+                icon: 'lightbulb',
+                image: '/images/slider-1.jpg',
+              },
+              {
+                title: 'Energy Efficiency',
+                description: 'Intelligent automation schedules that reduce energy consumption and maximize comfort.',
+                icon: 'leaf',
+                image: '/images/slider-2.jpg',
+              },
+            ],
+      processKicker: body.processKicker || 'OUR PROCESS',
+      processTitle: body.processTitle || `Pinnacle of ${name}`,
+      processSubtitle: body.processSubtitle || 'Turnkey design, hardware selection, and precision calibration.',
+      processParagraphs:
+        body.processParagraphs && body.processParagraphs.length > 0
+          ? body.processParagraphs
+          : [
+              `Soundnest provides complete turnkey consultation and deployment for ${name.toLowerCase()}. Our certified engineers ensure every detail is calibrated to perfection.`,
+              'We invite you to experience our solutions firsthand and discover how smart technology elevates your spaces.',
+            ],
+      gallery:
+        gallery && gallery.length > 0
+          ? gallery
+          : [
+              { url: '/images/slider-3.jpg', title: 'Smart App Control' },
+              { url: '/images/services/retrofit.jpg', title: 'Modular Integration' },
+              { url: '/images/about-us.jpg', title: 'Architectural Design' },
+            ],
+      faqs:
+        faqs && faqs.length > 0
+          ? faqs
+          : [
+              {
+                question: `How long does it take to implement ${name.toLowerCase()}?`,
+                answer: 'Typical residential installations are completed within 3 to 7 working days depending on the project scope.',
+              },
+              {
+                question: 'Is after-sales support provided?',
+                answer: 'Yes, all Soundnest systems include full manufacturer warranties and our dedicated priority customer support.',
+              },
+            ],
       createdAt: new Date(),
       updatedAt: new Date(),
     };

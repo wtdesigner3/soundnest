@@ -5,10 +5,12 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
+  Home,
   Layers,
   FileText,
   Inbox,
   Search,
+  Settings,
   ExternalLink,
   LogOut,
   Menu,
@@ -43,10 +45,12 @@ export default function AdminLayoutClient({ children }) {
 
   const navItems = [
     { label: 'Overview', href: '/admin', icon: <LayoutDashboard size={18} /> },
+    { label: 'Home Page', href: '/admin/home', icon: <Home size={18} /> },
     { label: 'Services', href: '/admin/services', icon: <Layers size={18} /> },
     { label: 'Blog Articles', href: '/admin/blog', icon: <FileText size={18} /> },
     { label: 'Leads Inbox', href: '/admin/leads', icon: <Inbox size={18} /> },
     { label: 'SEO Control Center', href: '/admin/seo', icon: <Search size={18} /> },
+    { label: 'Website Settings', href: '/admin/settings', icon: <Settings size={18} /> },
   ];
 
   return (

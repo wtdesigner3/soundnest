@@ -13,8 +13,43 @@ import {
   CheckCircle,
   AlertCircle,
   HelpCircle,
+  Sparkles,
+  Info,
+  Sliders,
+  MessageSquare,
+  Image as ImageIcon,
+  FolderKanban,
 } from 'lucide-react';
+import ImageUploader from '@/components/admin/ImageUploader';
 import styles from '../admin.module.css';
+
+const editorTabs = [
+  { id: 'hero', label: 'Hero & SEO', icon: <Sparkles size={16} /> },
+  { id: 'features', label: 'Features (What We Offer)', icon: <Layers size={16} /> },
+  { id: 'experience', label: 'Why Choose Us', icon: <Info size={16} /> },
+  { id: 'process', label: 'Process & Gallery', icon: <FolderKanban size={16} /> },
+  { id: 'faqs', label: 'FAQs', icon: <MessageSquare size={16} /> },
+];
+
+const availableIcons = [
+  'lightbulb',
+  'fan',
+  'thermometer',
+  'tv',
+  'toggle',
+  'sparkles',
+  'wallet',
+  'home',
+  'shield',
+  'cpu',
+  'speaker',
+  'projector',
+  'wave',
+  'film',
+  'music',
+  'leaf',
+  'dashboard',
+];
 
 export default function AdminServicesPage() {
   const [services, setServices] = useState([]);
@@ -24,8 +59,10 @@ export default function AdminServicesPage() {
 
   // Modal / Drawer state for Create & Edit
   const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('hero');
   const [editingService, setEditingService] = useState(null);
-  const [formData, setFormData] = useState({
+
+  const initialFormState = {
     name: '',
     slug: '',
     title: '',
@@ -34,14 +71,71 @@ export default function AdminServicesPage() {
     heroSubtitle: '',
     badge: 'SOUNDNEST SMART SOLUTIONS',
     heroBgImage: '/images/service-1-bg.jpg',
+    heroImage: '/images/services/retrofit.jpg',
+    heroPills: ['100% Turnkey Solution', 'Quick Deployment', 'Manufacturer Warranty'],
+    featuresKicker: 'WHAT WE OFFER',
+    featuresTitle: 'Smart Features for Modern Living',
     features: [
-      { title: 'Smart App Control', description: 'Centralized control via mobile smartphone or tablet.', image: '/images/slider-1.jpg' },
-      { title: 'Energy Efficiency', description: 'Intelligent scheduling reduces unnecessary utility bills.', image: '/images/slider-2.jpg' },
+      {
+        title: 'Smart Lighting',
+        description: 'Control your lights from a single tap on your phone or ambient sensors.',
+        icon: 'lightbulb',
+        image: '/images/slider-1.jpg',
+      },
+      {
+        title: 'Climate Control',
+        description: 'Tired of your AC remote? Switch to smart temperature scheduling.',
+        icon: 'thermometer',
+        image: '/images/slider-2.jpg',
+      },
+    ],
+    experienceKicker: 'SOUNDNEST EXPERIENCE',
+    experienceTitle: 'Why Choose Soundnest?',
+    experienceSubtitle: 'Save Money, Save Time.',
+    experienceDescription:
+      'Instead of building a new smart home, we upgrade what you already have. No need to spend lakhs on reconstruction.',
+    experiencePoints: [
+      {
+        title: 'Save Money, Save Time',
+        description: 'Upgrade what you already have with minimal civil work or disruption.',
+        icon: 'wallet',
+      },
+      {
+        title: 'No Mess, No Stress',
+        description: 'Clean, dust-free deployment by certified systems engineers.',
+        icon: 'sparkles',
+      },
+      {
+        title: 'Perfect for Indian Homes',
+        description: 'Engineered specifically for Indian electrical topologies and load conditions.',
+        icon: 'home',
+      },
+    ],
+    processKicker: 'OUR PROCESS',
+    processTitle: 'Immerse Yourself in Intelligent Living',
+    processSubtitle: 'Turnkey consultation, CAD schematics, installation, and family training.',
+    processParagraphs: [
+      'Our experienced engineering team has transformed hundreds of homes and corporate spaces across India.',
+      'We use only globally certified, warranty-backed products and provide lifetime dedicated support.',
+    ],
+    gallery: [
+      { url: '/images/slider-3.jpg', title: 'Centralized Control App' },
+      { url: '/images/services/retrofit.jpg', title: 'Concealed Module Integration' },
+      { url: '/images/about-us.jpg', title: 'Architectural Lighting Design' },
     ],
     faqs: [
-      { question: 'How is the service installed?', answer: 'Installed cleanly by certified engineers with full support.' },
+      {
+        question: 'Does this service require rewiring or breaking walls?',
+        answer: 'No! It is designed to work seamlessly with existing conduit and switch infrastructure.',
+      },
+      {
+        question: 'Will existing physical switches continue to work normally?',
+        answer: 'Yes! Physical touch points work as normal, with smart automation added on top.',
+      },
     ],
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormState);
 
   const fetchServices = async () => {
     setLoading(true);
@@ -66,23 +160,8 @@ export default function AdminServicesPage() {
 
   const openNewServiceModal = () => {
     setEditingService(null);
-    setFormData({
-      name: '',
-      slug: '',
-      title: '',
-      metaDescription: '',
-      h1: '',
-      heroSubtitle: '',
-      badge: 'SOUNDNEST SMART SOLUTIONS',
-      heroBgImage: '/images/service-1-bg.jpg',
-      features: [
-        { title: 'Smart App Control', description: 'Centralized control via mobile smartphone or tablet.', image: '/images/slider-1.jpg' },
-        { title: 'Energy Efficiency', description: 'Intelligent scheduling reduces unnecessary utility bills.', image: '/images/slider-2.jpg' },
-      ],
-      faqs: [
-        { question: 'How is the service installed?', answer: 'Installed cleanly by certified engineers with full support.' },
-      ],
-    });
+    setFormData(initialFormState);
+    setActiveTab('hero');
     setIsEditorOpen(true);
   };
 
@@ -97,12 +176,60 @@ export default function AdminServicesPage() {
       heroSubtitle: service.heroSubtitle || '',
       badge: service.badge || 'SOUNDNEST SMART SOLUTIONS',
       heroBgImage: service.heroBgImage || service.heroImage || '/images/service-1-bg.jpg',
+      heroImage: service.heroImage || '/images/services/retrofit.jpg',
+      heroPills: service.heroPills || [
+        '100% Turnkey Solution',
+        'Quick Deployment',
+        'Manufacturer Warranty',
+      ],
+      featuresKicker: service.featuresKicker || 'WHAT WE OFFER',
+      featuresTitle: service.featuresTitle || 'Smart Features for Modern Living',
       features:
         service.features?.length > 0
-          ? service.features.map((f) => ({ ...f, image: f.image || '/images/slider-1.jpg' }))
-          : [{ title: '', description: '', image: '/images/slider-1.jpg' }],
-      faqs: service.faqs?.length > 0 ? service.faqs : [{ question: '', answer: '' }],
+          ? service.features.map((f) => ({
+              title: f.title || '',
+              description: f.description || '',
+              icon: f.icon || 'lightbulb',
+              image: f.image || '/images/slider-1.jpg',
+            }))
+          : initialFormState.features,
+      experienceKicker: service.experienceKicker || 'SOUNDNEST EXPERIENCE',
+      experienceTitle: service.experienceTitle || `Why Choose ${service.name}?`,
+      experienceSubtitle: service.experienceSubtitle || 'Engineered for luxury, reliability, and precision control.',
+      experienceDescription:
+        service.experienceDescription ||
+        'We combine world-class hardware with personalized integration to deliver unparalleled smart living experiences.',
+      experiencePoints:
+        service.experiencePoints?.length > 0
+          ? service.experiencePoints.map((p) => ({
+              title: p.title || '',
+              description: p.description || '',
+              icon: p.icon || 'sparkles',
+            }))
+          : initialFormState.experiencePoints,
+      processKicker: service.processKicker || 'OUR PROCESS',
+      processTitle: service.processTitle || 'Immerse Yourself in Intelligent Living',
+      processSubtitle: service.processSubtitle || 'Turnkey consultation, CAD schematics, and precision deployment.',
+      processParagraphs:
+        service.processParagraphs?.length > 0
+          ? service.processParagraphs
+          : initialFormState.processParagraphs,
+      gallery:
+        service.gallery?.length > 0
+          ? service.gallery.map((g) => ({
+              url: g.url || '/images/slider-1.jpg',
+              title: g.title || '',
+            }))
+          : initialFormState.gallery,
+      faqs:
+        service.faqs?.length > 0
+          ? service.faqs.map((f) => ({
+              question: f.question || '',
+              answer: f.answer || '',
+            }))
+          : initialFormState.faqs,
     });
+    setActiveTab('hero');
     setIsEditorOpen(true);
   };
 
@@ -123,10 +250,11 @@ export default function AdminServicesPage() {
     }));
   };
 
+  // Feature repeaters
   const handleFeatureChange = (index, field, value) => {
     setFormData((prev) => {
       const updated = [...prev.features];
-      updated[index][field] = value;
+      updated[index] = { ...updated[index], [field]: value };
       return { ...prev, features: updated };
     });
   };
@@ -134,7 +262,10 @@ export default function AdminServicesPage() {
   const addFeature = () => {
     setFormData((prev) => ({
       ...prev,
-      features: [...prev.features, { title: '', description: '', image: '/images/slider-1.jpg' }],
+      features: [
+        ...prev.features,
+        { title: '', description: '', icon: 'lightbulb', image: '/images/slider-1.jpg' },
+      ],
     }));
   };
 
@@ -145,10 +276,63 @@ export default function AdminServicesPage() {
     }));
   };
 
+  // Experience repeaters
+  const handleExpPointChange = (index, field, value) => {
+    setFormData((prev) => {
+      const updated = [...prev.experiencePoints];
+      updated[index] = { ...updated[index], [field]: value };
+      return { ...prev, experiencePoints: updated };
+    });
+  };
+
+  const addExpPoint = () => {
+    setFormData((prev) => ({
+      ...prev,
+      experiencePoints: [
+        ...prev.experiencePoints,
+        { title: 'New Advantage Point', description: 'Describe why clients choose this solution.', icon: 'sparkles' },
+      ],
+    }));
+  };
+
+  const removeExpPoint = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      experiencePoints: prev.experiencePoints.filter((_, i) => i !== index),
+    }));
+  };
+
+  // Gallery repeaters
+  const handleGalleryChange = (index, field, value) => {
+    setFormData((prev) => {
+      const updated = [...prev.gallery];
+      updated[index] = { ...updated[index], [field]: value };
+      return { ...prev, gallery: updated };
+    });
+  };
+
+  const addGalleryItem = () => {
+    setFormData((prev) => ({
+      ...prev,
+      gallery: [
+        ...prev.gallery,
+        { url: '/images/slider-1.jpg', title: 'New Showcase Photo' },
+      ],
+    }));
+  };
+
+  const removeGalleryItem = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      gallery: prev.gallery.filter((_, i) => i !== index),
+    }));
+  };
+
+  // FAQ repeaters
   const handleFaqChange = (index, field, value) => {
     setFormData((prev) => {
       const updated = [...prev.faqs];
-      updated[index][field] = value;
+      updated[index] = { ...updated[index], [field]: value };
       return { ...prev, faqs: updated };
     });
   };
@@ -221,7 +405,7 @@ export default function AdminServicesPage() {
       if (res.ok) {
         setSuccessMsg(`Service "${service.name}" deleted.`);
         fetchServices();
-        setTimeout(() => setSuccessMsg(null), 4000);
+        setTimeout(() => setSuccessMsg(null), 5000);
       } else {
         alert(data.error || 'Failed to delete service.');
       }
@@ -232,13 +416,23 @@ export default function AdminServicesPage() {
 
   return (
     <div>
-      <div className={styles.cardHeader}>
+      {/* Header Bar */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '2rem',
+          flexWrap: 'wrap',
+          gap: '1rem',
+        }}
+      >
         <div>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#ffffff', margin: '0 0 0.35rem' }}>
+          <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
             Services Management
           </h2>
-          <p style={{ color: '#888888', margin: 0, fontSize: '0.85rem' }}>
-            Manage core services and publish new dynamic services automatically resolved by Next.js.
+          <p style={{ color: '#888888', margin: '0.25rem 0 0', fontSize: '0.9rem' }}>
+            Full control of Hero, Features, Why Choose Us, Our Process, Galleries, and FAQs.
           </p>
         </div>
 
@@ -246,7 +440,6 @@ export default function AdminServicesPage() {
           type="button"
           onClick={openNewServiceModal}
           className={styles.btnPrimary}
-          id="btn-add-service"
         >
           <Plus size={16} />
           <span>Add New Service</span>
@@ -295,7 +488,7 @@ export default function AdminServicesPage() {
               <tr>
                 <th>Service Name</th>
                 <th>URL Route</th>
-                <th>Features</th>
+                <th>Sections</th>
                 <th>SEO Meta Title</th>
                 <th style={{ textAlign: 'right' }}>Actions</th>
               </tr>
@@ -342,16 +535,18 @@ export default function AdminServicesPage() {
                       </code>
                     </td>
                     <td>
-                      <span style={{ fontSize: '0.85rem', color: '#aaaaaa' }}>
-                        {service.features?.length || 0} features
-                      </span>
+                      <div style={{ fontSize: '0.8rem', color: '#aaaaaa', lineHeight: 1.5 }}>
+                        <div>✨ {service.features?.length || 0} Features</div>
+                        <div>💎 {service.experiencePoints?.length || 0} Why Choose Us</div>
+                        <div>📸 {service.gallery?.length || 0} Gallery Photos</div>
+                      </div>
                     </td>
                     <td>
                       <span
                         style={{
                           fontSize: '0.8rem',
                           color: '#aaaaaa',
-                          maxWidth: '280px',
+                          maxWidth: '260px',
                           display: 'block',
                           overflow: 'hidden',
                           textOverflow: 'ellipsis',
@@ -375,6 +570,7 @@ export default function AdminServicesPage() {
                         </Link>
                         <button
                           type="button"
+                          id={`btn-edit-${service.slug}`}
                           onClick={() => openEditModal(service)}
                           className={styles.btnSecondary}
                           style={{ padding: '0.4rem 0.6rem', fontSize: '0.8rem' }}
@@ -425,339 +621,668 @@ export default function AdminServicesPage() {
               border: '1px solid rgba(229, 184, 105, 0.3)',
               borderRadius: '12px',
               width: '100%',
-              maxWidth: '800px',
-              maxHeight: '90vh',
+              maxWidth: '960px',
+              maxHeight: '92vh',
               overflowY: 'auto',
               padding: '2rem',
               boxShadow: '0 25px 50px rgba(0,0,0,0.8)',
             }}
           >
+            {/* Modal Header */}
             <div
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                marginBottom: '1.75rem',
+                marginBottom: '1.5rem',
                 borderBottom: '1px solid #222222',
                 paddingBottom: '1rem',
               }}
             >
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
-                {editingService ? `Edit Service: ${editingService.name}` : 'Create New Service'}
-              </h3>
+              <div>
+                <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#ffffff', margin: 0 }}>
+                  {editingService ? `Edit Service: ${editingService.name}` : 'Create New Service'}
+                </h3>
+                <span style={{ fontSize: '0.8rem', color: '#888888' }}>
+                  Target route: <code>/{formData.slug || 'service-slug'}/</code>
+                </span>
+              </div>
               <button
                 type="button"
                 onClick={() => setIsEditorOpen(false)}
-                className={styles.btnSecondary}
-                style={{ padding: '0.35rem' }}
+                className={styles.footerBtn}
+                style={{ width: 'auto', padding: '0.35rem' }}
               >
-                <X size={18} />
+                <X size={20} />
               </button>
             </div>
 
+            {/* Modal Tab Navigation */}
+            <div className={styles.adminTabNav}>
+              {editorTabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`${styles.adminTabBtn} ${activeTab === tab.id ? styles.adminTabBtnActive : ''}`}
+                >
+                  {tab.icon}
+                  <span>{tab.label}</span>
+                </button>
+              ))}
+            </div>
+
             <form onSubmit={handleSave}>
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>Service Name *</label>
-                  <input
-                    type="text"
-                    value={formData.name}
-                    onChange={handleNameChange}
-                    required
-                    placeholder="e.g. Architectural Lighting"
-                    className={styles.formInput}
-                  />
-                </div>
+              {/* Tab 1: Hero & SEO */}
+              {activeTab === 'hero' && (
+                <div>
+                  <div className={styles.formRow}>
+                    <div className={styles.formGroup}>
+                      <label className={styles.formLabel}>Service Name *</label>
+                      <input
+                        type="text"
+                        value={formData.name}
+                        onChange={handleNameChange}
+                        className={styles.formInput}
+                        placeholder="e.g. Retro Fit Automation"
+                        required
+                      />
+                    </div>
 
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>URL Slug *</label>
-                  <input
-                    type="text"
-                    value={formData.slug}
-                    onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, slug: e.target.value.toLowerCase() }))
-                    }
-                    required
-                    placeholder="e.g. architectural-lighting"
-                    className={styles.formInput}
-                  />
-                </div>
-              </div>
+                    <div className={styles.formGroup}>
+                      <label className={styles.formLabel}>URL Slug * (e.g. retro-fit-automation)</label>
+                      <input
+                        type="text"
+                        value={formData.slug}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            slug: e.target.value
+                              .toLowerCase()
+                              .trim()
+                              .replace(/[^a-z0-9]+/g, '-')
+                              .replace(/^-+|-+$/g, ''),
+                          }))
+                        }
+                        className={styles.formInput}
+                        placeholder="retro-fit-automation"
+                        required
+                        disabled={!!editingService}
+                      />
+                    </div>
+                  </div>
 
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>Hero H1 Headline</label>
-                  <input
-                    type="text"
-                    value={formData.h1}
-                    onChange={(e) => setFormData((prev) => ({ ...prev, h1: e.target.value }))}
-                    className={styles.formInput}
-                  />
-                </div>
+                  <div className={styles.formRow} style={{ marginTop: '1.25rem' }}>
+                    <div className={styles.formGroup}>
+                      <label className={styles.formLabel}>Badge Kicker (Top gold pill)</label>
+                      <input
+                        type="text"
+                        value={formData.badge}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, badge: e.target.value }))}
+                        className={styles.formInput}
+                        placeholder="ZERO WIRING CHANGES"
+                      />
+                    </div>
 
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>Header Badge Tag</label>
-                  <input
-                    type="text"
-                    value={formData.badge}
-                    onChange={(e) => setFormData((prev) => ({ ...prev, badge: e.target.value }))}
-                    className={styles.formInput}
-                  />
-                </div>
-              </div>
+                    <div className={styles.formGroup}>
+                      <label className={styles.formLabel}>Hero H1 Headline</label>
+                      <input
+                        type="text"
+                        value={formData.h1}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, h1: e.target.value }))}
+                        className={styles.formInput}
+                        placeholder="Retro Fit Automation"
+                        required
+                      />
+                    </div>
+                  </div>
 
-              <div className={styles.formGroup}>
-                <label className={styles.formLabel}>Hero Subtitle Paragraph</label>
-                <textarea
-                  value={formData.heroSubtitle}
-                  onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, heroSubtitle: e.target.value }))
-                  }
-                  rows={2}
-                  className={styles.formTextarea}
-                />
-              </div>
-
-              {/* Hero Background Image */}
-              <div className={styles.formGroup}>
-                <label className={styles.formLabel}>Hero Section Background Image URL</label>
-                <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-                  <input
-                    type="text"
-                    value={formData.heroBgImage}
-                    onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, heroBgImage: e.target.value }))
-                    }
-                    placeholder="/images/service-1-bg.jpg"
-                    className={styles.formInput}
-                    style={{ flex: 1 }}
-                  />
-                  {formData.heroBgImage && (
-                    <img
-                      src={formData.heroBgImage}
-                      alt="Hero BG Preview"
-                      style={{
-                        width: '56px',
-                        height: '36px',
-                        objectFit: 'cover',
-                        borderRadius: '4px',
-                        border: '1px solid rgba(229, 184, 105, 0.4)',
-                        flexShrink: 0,
-                      }}
-                      onError={(e) => (e.target.style.display = 'none')}
+                  <div className={styles.formGroup} style={{ marginTop: '1.25rem' }}>
+                    <label className={styles.formLabel}>Hero Subtitle</label>
+                    <textarea
+                      value={formData.heroSubtitle}
+                      onChange={(e) =>
+                        setFormData((prev) => ({ ...prev, heroSubtitle: e.target.value }))
+                      }
+                      className={styles.formTextarea}
+                      rows={3}
+                      placeholder="Do you love your home but wish it had modern smart features? Good news!..."
                     />
-                  )}
-                </div>
-                <span
-                  style={{
-                    fontSize: '0.75rem',
-                    color: '#888888',
-                    marginTop: '0.3rem',
-                    display: 'block',
-                  }}
-                >
-                  Live Presets: /images/service-1-bg.jpg, /images/building-automation-1-1.jpg, /images/curtain-motor-1.jpg, /images/home-cinema-audio-video-3.jpg
-                </span>
-              </div>
+                  </div>
 
-              {/* SEO Controls */}
-              <div
-                style={{
-                  background: '#1a1a1a',
-                  border: '1px solid #2e2e2e',
-                  borderRadius: '8px',
-                  padding: '1.25rem',
-                  marginBottom: '1.5rem',
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: '0.9rem',
-                    fontWeight: 700,
-                    color: '#e5b869',
-                    marginBottom: '1rem',
-                  }}
-                >
-                  SEO & Search Engine Metas
-                </div>
+                  {/* Hero Background Image Upload */}
+                  <div className={styles.formRow} style={{ marginTop: '1.5rem' }}>
+                    <div className={styles.formGroup}>
+                      <ImageUploader
+                        label="Hero Background Wallpaper"
+                        value={formData.heroBgImage}
+                        onChange={(url) => setFormData((prev) => ({ ...prev, heroBgImage: url }))}
+                        helpText="Wide hero background image (1920x1080px)"
+                        folder="services"
+                      />
+                    </div>
 
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>SEO Meta Title</label>
-                  <input
-                    type="text"
-                    value={formData.title}
-                    onChange={(e) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
-                    className={styles.formInput}
-                  />
-                </div>
+                    <div className={styles.formGroup}>
+                      <ImageUploader
+                        label="Service Featured / Card Thumbnail"
+                        value={formData.heroImage}
+                        onChange={(url) => setFormData((prev) => ({ ...prev, heroImage: url }))}
+                        helpText="Thumbnail image for service listings"
+                        folder="services"
+                      />
+                    </div>
+                  </div>
 
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>SEO Meta Description</label>
-                  <textarea
-                    value={formData.metaDescription}
-                    onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, metaDescription: e.target.value }))
-                    }
-                    rows={2}
-                    className={styles.formTextarea}
-                  />
-                </div>
-              </div>
-
-              {/* Features Editor */}
-              <div style={{ marginBottom: '1.5rem' }}>
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    marginBottom: '0.75rem',
-                  }}
-                >
-                  <label className={styles.formLabel} style={{ margin: 0 }}>
-                    Feature Matrix Cards with Background Overlays ({formData.features.length})
-                  </label>
-                  <button
-                    type="button"
-                    onClick={addFeature}
-                    className={styles.btnSecondary}
-                    style={{ fontSize: '0.75rem', padding: '0.3rem 0.6rem' }}
-                  >
-                    + Add Feature
-                  </button>
-                </div>
-
-                {formData.features.map((feat, idx) => (
+                  {/* SEO Section */}
                   <div
-                    key={idx}
                     style={{
                       background: '#181818',
                       border: '1px solid #282828',
                       borderRadius: '8px',
-                      padding: '0.85rem',
-                      marginBottom: '0.75rem',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '0.6rem',
+                      padding: '1.25rem',
+                      marginTop: '1.5rem',
                     }}
                   >
-                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-                      <input
-                        type="text"
-                        placeholder="Feature Title *"
-                        value={feat.title}
-                        onChange={(e) => handleFeatureChange(idx, 'title', e.target.value)}
-                        className={styles.formInput}
-                        style={{ flex: 1 }}
-                        required
-                      />
-                      <input
-                        type="text"
-                        placeholder="Card Background Image (/images/slider-1.jpg)"
-                        value={feat.image || ''}
-                        onChange={(e) => handleFeatureChange(idx, 'image', e.target.value)}
-                        className={styles.formInput}
-                        style={{ flex: 1.2 }}
-                      />
-                      {feat.image && (
-                        <img
-                          src={feat.image}
-                          alt={feat.title || 'Feature'}
-                          style={{
-                            width: '40px',
-                            height: '34px',
-                            objectFit: 'cover',
-                            borderRadius: '4px',
-                            border: '1px solid rgba(229, 184, 105, 0.4)',
-                            flexShrink: 0,
-                          }}
-                          onError={(e) => (e.target.style.display = 'none')}
-                        />
-                      )}
-                      <button
-                        type="button"
-                        onClick={() => removeFeature(idx)}
-                        className={styles.btnDanger}
-                        style={{ padding: '0.55rem 0.65rem', flexShrink: 0 }}
-                        title="Remove Feature"
-                      >
-                        <X size={14} />
-                      </button>
-                    </div>
-                    <textarea
-                      placeholder="Feature Description (rendered over dark gradient card overlay)"
-                      value={feat.description}
-                      onChange={(e) => handleFeatureChange(idx, 'description', e.target.value)}
-                      rows={2}
-                      className={styles.formTextarea}
-                    />
-                  </div>
-                ))}
-              </div>
+                    <h4 style={{ margin: '0 0 1rem', fontSize: '0.95rem', color: '#e5b869' }}>
+                      🔍 SEO & Search Meta Information
+                    </h4>
 
-              {/* FAQs Editor */}
-              <div style={{ marginBottom: '2rem' }}>
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    marginBottom: '0.75rem',
-                  }}
-                >
-                  <label className={styles.formLabel} style={{ margin: 0 }}>
-                    Frequently Asked Questions ({formData.faqs.length})
-                  </label>
-                  <button
-                    type="button"
-                    onClick={addFaq}
-                    className={styles.btnSecondary}
-                    style={{ fontSize: '0.75rem', padding: '0.3rem 0.6rem' }}
-                  >
-                    + Add FAQ
-                  </button>
+                    <div className={styles.formGroup}>
+                      <label className={styles.formLabel}>Google Meta Title</label>
+                      <input
+                        type="text"
+                        value={formData.title}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
+                        className={styles.formInput}
+                        placeholder="Retrofit Home Automation in India - Soundnest"
+                      />
+                    </div>
+
+                    <div className={styles.formGroup} style={{ marginTop: '1rem' }}>
+                      <label className={styles.formLabel}>Google Meta Description</label>
+                      <textarea
+                        value={formData.metaDescription}
+                        onChange={(e) =>
+                          setFormData((prev) => ({ ...prev, metaDescription: e.target.value }))
+                        }
+                        className={styles.formTextarea}
+                        rows={2}
+                        placeholder="Looking for the best retrofit home automation in India?..."
+                      />
+                    </div>
+                  </div>
                 </div>
+              )}
 
-                {formData.faqs.map((faq, idx) => (
-                  <div
-                    key={idx}
-                    style={{
-                      background: '#181818',
-                      border: '1px solid #282828',
-                      borderRadius: '6px',
-                      padding: '0.75rem',
-                      marginBottom: '0.5rem',
-                    }}
-                  >
-                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
+              {/* Tab 2: Features ("What We Offer") */}
+              {activeTab === 'features' && (
+                <div>
+                  <div className={styles.formRow}>
+                    <div className={styles.formGroup}>
+                      <label className={styles.formLabel}>Section Kicker</label>
                       <input
                         type="text"
-                        placeholder="Question"
-                        value={faq.question}
-                        onChange={(e) => handleFaqChange(idx, 'question', e.target.value)}
+                        value={formData.featuresKicker}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, featuresKicker: e.target.value }))}
                         className={styles.formInput}
-                        style={{ flex: 1 }}
+                        placeholder="WHAT WE OFFER"
                       />
-                      <button
-                        type="button"
-                        onClick={() => removeFaq(idx)}
-                        className={styles.btnDanger}
-                      >
-                        <X size={14} />
-                      </button>
                     </div>
+
+                    <div className={styles.formGroup}>
+                      <label className={styles.formLabel}>Section Main Title</label>
+                      <input
+                        type="text"
+                        value={formData.featuresTitle}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, featuresTitle: e.target.value }))}
+                        className={styles.formInput}
+                        placeholder="Smart Features for Modern Living"
+                      />
+                    </div>
+                  </div>
+
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      margin: '1.5rem 0 1rem',
+                    }}
+                  >
+                    <h4 style={{ margin: 0, fontSize: '0.95rem', color: '#e5b869' }}>
+                      Feature Cards ({formData.features.length})
+                    </h4>
+                    <button
+                      type="button"
+                      onClick={addFeature}
+                      className={styles.btnSecondary}
+                      style={{ padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}
+                    >
+                      <Plus size={14} />
+                      <span>Add Feature Card</span>
+                    </button>
+                  </div>
+
+                  {formData.features.map((feature, idx) => (
+                    <div key={idx} className={styles.repeaterBox}>
+                      <div className={styles.repeaterHeaderRow}>
+                        <span className={styles.repeaterTitle}>Feature #{idx + 1}: {feature.title || 'Untitled'}</span>
+                        {formData.features.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => removeFeature(idx)}
+                            className={styles.btnDanger}
+                            style={{ padding: '0.2rem 0.4rem', fontSize: '0.7rem' }}
+                          >
+                            <Trash2 size={13} />
+                          </button>
+                        )}
+                      </div>
+
+                      <div className={styles.formRow}>
+                        <div className={styles.formGroup}>
+                          <label className={styles.formLabel}>Feature Title</label>
+                          <input
+                            type="text"
+                            value={feature.title}
+                            onChange={(e) => handleFeatureChange(idx, 'title', e.target.value)}
+                            className={styles.formInput}
+                            placeholder="e.g. Smart Lighting"
+                          />
+                        </div>
+
+                        <div className={styles.formGroup}>
+                          <label className={styles.formLabel}>Feature Icon</label>
+                          <select
+                            value={feature.icon || 'lightbulb'}
+                            onChange={(e) => handleFeatureChange(idx, 'icon', e.target.value)}
+                            className={styles.formSelect}
+                          >
+                            {availableIcons.map((ic) => (
+                              <option key={ic} value={ic}>
+                                {ic}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className={styles.formGroup} style={{ marginTop: '0.85rem' }}>
+                        <label className={styles.formLabel}>Feature Description</label>
+                        <textarea
+                          value={feature.description}
+                          onChange={(e) => handleFeatureChange(idx, 'description', e.target.value)}
+                          className={styles.formTextarea}
+                          rows={2}
+                          placeholder="Brief capability description..."
+                        />
+                      </div>
+
+                      <div className={styles.formGroup} style={{ marginTop: '0.85rem' }}>
+                        <ImageUploader
+                          label="Feature Card Background Image"
+                          value={feature.image}
+                          onChange={(url) => handleFeatureChange(idx, 'image', url)}
+                          helpText="Clean interior or lighting photo"
+                          folder="features"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Tab 3: Why Choose Us (Experience) */}
+              {activeTab === 'experience' && (
+                <div>
+                  <div className={styles.formRow}>
+                    <div className={styles.formGroup}>
+                      <label className={styles.formLabel}>Section Kicker</label>
+                      <input
+                        type="text"
+                        value={formData.experienceKicker}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, experienceKicker: e.target.value }))}
+                        className={styles.formInput}
+                        placeholder="SOUNDNEST EXPERIENCE"
+                      />
+                    </div>
+
+                    <div className={styles.formGroup}>
+                      <label className={styles.formLabel}>Section Title</label>
+                      <input
+                        type="text"
+                        value={formData.experienceTitle}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, experienceTitle: e.target.value }))}
+                        className={styles.formInput}
+                        placeholder="Why Choose Retrofit Automation?"
+                      />
+                    </div>
+                  </div>
+
+                  <div className={styles.formGroup} style={{ marginTop: '1rem' }}>
+                    <label className={styles.formLabel}>Section Description</label>
                     <textarea
-                      placeholder="Answer"
-                      value={faq.answer}
-                      onChange={(e) => handleFaqChange(idx, 'answer', e.target.value)}
-                      rows={2}
+                      value={formData.experienceDescription}
+                      onChange={(e) => setFormData((prev) => ({ ...prev, experienceDescription: e.target.value }))}
                       className={styles.formTextarea}
+                      rows={2}
+                      placeholder="Instead of building a new smart home, we upgrade what you already have..."
                     />
                   </div>
-                ))}
-              </div>
 
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      margin: '1.5rem 0 1rem',
+                    }}
+                  >
+                    <h4 style={{ margin: 0, fontSize: '0.95rem', color: '#e5b869' }}>
+                      Why Choose Us Points ({formData.experiencePoints.length})
+                    </h4>
+                    <button
+                      type="button"
+                      onClick={addExpPoint}
+                      className={styles.btnSecondary}
+                      style={{ padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}
+                    >
+                      <Plus size={14} />
+                      <span>Add Advantage Point</span>
+                    </button>
+                  </div>
+
+                  {formData.experiencePoints.map((point, pIdx) => (
+                    <div key={pIdx} className={styles.repeaterBox}>
+                      <div className={styles.repeaterHeaderRow}>
+                        <span className={styles.repeaterTitle}>Point #{pIdx + 1}: {point.title}</span>
+                        {formData.experiencePoints.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => removeExpPoint(pIdx)}
+                            className={styles.btnDanger}
+                            style={{ padding: '0.2rem 0.4rem', fontSize: '0.7rem' }}
+                          >
+                            <Trash2 size={13} />
+                          </button>
+                        )}
+                      </div>
+
+                      <div className={styles.formRow}>
+                        <div className={styles.formGroup}>
+                          <label className={styles.formLabel}>Point Title</label>
+                          <input
+                            type="text"
+                            value={point.title}
+                            onChange={(e) => handleExpPointChange(pIdx, 'title', e.target.value)}
+                            className={styles.formInput}
+                            placeholder="e.g. Save Money, Save Time"
+                          />
+                        </div>
+
+                        <div className={styles.formGroup}>
+                          <label className={styles.formLabel}>Icon</label>
+                          <select
+                            value={point.icon || 'sparkles'}
+                            onChange={(e) => handleExpPointChange(pIdx, 'icon', e.target.value)}
+                            className={styles.formSelect}
+                          >
+                            {availableIcons.map((ic) => (
+                              <option key={ic} value={ic}>
+                                {ic}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className={styles.formGroup} style={{ marginTop: '0.85rem' }}>
+                        <label className={styles.formLabel}>Point Description</label>
+                        <textarea
+                          value={point.description}
+                          onChange={(e) => handleExpPointChange(pIdx, 'description', e.target.value)}
+                          className={styles.formTextarea}
+                          rows={2}
+                          placeholder="Detailed value explanation..."
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Tab 4: Process & Gallery */}
+              {activeTab === 'process' && (
+                <div>
+                  <div className={styles.formRow}>
+                    <div className={styles.formGroup}>
+                      <label className={styles.formLabel}>Process Kicker</label>
+                      <input
+                        type="text"
+                        value={formData.processKicker}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, processKicker: e.target.value }))}
+                        className={styles.formInput}
+                        placeholder="OUR PROCESS"
+                      />
+                    </div>
+
+                    <div className={styles.formGroup}>
+                      <label className={styles.formLabel}>Process Heading</label>
+                      <input
+                        type="text"
+                        value={formData.processTitle}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, processTitle: e.target.value }))}
+                        className={styles.formInput}
+                        placeholder="Immerse yourself in the pinnacle of Home Entertainment"
+                      />
+                    </div>
+                  </div>
+
+                  <div className={styles.formGroup} style={{ marginTop: '1rem' }}>
+                    <label className={styles.formLabel}>Process Subtitle</label>
+                    <input
+                      type="text"
+                      value={formData.processSubtitle}
+                      onChange={(e) => setFormData((prev) => ({ ...prev, processSubtitle: e.target.value }))}
+                      className={styles.formInput}
+                      placeholder="Start with one room or whole-home. Every smart device is future-ready."
+                    />
+                  </div>
+
+                  <div className={styles.formGroup} style={{ marginTop: '1.25rem' }}>
+                    <label className={styles.formLabel}>
+                      Process Body Paragraphs
+                    </label>
+                    {formData.processParagraphs.map((para, pIdx) => (
+                      <div key={pIdx} style={{ display: 'flex', gap: '0.75rem', marginBottom: '0.75rem' }}>
+                        <textarea
+                          value={para}
+                          onChange={(e) => {
+                            const updated = [...formData.processParagraphs];
+                            updated[pIdx] = e.target.value;
+                            setFormData((prev) => ({ ...prev, processParagraphs: updated }));
+                          }}
+                          className={styles.formTextarea}
+                          rows={2}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const updated = formData.processParagraphs.filter((_, i) => i !== pIdx);
+                            setFormData((prev) => ({ ...prev, processParagraphs: updated }));
+                          }}
+                          className={styles.btnDanger}
+                          style={{ padding: '0.5rem', alignSelf: 'flex-start' }}
+                        >
+                          <Trash2 size={13} />
+                        </button>
+                      </div>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          processParagraphs: [...prev.processParagraphs, ''],
+                        }))
+                      }
+                      className={styles.btnSecondary}
+                      style={{ fontSize: '0.8rem', padding: '0.35rem 0.75rem' }}
+                    >
+                      <Plus size={14} />
+                      <span>Add Paragraph</span>
+                    </button>
+                  </div>
+
+                  {/* Visual Gallery */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      margin: '2rem 0 1rem',
+                      borderTop: '1px solid #222',
+                      paddingTop: '1.5rem',
+                    }}
+                  >
+                    <h4 style={{ margin: 0, fontSize: '0.95rem', color: '#e5b869' }}>
+                      Showcase Visual Gallery ({formData.gallery.length} Images)
+                    </h4>
+                    <button
+                      type="button"
+                      onClick={addGalleryItem}
+                      className={styles.btnSecondary}
+                      style={{ padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}
+                    >
+                      <Plus size={14} />
+                      <span>Add Gallery Photo</span>
+                    </button>
+                  </div>
+
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                      gap: '1rem',
+                    }}
+                  >
+                    {formData.gallery.map((item, gIdx) => (
+                      <div key={gIdx} className={styles.repeaterBox} style={{ margin: 0 }}>
+                        <div className={styles.repeaterHeaderRow}>
+                          <span className={styles.repeaterTitle}>Photo #{gIdx + 1}</span>
+                          <button
+                            type="button"
+                            onClick={() => removeGalleryItem(gIdx)}
+                            className={styles.btnDanger}
+                            style={{ padding: '0.2rem 0.4rem', fontSize: '0.7rem' }}
+                          >
+                            <Trash2 size={12} />
+                          </button>
+                        </div>
+
+                        <div className={styles.formGroup}>
+                          <label className={styles.formLabel}>Photo Caption / Title</label>
+                          <input
+                            type="text"
+                            value={item.title}
+                            onChange={(e) => handleGalleryChange(gIdx, 'title', e.target.value)}
+                            className={styles.formInput}
+                            placeholder="e.g. Smart App Centralized Control"
+                          />
+                        </div>
+
+                        <div className={styles.formGroup} style={{ marginTop: '0.75rem' }}>
+                          <ImageUploader
+                            label="Gallery Image"
+                            value={item.url}
+                            onChange={(url) => handleGalleryChange(gIdx, 'url', url)}
+                            folder="gallery"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Tab 5: FAQs */}
+              {activeTab === 'faqs' && (
+                <div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginBottom: '1.25rem',
+                    }}
+                  >
+                    <h4 style={{ margin: 0, fontSize: '0.95rem', color: '#e5b869' }}>
+                      Frequently Asked Questions ({formData.faqs.length})
+                    </h4>
+                    <button
+                      type="button"
+                      onClick={addFaq}
+                      className={styles.btnSecondary}
+                      style={{ padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}
+                    >
+                      <Plus size={14} />
+                      <span>Add FAQ</span>
+                    </button>
+                  </div>
+
+                  {formData.faqs.map((faq, idx) => (
+                    <div key={idx} className={styles.repeaterBox}>
+                      <div className={styles.repeaterHeaderRow}>
+                        <span className={styles.repeaterTitle}>Question #{idx + 1}</span>
+                        {formData.faqs.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => removeFaq(idx)}
+                            className={styles.btnDanger}
+                            style={{ padding: '0.2rem 0.4rem', fontSize: '0.7rem' }}
+                          >
+                            <Trash2 size={13} />
+                          </button>
+                        )}
+                      </div>
+
+                      <div className={styles.formGroup}>
+                        <label className={styles.formLabel}>Question</label>
+                        <input
+                          type="text"
+                          value={faq.question}
+                          onChange={(e) => handleFaqChange(idx, 'question', e.target.value)}
+                          className={styles.formInput}
+                          placeholder="e.g. Does retrofit automation require rewiring?"
+                        />
+                      </div>
+
+                      <div className={styles.formGroup} style={{ marginTop: '0.75rem' }}>
+                        <label className={styles.formLabel}>Answer</label>
+                        <textarea
+                          value={faq.answer}
+                          onChange={(e) => handleFaqChange(idx, 'answer', e.target.value)}
+                          className={styles.formTextarea}
+                          rows={3}
+                          placeholder="Detailed clear answer..."
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Modal Footer Save & Cancel Buttons */}
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  gap: '1rem',
+                  marginTop: '2rem',
+                  borderTop: '1px solid #222222',
+                  paddingTop: '1.25rem',
+                }}
+              >
                 <button
                   type="button"
                   onClick={() => setIsEditorOpen(false)}
@@ -765,9 +1290,13 @@ export default function AdminServicesPage() {
                 >
                   Cancel
                 </button>
-                <button type="submit" className={styles.btnPrimary} id="btn-save-service">
+                <button
+                  type="submit"
+                  className={styles.btnPrimary}
+                  style={{ padding: '0.75rem 2rem' }}
+                >
                   <Save size={16} />
-                  <span>{editingService ? 'Save Changes' : 'Publish Service'}</span>
+                  <span>{editingService ? 'Save Service Changes' : 'Create Service'}</span>
                 </button>
               </div>
             </form>

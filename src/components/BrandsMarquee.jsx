@@ -4,9 +4,10 @@ import Image from "next/image";
 import { brandsList } from "@/data/homeData";
 import styles from "./BrandsMarquee.module.css";
 
-export default function BrandsMarquee() {
+export default function BrandsMarquee({ brands = brandsList }) {
+  const activeBrands = brands && brands.length > 0 ? brands : brandsList;
   // Duplicate list to achieve continuous infinite marquee loop
-  const duplicatedBrands = [...brandsList, ...brandsList];
+  const duplicatedBrands = [...activeBrands, ...activeBrands];
 
   return (
     <section className={styles.brandsSection} aria-label="Brands We Deal In">

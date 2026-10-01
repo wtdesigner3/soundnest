@@ -13,6 +13,7 @@ import {
   X,
   CheckCircle,
 } from 'lucide-react';
+import ImageUploader from '@/components/admin/ImageUploader';
 import styles from '../admin.module.css';
 
 const categories = [
@@ -457,18 +458,16 @@ export default function AdminBlogPage() {
                     className={styles.formInput}
                   />
                 </div>
+              </div>
 
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>Featured Image URL</label>
-                  <input
-                    type="text"
-                    value={formData.featuredImage}
-                    onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, featuredImage: e.target.value }))
-                    }
-                    className={styles.formInput}
-                  />
-                </div>
+              <div className={styles.formGroup} style={{ marginTop: '1rem' }}>
+                <ImageUploader
+                  label="Featured Banner Image"
+                  value={formData.featuredImage}
+                  onChange={(url) => setFormData((prev) => ({ ...prev, featuredImage: url }))}
+                  helpText="High-res blog header image"
+                  folder="blog"
+                />
               </div>
 
               <div className={styles.formGroup}>

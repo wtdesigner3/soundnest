@@ -16,7 +16,7 @@ import Footer from "./Footer";
 import ConsultationModal from "./ConsultationModal";
 import FloatingActions from "./FloatingActions";
 
-export default function HomeClient() {
+export default function HomeClient({ initialData }) {
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const mainRef = useRef(null);
 
@@ -127,25 +127,34 @@ export default function HomeClient() {
 
       <main id="main-content">
         {/* Hero Section with Slider & Consultation Form */}
-        <HeroSlider onOpenConsultation={() => setIsConsultationOpen(true)} />
+        <HeroSlider
+          onOpenConsultation={() => setIsConsultationOpen(true)}
+          slides={initialData?.heroSlides}
+        />
 
         {/* About Us Section */}
-        <AboutSection onOpenConsultation={() => setIsConsultationOpen(true)} />
+        <AboutSection
+          onOpenConsultation={() => setIsConsultationOpen(true)}
+          data={initialData?.aboutData}
+        />
 
         {/* Services Showcase */}
-        <ServicesSection />
+        <ServicesSection data={initialData?.servicesData} />
 
         {/* Brands Carousel / Marquee */}
-        <BrandsMarquee />
+        <BrandsMarquee brands={initialData?.brandsList} />
 
         {/* Testimonials */}
-        <TestimonialsSection />
+        <TestimonialsSection data={initialData?.testimonialsData} />
 
         {/* Parallax CTA Banner */}
-        <CtaBanner onOpenConsultation={() => setIsConsultationOpen(true)} />
+        <CtaBanner
+          onOpenConsultation={() => setIsConsultationOpen(true)}
+          data={initialData?.ctaBannerData}
+        />
 
         {/* Contact Us Section with Demo Visual */}
-        <ContactSection />
+        <ContactSection data={initialData?.contactSectionData} />
       </main>
 
       {/* Footer */}

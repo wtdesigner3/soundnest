@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -106,6 +106,29 @@ function getServiceIcon(iconName) {
 
 export default function ServiceTemplate({ service }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [dynamicHome, setDynamicHome] = useState(null);
+  const [dynamicSettings, setDynamicSettings] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/admin/home/')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data) setDynamicHome(data);
+      })
+      .catch(() => {});
+
+    fetch('/api/admin/settings/')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data) setDynamicSettings(data);
+      })
+      .catch(() => {});
+  }, []);
+
+  const currentBrands = dynamicHome?.brands || brandsList;
+  const currentTestimonials = dynamicHome?.testimonials || testimonialsData;
+  const whatsappNumber = dynamicSettings?.social?.whatsapp || '919049295678';
+
   const [formState, setFormState] = useState({
     name: '',
     email: '',
@@ -517,7 +540,7 @@ export default function ServiceTemplate({ service }) {
 
           <div className={styles.brandsWrapper}>
             <div className={styles.brandsTrack}>
-              {[...brandsList, ...brandsList].map((brand, bIdx) => (
+              {[...(currentBrands || []), ...(currentBrands || [])].map((brand, bIdx) => (
                 <div key={bIdx} className={styles.brandLogoBox}>
                   <Image
                     src={brand.image}
@@ -539,11 +562,11 @@ export default function ServiceTemplate({ service }) {
       <section className={`${styles.sectionWrapper} ${styles.sectionDarker}`}>
         <div className={styles.sectionInner}>
           <div className={styles.sectionHeader}>
-            <span className={styles.sectionKicker}>{testimonialsData.kicker}</span>
-            <h2 className={styles.sectionTitle}>{testimonialsData.title}</h2>
+            <span className={styles.sectionKicker}>{currentTestimonials?.kicker}</span>
+            <h2 className={styles.sectionTitle}>{currentTestimonials?.title}</h2>
           </div>
 
-          <TestimonialCarousel items={testimonialsData.items} />
+          <TestimonialCarousel items={currentTestimonials?.items || []} />
         </div>
       </section>
 
@@ -589,7 +612,7 @@ export default function ServiceTemplate({ service }) {
               <span>Book Free Consultation</span>
             </button>
             <a
-              href="https://wa.me/919049295678?text=Hi%20Soundnest%2C%20I%20am%20interested%20in%20your%20services"
+              href={`https://wa.me/${whatsappNumber}?text=Hi%20Soundnest%2C%20I%20am%20interested%20in%20your%20services`}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.secondaryBtn}

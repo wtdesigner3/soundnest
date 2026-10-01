@@ -5,7 +5,8 @@ import Image from "next/image";
 import { contactSectionData, serviceTypes } from "@/data/homeData";
 import styles from "./ContactSection.module.css";
 
-export default function ContactSection() {
+export default function ContactSection({ data = contactSectionData }) {
+  const activeData = data || contactSectionData;
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -67,12 +68,12 @@ export default function ContactSection() {
         <div className={styles.grid}>
           {/* Left Column: Heading, Subtitle & Home Cinema Demo Visual */}
           <div className={`${styles.leftColumn} contact-animate`}>
-            <h2 className={styles.title}>{contactSectionData.title}</h2>
-            <p className={styles.subtitle}>{contactSectionData.subtitle}</p>
+            <h2 className={styles.title}>{activeData.title || contactSectionData.title}</h2>
+            <p className={styles.subtitle}>{activeData.subtitle || contactSectionData.subtitle}</p>
 
             <div className={styles.imageWrapper}>
               <Image
-                src={contactSectionData.image}
+                src={activeData.image || contactSectionData.image}
                 alt="Soundnest Home Cinema Audio Video Demo Setup"
                 width={700}
                 height={400}

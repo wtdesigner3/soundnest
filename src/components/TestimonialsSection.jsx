@@ -5,20 +5,23 @@ import { Star } from "lucide-react";
 import { testimonialsData } from "@/data/homeData";
 import styles from "./TestimonialsSection.module.css";
 
-export default function TestimonialsSection() {
+export default function TestimonialsSection({ data = testimonialsData }) {
+  const activeData = data || testimonialsData;
+  const items = activeData.items?.length > 0 ? activeData.items : testimonialsData.items;
+
   return (
     <section className={styles.testimonialsSection} id="testimonials" aria-label="Customer Reviews">
       <div className="container">
         {/* Header */}
         <div className={styles.headerWrapper}>
-          <span className={styles.kicker}>{testimonialsData.kicker}</span>
-          <h2 className={styles.title}>{testimonialsData.title}</h2>
+          <span className={styles.kicker}>{activeData.kicker || testimonialsData.kicker}</span>
+          <h2 className={styles.title}>{activeData.title || testimonialsData.title}</h2>
         </div>
 
-        {/* 3 Review Cards */}
+        {/* Review Cards */}
         <div className={styles.grid}>
-          {testimonialsData.items.map((item) => (
-            <div key={item.id} className={styles.card}>
+          {items.map((item, idx) => (
+            <div key={item.id || idx} className={styles.card}>
               <div className={styles.topRow}>
                 <span className={styles.quoteIcon}>“</span>
                 <div className={styles.stars} aria-label="5 stars rating">

@@ -14,6 +14,22 @@ if (typeof window !== 'undefined') {
 }
 
 export default function ContactPageClient() {
+  const [siteSettings, setSiteSettings] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/admin/settings/')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data) setSiteSettings(data);
+      })
+      .catch(() => {});
+  }, []);
+
+  const currentPhone = siteSettings?.contact?.phone || contactData.businessInfo.phoneDisplay;
+  const currentPhoneRaw = siteSettings?.contact?.phoneRaw || contactData.businessInfo.phone;
+  const currentEmail = siteSettings?.contact?.email || contactData.businessInfo.email;
+  const currentHours = siteSettings?.contact?.businessHours || contactData.businessInfo.hours;
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -197,18 +213,18 @@ export default function ContactPageClient() {
                 {contactData.businessInfo.heading}
               </h2>
               <div className={styles.hoursText}>
-                <div>{contactData.businessInfo.hours}</div>
+                <div>{currentHours}</div>
                 <div className={styles.hoursHighlight}>{contactData.businessInfo.closed}</div>
               </div>
               <div className={styles.contactLinks}>
-                <a href={`tel:${contactData.businessInfo.phone}`} className={styles.contactLink}>
+                <a href={`tel:${currentPhoneRaw}`} className={styles.contactLink}>
                   <Phone size={16} />
-                  <span>{contactData.businessInfo.phoneDisplay}</span>
+                  <span>{currentPhone}</span>
                 </a>
                 <span className={styles.linkDivider} aria-hidden="true">|</span>
-                <a href={`mailto:${contactData.businessInfo.email}`} className={styles.contactLink}>
+                <a href={`mailto:${currentEmail}`} className={styles.contactLink}>
                   <Mail size={16} />
-                  <span>{contactData.businessInfo.email}</span>
+                  <span>{currentEmail}</span>
                 </a>
               </div>
             </div>

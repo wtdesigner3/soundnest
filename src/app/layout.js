@@ -159,16 +159,43 @@ const jsonLd = {
   ],
 };
 
-export default function RootLayout({ children }) {
+import { getWebsiteSettings } from "@/lib/settings";
+
+export default async function RootLayout({ children }) {
+  const settings = await getWebsiteSettings();
+
   return (
     <html lang="en" className={`${poppins.variable} ${inter.variable}`}>
       <head>
+        <link rel="icon" href={settings.branding?.favicon || "/images/favicon.png"} />
+        <link rel="shortcut icon" href={settings.branding?.favicon || "/images/favicon.png"} />
+        <link rel="apple-touch-icon" href={settings.branding?.favicon || "/images/favicon.png"} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {/* Dynamic Header Code Injection (GTM, Analytics, Meta Tags) */}
+        {settings.codeInjection?.headerScripts && (
+          <div
+            id="sn-header-injection"
+            style={{ display: 'none' }}
+            dangerouslySetInnerHTML={{ __html: settings.codeInjection.headerScripts }}
+          />
+        )}
+
+        {children}
+
+        {/* Dynamic Footer Code Injection (Tracking Pixels, Live Chat, Custom Scripts) */}
+        {settings.codeInjection?.footerScripts && (
+          <div
+            id="sn-footer-injection"
+            style={{ display: 'none' }}
+            dangerouslySetInnerHTML={{ __html: settings.codeInjection.footerScripts }}
+          />
+        )}
+      </body>
     </html>
   );
 }

@@ -5,7 +5,8 @@ import Image from "next/image";
 import { heroSlides, serviceTypes } from "@/data/homeData";
 import styles from "./HeroSlider.module.css";
 
-export default function HeroSlider({ onOpenConsultation }) {
+export default function HeroSlider({ onOpenConsultation, slides = heroSlides }) {
+  const activeSlides = slides && slides.length > 0 ? slides : heroSlides;
   const [currentSlide, setCurrentSlide] = useState(0);
   const [formData, setFormData] = useState({
     name: "",
@@ -20,20 +21,20 @@ export default function HeroSlider({ onOpenConsultation }) {
   // Auto slide interval
   useEffect(() => {
     timerRef.current = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+      setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
     }, 6000);
 
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, []);
+  }, [activeSlides.length]);
 
   const goToSlide = (index) => {
     setCurrentSlide(index);
     if (timerRef.current) {
       clearInterval(timerRef.current);
       timerRef.current = setInterval(() => {
-        setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+        setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
       }, 6000);
     }
   };
@@ -88,9 +89,9 @@ export default function HeroSlider({ onOpenConsultation }) {
     <section className={styles.heroSection} aria-label="Hero Showcase">
       {/* Background Slides */}
       <div className={styles.slidesContainer}>
-        {heroSlides.map((slide, idx) => (
+        {activeSlides.map((slide, idx) => (
           <div
-            key={slide.id}
+            key={slide.id || idx}
             className={`${styles.slide} ${idx === currentSlide ? styles.activeSlide : ""}`}
             aria-hidden={idx !== currentSlide}
           >
@@ -115,13 +116,13 @@ export default function HeroSlider({ onOpenConsultation }) {
           {/* Left Text Content */}
           <div className={styles.textContent}>
             <span className={styles.kicker}>
-              {heroSlides[currentSlide].kicker}
+              {activeSlides[currentSlide]?.kicker}
             </span>
             <h2 className={styles.title}>
-              {heroSlides[currentSlide].title}
+              {activeSlides[currentSlide]?.title}
             </h2>
             <p className={styles.description}>
-              {heroSlides[currentSlide].description}
+              {activeSlides[currentSlide]?.description}
             </p>
             <button
               type="button"
@@ -129,7 +130,7 @@ export default function HeroSlider({ onOpenConsultation }) {
               onClick={onOpenConsultation}
               id="hero-consultation-btn"
             >
-              {heroSlides[currentSlide].ctaText}
+              {activeSlides[currentSlide]?.ctaText || "Get Free Consultation"}
             </button>
           </div>
 
@@ -235,7 +236,7 @@ export default function HeroSlider({ onOpenConsultation }) {
 
       {/* Slide Navigation Bullets */}
       <div className={styles.indicators}>
-        {heroSlides.map((_, idx) => (
+        {activeSlides.map((_, idx) => (
           <button
             key={idx}
             type="button"
