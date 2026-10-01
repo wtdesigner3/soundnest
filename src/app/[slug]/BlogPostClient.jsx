@@ -184,32 +184,9 @@ export default function BlogPostClient({ post, relatedPosts = [] }) {
             </div>
           </main>
 
-          {/* Right Column: Sticky Sidebar with CTA & Related Articles */}
+          {/* Right Column: Sticky Sidebar with Related Articles & Consultation CTA */}
           <aside className={styles.sidebar} aria-label="Sidebar">
             <div className={styles.stickySidebar}>
-              {/* Sidebar Consultation Widget */}
-              <div className={styles.sidebarCtaCard}>
-                <div className={styles.sidebarCtaIcon}>
-                  <Sparkles size={24} />
-                </div>
-                <h3 className={styles.sidebarCtaTitle}>Experience Soundnest</h3>
-                <p className={styles.sidebarCtaText}>
-                  Book a free one-on-one consultation with our automation engineers or schedule an exclusive studio demo.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setIsModalOpen(true)}
-                  className={styles.sidebarCtaBtn}
-                >
-                  <span>Book Free Consultation</span>
-                  <ArrowRight size={16} />
-                </button>
-                <a href="tel:+919049295678" className={styles.sidebarPhoneLink}>
-                  <PhoneCall size={14} />
-                  <span>+91-9049295678</span>
-                </a>
-              </div>
-
               {/* Sidebar Related Articles Widget */}
               {relatedPosts.length > 0 && (
                 <div className={styles.sidebarRelatedCard}>
@@ -237,6 +214,29 @@ export default function BlogPostClient({ post, relatedPosts = [] }) {
                   </div>
                 </div>
               )}
+
+              {/* Sidebar Consultation Widget (Experience Soundnest) */}
+              <div className={styles.sidebarCtaCard}>
+                <div className={styles.sidebarCtaIcon}>
+                  <Sparkles size={24} />
+                </div>
+                <h3 className={styles.sidebarCtaTitle}>Experience Soundnest</h3>
+                <p className={styles.sidebarCtaText}>
+                  Book a free one-on-one consultation with our automation engineers or schedule an exclusive studio demo.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(true)}
+                  className={styles.sidebarCtaBtn}
+                >
+                  <span>Book Free Consultation</span>
+                  <ArrowRight size={16} />
+                </button>
+                <a href="tel:+919049295678" className={styles.sidebarPhoneLink}>
+                  <PhoneCall size={14} />
+                  <span>+91-9049295678</span>
+                </a>
+              </div>
             </div>
           </aside>
         </div>
