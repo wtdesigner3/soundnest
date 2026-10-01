@@ -48,6 +48,7 @@ export async function POST(request) {
       faqs = [],
       gallery = [],
       heroImage = '/images/services/retrofit.jpg',
+      heroBgImage = '/images/service-1-bg.jpg',
     } = body;
 
     if (!name || !slug) {
@@ -92,6 +93,7 @@ export async function POST(request) {
         `Discover premium ${name.toLowerCase()} solutions tailored for modern living and intelligent control.`,
       badge,
       heroImage,
+      heroBgImage,
       experienceKicker: 'SOUNDNEST EXPERIENCE',
       experienceTitle: `Why Choose Soundnest ${name}?`,
       experienceSubtitle: 'Engineered for luxury, reliability, and precision control.',

@@ -2,13 +2,13 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingActions from '@/components/FloatingActions';
 import ServiceTemplate from '@/components/ServiceTemplate';
-import { getServiceBySlug } from '@/data/servicesData';
+import { getServiceBySlug } from '@/lib/services';
 import { notFound } from 'next/navigation';
 
 const SLUG = 'retro-fit-automation';
 
 export async function generateMetadata() {
-  const service = getServiceBySlug(SLUG);
+  const service = await getServiceBySlug(SLUG);
   if (!service) return { title: 'Service - Soundnest' };
 
   return {
@@ -49,8 +49,8 @@ export async function generateMetadata() {
   };
 }
 
-export default function RetrofitAutomationPage() {
-  const service = getServiceBySlug(SLUG);
+export default async function RetrofitAutomationPage() {
+  const service = await getServiceBySlug(SLUG);
   if (!service) notFound();
 
   // JSON-LD Service & FAQ Schema for Google Rich Snippets

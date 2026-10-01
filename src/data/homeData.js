@@ -152,6 +152,20 @@ export const testimonialsData = {
       rating: 5,
       avatar: "/images/testimonials/avatar.png",
     },
+    {
+      id: 4,
+      quote: "Soundnest automated our entire 6-bedroom villa in Hyderabad. The lighting scenes, motorized drapes, and centralized HVAC orchestration work seamlessly together. Their team is knowledgeable, disciplined, and genuinely committed to quality.",
+      author: "Vikramaditya Reddy",
+      rating: 5,
+      avatar: "/images/testimonials/avatar.png",
+    },
+    {
+      id: 5,
+      quote: "The private Dolby Atmos cinema room built by Soundnest completely surpassed our family's expectations. The star-lit fiber ceiling and acoustic treatment make every movie night feel like a private VIP premiere.",
+      author: "Ananya Sharma",
+      rating: 5,
+      avatar: "/images/testimonials/avatar.png",
+    },
   ],
 };
 

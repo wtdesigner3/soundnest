@@ -11,23 +11,27 @@ export async function getServiceBySlug(slug) {
   if (!slug) return null;
   const cleanSlug = slug.replace(/^\/+|\/+$/g, '');
 
-  // 1. Static check
-  const staticService = getStaticServiceBySlug(cleanSlug);
-  if (staticService) return staticService;
+  const staticFallback = getStaticServiceBySlug(cleanSlug);
 
-  // 2. Dynamic MongoDB Atlas fallback
+  // 1. Dynamic MongoDB Atlas check first (so Admin CMS updates reflect immediately!)
   try {
     const db = await getDb();
-    if (!db) return null;
-    const service = await db.collection('services').findOne({ slug: cleanSlug });
-    if (service) {
-      // Remove MongoDB _id to prevent serialization issues
-      const { _id, ...rest } = service;
-      return rest;
+    if (db) {
+      const service = await db.collection('services').findOne({ slug: cleanSlug });
+      if (service) {
+        // Remove MongoDB _id to prevent Next.js serialization issues
+        const { _id, ...rest } = service;
+        // Merge with staticFallback to guarantee all default properties exist
+        return {
+          ...(staticFallback || {}),
+          ...rest,
+        };
+      }
     }
   } catch (err) {
     console.error(`Error querying dynamic service for slug "${cleanSlug}":`, err.message);
   }
 
-  return null;
+  // 2. Fallback to static servicesData
+  return staticFallback;
 }

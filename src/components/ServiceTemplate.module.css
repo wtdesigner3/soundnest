@@ -53,9 +53,41 @@
 /* ==========================================================================
    Hero Section
    ========================================================================== */
+.heroSectionWrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.heroBgMedia {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.heroBgImg {
+  object-fit: cover;
+  object-position: center 30%;
+  transform: scale(1.02);
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(8, 8, 8, 0.72) 0%,
+    rgba(10, 10, 10, 0.52) 45%,
+    rgba(6, 6, 6, 0.78) 100%
+  );
+}
+
 .heroSection {
   position: relative;
-  padding: 2.5rem 2rem 5rem;
+  z-index: 1;
+  padding: 3.5rem 2rem 5rem;
   max-width: 1280px;
   margin: 0 auto;
   display: grid;
@@ -72,7 +104,7 @@
   height: 500px;
   background: radial-gradient(circle, rgba(229, 184, 105, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
 }
 
 .heroContent {
@@ -84,8 +116,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(229, 184, 105, 0.12);
-  border: 1px solid rgba(229, 184, 105, 0.3);
+  background: rgba(229, 184, 105, 0.16);
+  border: 1px solid rgba(229, 184, 105, 0.35);
   color: var(--sn-accent-gold, #e5b869);
   font-size: 0.75rem;
   font-weight: 600;
@@ -94,6 +126,7 @@
   padding: 0.35rem 0.85rem;
   border-radius: 9999px;
   margin-bottom: 1.25rem;
+  backdrop-filter: blur(8px);
 }
 
 .heroTitle {
@@ -103,14 +136,16 @@
   letter-spacing: -0.02em;
   margin-bottom: 1.25rem;
   color: #ffffff;
+  text-shadow: 0 3px 15px rgba(0, 0, 0, 0.95), 0 1px 4px rgba(0, 0, 0, 0.9);
 }
 
 .heroSubtitle {
   font-size: 1.125rem;
   line-height: 1.7;
-  color: #cccccc;
+  color: #f1f5f9;
   margin-bottom: 2rem;
   max-width: 620px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
 }
 
 .pillList {
@@ -125,11 +160,13 @@
   align-items: center;
   gap: 0.4rem;
   font-size: 0.85rem;
-  color: #dddddd;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  background: rgba(14, 14, 14, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   padding: 0.4rem 0.85rem;
   border-radius: 6px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
 }
 
 .pillIcon {
@@ -195,12 +232,14 @@
    ========================================================================== */
 .heroFormCard {
   position: relative;
-  z-index: 1;
-  background: #141414;
-  border: 1px solid rgba(229, 184, 105, 0.25);
-  border-radius: 14px;
+  z-index: 2;
+  background: rgba(18, 18, 18, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(229, 184, 105, 0.35);
+  border-radius: 16px;
   padding: 2.25rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 25px rgba(229, 184, 105, 0.1);
 }
 
 .formHeader {
@@ -411,49 +450,93 @@
    ========================================================================== */
 .featuresGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
 }
 
 .featureCard {
-  background: #121212;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 12px;
-  padding: 2rem 1.75rem;
-  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  min-height: 300px;
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2.25rem 2rem 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.featureCard:hover {
+  transform: translateY(-6px);
+  border-color: rgba(229, 184, 105, 0.6);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), 0 0 25px rgba(229, 184, 105, 0.2);
+}
+
+.featureCardBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.featureCardImg {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.featureCardOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.05) 0%,
+    rgba(0, 0, 0, 0.2) 30%,
+    rgba(8, 8, 8, 0.78) 65%,
+    rgba(2, 2, 2, 0.94) 100%
+  );
+  transition: background 0.4s ease;
+}
+
+.featureCard:hover .featureCardImg {
+  transform: scale(1.08);
+}
+
+.featureCard:hover .featureCardOverlay {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.02) 0%,
+    rgba(0, 0, 0, 0.15) 30%,
+    rgba(8, 8, 8, 0.72) 65%,
+    rgba(2, 2, 2, 0.9) 100%
+  );
+}
+
+.featureCardContent {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
 }
 
-.featureCard:hover {
-  background: #171717;
-  border-color: rgba(229, 184, 105, 0.35);
-  transform: translateY(-3px);
-}
-
-.featureIcon {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  background: rgba(229, 184, 105, 0.1);
-  color: var(--sn-accent-gold, #e5b869);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.25rem;
-}
-
 .featureTitle {
-  font-size: 1.15rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: #ffffff;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95), 0 1px 3px rgba(0, 0, 0, 0.9);
+  letter-spacing: -0.01em;
 }
 
 .featureDescription {
-  font-size: 0.9rem;
-  color: #999999;
-  line-height: 1.6;
+  font-size: 0.95rem;
+  color: #f1f5f9;
+  line-height: 1.65;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95);
+  margin: 0;
 }
 
 /* ==========================================================================

@@ -33,9 +33,10 @@ export default function AdminServicesPage() {
     h1: '',
     heroSubtitle: '',
     badge: 'SOUNDNEST SMART SOLUTIONS',
+    heroBgImage: '/images/service-1-bg.jpg',
     features: [
-      { title: 'Smart App Control', description: 'Centralized control via mobile smartphone or tablet.' },
-      { title: 'Energy Efficiency', description: 'Intelligent scheduling reduces unnecessary utility bills.' },
+      { title: 'Smart App Control', description: 'Centralized control via mobile smartphone or tablet.', image: '/images/slider-1.jpg' },
+      { title: 'Energy Efficiency', description: 'Intelligent scheduling reduces unnecessary utility bills.', image: '/images/slider-2.jpg' },
     ],
     faqs: [
       { question: 'How is the service installed?', answer: 'Installed cleanly by certified engineers with full support.' },
@@ -73,9 +74,10 @@ export default function AdminServicesPage() {
       h1: '',
       heroSubtitle: '',
       badge: 'SOUNDNEST SMART SOLUTIONS',
+      heroBgImage: '/images/service-1-bg.jpg',
       features: [
-        { title: 'Smart App Control', description: 'Centralized control via mobile smartphone or tablet.' },
-        { title: 'Energy Efficiency', description: 'Intelligent scheduling reduces unnecessary utility bills.' },
+        { title: 'Smart App Control', description: 'Centralized control via mobile smartphone or tablet.', image: '/images/slider-1.jpg' },
+        { title: 'Energy Efficiency', description: 'Intelligent scheduling reduces unnecessary utility bills.', image: '/images/slider-2.jpg' },
       ],
       faqs: [
         { question: 'How is the service installed?', answer: 'Installed cleanly by certified engineers with full support.' },
@@ -94,7 +96,11 @@ export default function AdminServicesPage() {
       h1: service.h1 || service.name || '',
       heroSubtitle: service.heroSubtitle || '',
       badge: service.badge || 'SOUNDNEST SMART SOLUTIONS',
-      features: service.features?.length > 0 ? service.features : [{ title: '', description: '' }],
+      heroBgImage: service.heroBgImage || service.heroImage || '/images/service-1-bg.jpg',
+      features:
+        service.features?.length > 0
+          ? service.features.map((f) => ({ ...f, image: f.image || '/images/slider-1.jpg' }))
+          : [{ title: '', description: '', image: '/images/slider-1.jpg' }],
       faqs: service.faqs?.length > 0 ? service.faqs : [{ question: '', answer: '' }],
     });
     setIsEditorOpen(true);
@@ -128,7 +134,7 @@ export default function AdminServicesPage() {
   const addFeature = () => {
     setFormData((prev) => ({
       ...prev,
-      features: [...prev.features, { title: '', description: '' }],
+      features: [...prev.features, { title: '', description: '', image: '/images/slider-1.jpg' }],
     }));
   };
 
@@ -512,6 +518,48 @@ export default function AdminServicesPage() {
                 />
               </div>
 
+              {/* Hero Background Image */}
+              <div className={styles.formGroup}>
+                <label className={styles.formLabel}>Hero Section Background Image URL</label>
+                <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+                  <input
+                    type="text"
+                    value={formData.heroBgImage}
+                    onChange={(e) =>
+                      setFormData((prev) => ({ ...prev, heroBgImage: e.target.value }))
+                    }
+                    placeholder="/images/service-1-bg.jpg"
+                    className={styles.formInput}
+                    style={{ flex: 1 }}
+                  />
+                  {formData.heroBgImage && (
+                    <img
+                      src={formData.heroBgImage}
+                      alt="Hero BG Preview"
+                      style={{
+                        width: '56px',
+                        height: '36px',
+                        objectFit: 'cover',
+                        borderRadius: '4px',
+                        border: '1px solid rgba(229, 184, 105, 0.4)',
+                        flexShrink: 0,
+                      }}
+                      onError={(e) => (e.target.style.display = 'none')}
+                    />
+                  )}
+                </div>
+                <span
+                  style={{
+                    fontSize: '0.75rem',
+                    color: '#888888',
+                    marginTop: '0.3rem',
+                    display: 'block',
+                  }}
+                >
+                  Live Presets: /images/service-1-bg.jpg, /images/building-automation-1-1.jpg, /images/curtain-motor-1.jpg, /images/home-cinema-audio-video-3.jpg
+                </span>
+              </div>
+
               {/* SEO Controls */}
               <div
                 style={{
@@ -567,7 +615,7 @@ export default function AdminServicesPage() {
                   }}
                 >
                   <label className={styles.formLabel} style={{ margin: 0 }}>
-                    Feature Matrix Cards ({formData.features.length})
+                    Feature Matrix Cards with Background Overlays ({formData.features.length})
                   </label>
                   <button
                     type="button"
@@ -583,36 +631,66 @@ export default function AdminServicesPage() {
                   <div
                     key={idx}
                     style={{
+                      background: '#181818',
+                      border: '1px solid #282828',
+                      borderRadius: '8px',
+                      padding: '0.85rem',
+                      marginBottom: '0.75rem',
                       display: 'flex',
-                      gap: '0.75rem',
-                      alignItems: 'center',
-                      marginBottom: '0.5rem',
+                      flexDirection: 'column',
+                      gap: '0.6rem',
                     }}
                   >
-                    <input
-                      type="text"
-                      placeholder="Feature Title"
-                      value={feat.title}
-                      onChange={(e) => handleFeatureChange(idx, 'title', e.target.value)}
-                      className={styles.formInput}
-                      style={{ flex: 1 }}
-                    />
-                    <input
-                      type="text"
-                      placeholder="Feature Description"
+                    <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+                      <input
+                        type="text"
+                        placeholder="Feature Title *"
+                        value={feat.title}
+                        onChange={(e) => handleFeatureChange(idx, 'title', e.target.value)}
+                        className={styles.formInput}
+                        style={{ flex: 1 }}
+                        required
+                      />
+                      <input
+                        type="text"
+                        placeholder="Card Background Image (/images/slider-1.jpg)"
+                        value={feat.image || ''}
+                        onChange={(e) => handleFeatureChange(idx, 'image', e.target.value)}
+                        className={styles.formInput}
+                        style={{ flex: 1.2 }}
+                      />
+                      {feat.image && (
+                        <img
+                          src={feat.image}
+                          alt={feat.title || 'Feature'}
+                          style={{
+                            width: '40px',
+                            height: '34px',
+                            objectFit: 'cover',
+                            borderRadius: '4px',
+                            border: '1px solid rgba(229, 184, 105, 0.4)',
+                            flexShrink: 0,
+                          }}
+                          onError={(e) => (e.target.style.display = 'none')}
+                        />
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => removeFeature(idx)}
+                        className={styles.btnDanger}
+                        style={{ padding: '0.55rem 0.65rem', flexShrink: 0 }}
+                        title="Remove Feature"
+                      >
+                        <X size={14} />
+                      </button>
+                    </div>
+                    <textarea
+                      placeholder="Feature Description (rendered over dark gradient card overlay)"
                       value={feat.description}
                       onChange={(e) => handleFeatureChange(idx, 'description', e.target.value)}
-                      className={styles.formInput}
-                      style={{ flex: 2 }}
+                      rows={2}
+                      className={styles.formTextarea}
                     />
-                    <button
-                      type="button"
-                      onClick={() => removeFeature(idx)}
-                      className={styles.btnDanger}
-                      style={{ padding: '0.6rem' }}
-                    >
-                      <X size={14} />
-                    </button>
                   </div>
                 ))}
               </div>

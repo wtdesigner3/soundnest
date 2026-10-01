@@ -39,6 +39,7 @@ import {
 } from 'lucide-react';
 import FaqAccordion from '@/components/FaqAccordion';
 import ConsultationModal from '@/components/ConsultationModal';
+import TestimonialCarousel from '@/components/TestimonialCarousel';
 import { brandsList, testimonialsData, serviceTypes } from '@/data/homeData';
 import styles from './ServiceTemplate.module.css';
 
@@ -198,11 +199,25 @@ export default function ServiceTemplate({ service }) {
       </nav>
 
       {/* ==================================================================
-          Hero Section with Direct Lead Form
+          Hero Section with Background Image & Direct Lead Form
           ================================================================== */}
-      <section className={styles.heroSection}>
+      <section className={styles.heroSectionWrapper}>
+        <div className={styles.heroBgMedia}>
+          <Image
+            src={service.heroBgImage || service.heroImage || '/images/service-1-bg.jpg'}
+            alt={`${service.name} Background`}
+            fill
+            priority
+            sizes="100vw"
+            className={styles.heroBgImg}
+          />
+          <div className={styles.heroOverlay} />
+        </div>
+
         <div className={styles.heroGlow} aria-hidden="true" />
-        <div className={styles.heroContent}>
+
+        <div className={styles.heroSection}>
+          <div className={styles.heroContent}>
           {service.badge && (
             <div className={styles.badge}>
               <Sparkles size={14} />
@@ -350,6 +365,7 @@ export default function ServiceTemplate({ service }) {
             </form>
           )}
         </div>
+        </div>
       </section>
 
       {/* ==================================================================
@@ -398,11 +414,22 @@ export default function ServiceTemplate({ service }) {
             <div className={styles.featuresGrid}>
               {service.features.map((feature, idx) => (
                 <div key={idx} className={styles.featureCard}>
-                  <div className={styles.featureIcon}>
-                    {getServiceIcon(feature.icon)}
+                  {feature.image && (
+                    <div className={styles.featureCardBg}>
+                      <Image
+                        src={feature.image}
+                        alt={feature.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className={styles.featureCardImg}
+                      />
+                      <div className={styles.featureCardOverlay} />
+                    </div>
+                  )}
+                  <div className={styles.featureCardContent}>
+                    <h3 className={styles.featureTitle}>{feature.title}</h3>
+                    <p className={styles.featureDescription}>{feature.description}</p>
                   </div>
-                  <h3 className={styles.featureTitle}>{feature.title}</h3>
-                  <p className={styles.featureDescription}>{feature.description}</p>
                 </div>
               ))}
             </div>
@@ -516,33 +543,7 @@ export default function ServiceTemplate({ service }) {
             <h2 className={styles.sectionTitle}>{testimonialsData.title}</h2>
           </div>
 
-          <div className={styles.testimonialsGrid}>
-            {testimonialsData.items.map((item) => (
-              <div key={item.id} className={styles.testimonialCard}>
-                <div className={styles.starRating} aria-label="5 stars rating">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={16} fill="currentColor" />
-                  ))}
-                </div>
-                <blockquote className={styles.testimonialQuote}>
-                  &ldquo;{item.quote}&rdquo;
-                </blockquote>
-                <div className={styles.authorInfo}>
-                  <Image
-                    src={item.avatar}
-                    alt={item.author}
-                    width={44}
-                    height={44}
-                    className={styles.authorAvatar}
-                  />
-                  <div>
-                    <div className={styles.authorName}>{item.author}</div>
-                    <div className={styles.authorRole}>Verified Client</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <TestimonialCarousel items={testimonialsData.items} />
         </div>
       </section>
 
