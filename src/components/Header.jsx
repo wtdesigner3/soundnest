@@ -3,13 +3,43 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Phone, X } from "lucide-react";
 import styles from "./Header.module.css";
 import { companyInfo, navItems } from "@/data/homeData";
+import ConsultationModal from "@/components/ConsultationModal";
+
+/**
+ * Utility function to programmatically open the consultation popup from any component or page.
+ */
+export function openConsultationModal(serviceName) {
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(
+      new CustomEvent("open-consultation-modal", {
+        detail: { service: serviceName },
+      })
+    );
+  }
+}
 
 export default function Header({ onOpenConsultation }) {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [customService, setCustomService] = useState("");
+
+  // Detect appropriate default service based on current route
+  let detectedService = "Select Service Type";
+  if (pathname?.includes("retro-fit")) {
+    detectedService = "Retro Fit Automation";
+  } else if (pathname?.includes("building-automation")) {
+    detectedService = "Building Automation";
+  } else if (pathname?.includes("curtain-motor")) {
+    detectedService = "Curtain Motor";
+  } else if (pathname?.includes("home-cinema")) {
+    detectedService = "Home Cinema & Audio Video";
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,14 +54,40 @@ export default function Header({ onOpenConsultation }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock scroll when drawer is open
+  // Listen for global consultation modal trigger events
   useEffect(() => {
-    if (drawerOpen) {
+    const handleGlobalOpen = (e) => {
+      if (e.detail?.service) {
+        setCustomService(e.detail.service);
+      }
+      if (onOpenConsultation) {
+        onOpenConsultation();
+      } else {
+        setIsModalOpen(true);
+      }
+    };
+
+    window.addEventListener("open-consultation-modal", handleGlobalOpen);
+    return () => window.removeEventListener("open-consultation-modal", handleGlobalOpen);
+  }, [onOpenConsultation]);
+
+  // Lock scroll when drawer is open (unless modal is already managing scroll lock)
+  useEffect(() => {
+    if (drawerOpen && !isModalOpen) {
       document.body.style.overflow = "hidden";
-    } else {
+    } else if (!drawerOpen && !isModalOpen) {
       document.body.style.overflow = "";
     }
-  }, [drawerOpen]);
+  }, [drawerOpen, isModalOpen]);
+
+  const handleConsultationClick = () => {
+    setDrawerOpen(false);
+    if (onOpenConsultation) {
+      onOpenConsultation();
+    } else {
+      setIsModalOpen(true);
+    }
+  };
 
   return (
     <>
@@ -135,15 +191,21 @@ export default function Header({ onOpenConsultation }) {
           <button
             type="button"
             className={`btn-pill-white ${styles.drawerCta}`}
-            onClick={() => {
-              setDrawerOpen(false);
-              if (onOpenConsultation) onOpenConsultation();
-            }}
+            onClick={handleConsultationClick}
           >
             Get Free Consultation
           </button>
         </div>
       </aside>
+
+      {/* Self-contained Consultation Modal for pages without parent modal state */}
+      {!onOpenConsultation && (
+        <ConsultationModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          defaultService={customService || detectedService}
+        />
+      )}
     </>
   );
 }

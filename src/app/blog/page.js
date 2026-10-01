@@ -1,7 +1,6 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingActions from '@/components/FloatingActions';
-import ConsultationModal from '@/components/ConsultationModal';
 import BlogListClient from './BlogListClient';
 import { blogPosts } from '@/data/blogData';
 
@@ -73,7 +72,6 @@ export default function BlogArchivePage() {
       </main>
       <Footer />
       <FloatingActions />
-      <ConsultationModal />
     </>
   );
 }
