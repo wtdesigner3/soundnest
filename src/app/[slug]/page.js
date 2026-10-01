@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingActions from '@/components/FloatingActions';
-import ConsultationModal from '@/components/ConsultationModal';
 import BlogPostClient from './BlogPostClient';
 import { blogPosts, getPostBySlug, getRelatedPosts } from '@/data/blogData';
 
@@ -104,7 +103,6 @@ export default async function BlogPostPage({ params }) {
       </main>
       <Footer />
       <FloatingActions />
-      <ConsultationModal />
     </>
   );
 }

@@ -20,6 +20,13 @@
   --accent-call: #007ab7;
   --accent-whatsapp: #25d366;
 
+  /* Aliases for module styling */
+  --sn-accent-gold: #e5b869;
+  --sn-white: #ffffff;
+  --sn-bg-dark: #18191c;
+  --sn-text-secondary: #d1d5db;
+  --sn-text-muted: #9ca3af;
+
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
