@@ -1,0 +1,432 @@
+/* ==========================================================================
+   Soundnest Admin CMS Design System & Layout Styles
+   Clean, Luxury Dark Theme with Gold Accents
+   ========================================================================== */
+
+.adminLayout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #0c0c0c;
+  color: #e5e5e5;
+  font-family: inherit;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 260px;
+  background-color: #121212;
+  border-right: 1px solid #222222;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  transition: transform 0.3s ease;
+}
+
+.sidebarHeader {
+  padding: 1.75rem 1.5rem;
+  border-bottom: 1px solid #1f1f1f;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logoTitle {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  margin: 0;
+}
+
+.logoTag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  background: rgba(229, 184, 105, 0.15);
+  border: 1px solid rgba(229, 184, 105, 0.3);
+  color: var(--sn-accent-gold, #e5b869);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+.navSection {
+  flex: 1;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  overflow-y: auto;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #aaaaaa;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.navItem:hover {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.navItemActive {
+  background-color: rgba(229, 184, 105, 0.12);
+  color: var(--sn-accent-gold, #e5b869);
+  font-weight: 600;
+  border: 1px solid rgba(229, 184, 105, 0.25);
+}
+
+.sidebarFooter {
+  padding: 1.25rem 1rem;
+  border-top: 1px solid #1f1f1f;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footerBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #999999;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.footerBtn:hover {
+  background-color: #1f1f1f;
+  color: #e5b869;
+}
+
+.logoutBtn:hover {
+  background-color: rgba(231, 76, 60, 0.15);
+  color: #e74c3c;
+}
+
+/* Main Content Area */
+.mainWrapper {
+  flex: 1;
+  margin-left: 260px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #0c0c0c;
+}
+
+.topBar {
+  height: 70px;
+  background-color: #121212;
+  border-bottom: 1px solid #222222;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.pageHeading {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.userBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  color: #cccccc;
+}
+
+.userAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--sn-accent-gold, #e5b869);
+  color: #0c0c0c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.contentContainer {
+  padding: 2.25rem 2rem 4rem;
+  max-width: 1400px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* KPI Cards Grid */
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.kpiCard {
+  background: #141414;
+  border: 1px solid #242424;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+}
+
+.kpiCard:hover {
+  border-color: rgba(229, 184, 105, 0.4);
+  transform: translateY(-2px);
+}
+
+.kpiLabel {
+  font-size: 0.85rem;
+  color: #888888;
+  margin-bottom: 0.35rem;
+}
+
+.kpiValue {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.kpiIconBox {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: rgba(229, 184, 105, 0.1);
+  color: var(--sn-accent-gold, #e5b869);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Data Tables & Cards */
+.cardSection {
+  background: #141414;
+  border: 1px solid #222222;
+  border-radius: 12px;
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.cardTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.dataTable th {
+  padding: 0.85rem 1rem;
+  background-color: #1a1a1a;
+  color: #aaaaaa;
+  font-weight: 600;
+  border-bottom: 1px solid #282828;
+}
+
+.dataTable td {
+  padding: 1rem;
+  border-bottom: 1px solid #1f1f1f;
+  color: #cccccc;
+  vertical-align: middle;
+}
+
+.dataTable tr:hover td {
+  background-color: #181818;
+}
+
+/* Status Badges */
+.badgeStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.statusNew {
+  background: rgba(46, 204, 113, 0.15);
+  color: #2ecc71;
+  border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.statusContacted {
+  background: rgba(52, 152, 219, 0.15);
+  color: #3498db;
+  border: 1px solid rgba(52, 152, 219, 0.3);
+}
+
+.statusArchived {
+  background: rgba(149, 165, 166, 0.15);
+  color: #95a5a6;
+  border: 1px solid rgba(149, 165, 166, 0.3);
+}
+
+/* Buttons */
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--sn-accent-gold, #e5b869);
+  color: #0c0c0c;
+  font-weight: 700;
+  font-size: 0.875rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btnPrimary:hover {
+  background: #f0c578;
+  transform: translateY(-1px);
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #242424;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.65rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #333333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btnSecondary:hover {
+  background: #2e2e2e;
+}
+
+.btnDanger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(231, 76, 60, 0.1);
+  color: #e74c3c;
+  border: 1px solid rgba(231, 76, 60, 0.25);
+  padding: 0.45rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnDanger:hover {
+  background: rgba(231, 76, 60, 0.2);
+}
+
+/* Form Styles */
+.formGroup {
+  margin-bottom: 1.25rem;
+}
+
+.formLabel {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #bbbbbb;
+  margin-bottom: 0.5rem;
+}
+
+.formInput,
+.formTextarea,
+.formSelect {
+  width: 100%;
+  background: #1a1a1a;
+  border: 1px solid #333333;
+  color: #ffffff;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.formInput:focus,
+.formTextarea:focus,
+.formSelect:focus {
+  outline: none;
+  border-color: var(--sn-accent-gold, #e5b869);
+  box-shadow: 0 0 0 3px rgba(229, 184, 105, 0.15);
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebarOpen {
+    transform: translateX(0);
+  }
+
+  .mainWrapper {
+    margin-left: 0;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+}
