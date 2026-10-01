@@ -12,6 +12,14 @@ const nextConfig = {
     ],
     formats: ['image/avif', 'image/webp'],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/blog/:slug/',
+        destination: '/:slug/',
+      },
+    ];
+  },
 };
 
 export default nextConfig;
