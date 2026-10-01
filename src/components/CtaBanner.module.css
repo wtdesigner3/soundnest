@@ -1,0 +1,58 @@
+.ctaSection {
+  position: relative;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 24px;
+  overflow: hidden;
+  background-color: #1a1b1e;
+}
+
+.bgImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 19, 23, 0.68);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 2;
+}
+
+.content {
+  position: relative;
+  z-index: 3;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 2.65rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #ffffff;
+  margin-bottom: 34px;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.85rem;
+    margin-bottom: 24px;
+  }
+}
+
+.ctaBtnWrapper {
+  display: flex;
+  justify-content: center;
+}

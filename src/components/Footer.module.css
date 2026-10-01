@@ -1,0 +1,103 @@
+.footer {
+  background-color: #0b0c0e;
+  color: #ffffff;
+  padding-top: 60px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mainFooter {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+  align-items: flex-start;
+  padding-bottom: 50px;
+}
+
+@media (max-width: 768px) {
+  .mainFooter {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+.title {
+  font-size: 1.45rem;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 22px;
+}
+
+.contactList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contactItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  color: #ffffff;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.contactItem a {
+  color: rgba(255, 255, 255, 0.9);
+  transition: color 0.2s ease;
+}
+
+.contactItem a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.socialWrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .socialWrapper {
+    justify-content: flex-start;
+  }
+}
+
+.socialLink {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: all 0.25s ease;
+}
+
+.socialLink:hover {
+  background: #e1306c; /* Instagram brand color on hover */
+  border-color: #e1306c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(225, 48, 108, 0.4);
+}
+
+.copyrightBar {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 24px 0;
+  text-align: center;
+  font-size: 13.5px;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.65);
+}

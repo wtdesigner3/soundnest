@@ -1,0 +1,125 @@
+.testimonialsSection {
+  background-color: #38393d;
+  padding: 85px 0 100px;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.headerWrapper {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 50px;
+}
+
+.kicker {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.95rem;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+@media (max-width: 992px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+.card {
+  background: #18191c;
+  border-radius: 16px;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.quoteIcon {
+  font-size: 3rem;
+  line-height: 1;
+  color: #e5b869;
+  font-family: Georgia, serif;
+}
+
+.stars {
+  display: flex;
+  gap: 4px;
+  color: #e5b869;
+}
+
+.starFilled {
+  fill: #e5b869;
+  color: #e5b869;
+}
+
+.quote {
+  font-size: 15px;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.88);
+  margin-bottom: 28px;
+  flex: 1;
+}
+
+.authorRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 20px;
+}
+
+.avatarImg {
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.authorName {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.verifiedBadge {
+  font-size: 12px;
+  color: #25d366;
+  font-weight: 500;
+}
