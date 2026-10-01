@@ -5,15 +5,21 @@ import { X } from "lucide-react";
 import { serviceTypes } from "@/data/homeData";
 import styles from "./ConsultationModal.module.css";
 
-export default function ConsultationModal({ isOpen, onClose }) {
+export default function ConsultationModal({ isOpen, onClose, defaultService = "Select Service Type" }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    serviceType: "Select Service Type",
+    serviceType: defaultService,
     message: "",
   });
   const [status, setStatus] = useState({ submitting: false, success: false, error: null });
+
+  useEffect(() => {
+    if (defaultService) {
+      setFormData((prev) => ({ ...prev, serviceType: defaultService }));
+    }
+  }, [defaultService, isOpen]);
 
   // Close on Escape key
   useEffect(() => {

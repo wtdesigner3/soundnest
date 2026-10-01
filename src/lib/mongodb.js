@@ -33,3 +33,9 @@ export async function connectToDatabase() {
     return null;
   }
 }
+
+export async function getDb() {
+  const conn = await connectToDatabase();
+  return conn ? conn.db : null;
+}
+

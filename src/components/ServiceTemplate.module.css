@@ -1,0 +1,810 @@
+/* ==========================================================================
+   Soundnest Service Page Template Styles
+   Luxury Dark Aesthetic, Glassmorphism, Gold Accents
+   ========================================================================== */
+
+.pageContainer {
+  background-color: var(--sn-bg-primary, #0a0a0a);
+  color: var(--sn-text-primary, #ffffff);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  padding-top: 130px; /* Offset fixed header */
+}
+
+/* Breadcrumbs */
+.breadcrumbNav {
+  padding: 1.25rem 2rem 0;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.breadcrumbList {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #888888;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.breadcrumbList a {
+  color: #aaaaaa;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumbList a:hover {
+  color: var(--sn-accent-gold, #e5b869);
+}
+
+.breadcrumbCurrent {
+  color: var(--sn-accent-gold, #e5b869);
+  font-weight: 500;
+}
+
+.breadcrumbSeparator {
+  color: #555555;
+}
+
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+.heroSection {
+  position: relative;
+  padding: 2.5rem 2rem 5rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.heroGlow {
+  position: absolute;
+  top: 10%;
+  left: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(229, 184, 105, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(229, 184, 105, 0.12);
+  border: 1px solid rgba(229, 184, 105, 0.3);
+  color: var(--sn-accent-gold, #e5b869);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  margin-bottom: 1.25rem;
+}
+
+.heroTitle {
+  font-size: clamp(2.25rem, 4.5vw, 3.75rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+  color: #ffffff;
+}
+
+.heroSubtitle {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #cccccc;
+  margin-bottom: 2rem;
+  max-width: 620px;
+}
+
+.pillList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2.25rem;
+}
+
+.pillItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: #dddddd;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.4rem 0.85rem;
+  border-radius: 6px;
+}
+
+.pillIcon {
+  color: var(--sn-accent-gold, #e5b869);
+}
+
+.heroActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--sn-accent-gold, #e5b869);
+  color: #0a0a0a;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 20px rgba(229, 184, 105, 0.25);
+  text-decoration: none;
+}
+
+.primaryBtn:hover {
+  background: #f0c578;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(229, 184, 105, 0.35);
+}
+
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.secondaryBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Hero Form Card
+   ========================================================================== */
+.heroFormCard {
+  position: relative;
+  z-index: 1;
+  background: #141414;
+  border: 1px solid rgba(229, 184, 105, 0.25);
+  border-radius: 14px;
+  padding: 2.25rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.formHeader {
+  margin-bottom: 1.5rem;
+}
+
+.formTitle {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.35rem;
+}
+
+.formSubtitle {
+  font-size: 0.85rem;
+  color: #999999;
+  line-height: 1.4;
+}
+
+.heroForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.formInput,
+.formSelect,
+.formTextarea {
+  width: 100%;
+  background: #1e1e1e;
+  border: 1px solid #333333;
+  color: #ffffff;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.formInput:focus,
+.formSelect:focus,
+.formTextarea:focus {
+  outline: none;
+  border-color: var(--sn-accent-gold, #e5b869);
+  box-shadow: 0 0 0 3px rgba(229, 184, 105, 0.15);
+}
+
+.formSubmitBtn {
+  width: 100%;
+  background: var(--sn-accent-gold, #e5b869);
+  color: #0a0a0a;
+  border: none;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.formSubmitBtn:hover:not(:disabled) {
+  background: #f0c578;
+  transform: translateY(-1px);
+}
+
+.formSubmitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.formPrivacy {
+  font-size: 0.75rem;
+  color: #777777;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.successAlert {
+  background: rgba(46, 204, 113, 0.15);
+  border: 1px solid rgba(46, 204, 113, 0.3);
+  color: #2ecc71;
+  padding: 1.25rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.errorAlert {
+  background: rgba(231, 76, 60, 0.15);
+  border: 1px solid rgba(231, 76, 60, 0.3);
+  color: #e74c3c;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   Section Common
+   ========================================================================== */
+.sectionWrapper {
+  padding: 5rem 2rem;
+  position: relative;
+}
+
+.sectionDarker {
+  background: #0d0d0d;
+}
+
+.sectionInner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.sectionHeader {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 3.5rem;
+}
+
+.sectionKicker {
+  display: inline-block;
+  color: var(--sn-accent-gold, #e5b869);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.sectionTitle {
+  font-size: clamp(1.85rem, 3.2vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.sectionSubtitle {
+  font-size: 1.05rem;
+  color: #999999;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Soundnest Experience (Why Choose Us)
+   ========================================================================== */
+.experienceGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.experienceCard {
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.experienceCard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(229, 184, 105, 0.4);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+}
+
+.cardIconBox {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: rgba(229, 184, 105, 0.1);
+  border: 1px solid rgba(229, 184, 105, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sn-accent-gold, #e5b869);
+  margin-bottom: 1.5rem;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.cardText {
+  font-size: 0.95rem;
+  color: #aaaaaa;
+  line-height: 1.65;
+}
+
+/* ==========================================================================
+   Features Matrix Grid
+   ========================================================================== */
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.75rem;
+}
+
+.featureCard {
+  background: #121212;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 2rem 1.75rem;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.featureCard:hover {
+  background: #171717;
+  border-color: rgba(229, 184, 105, 0.35);
+  transform: translateY(-3px);
+}
+
+.featureIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(229, 184, 105, 0.1);
+  color: var(--sn-accent-gold, #e5b869);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.featureTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.featureDescription {
+  font-size: 0.9rem;
+  color: #999999;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Process / Deep-Dive Section
+   ========================================================================== */
+.processGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.processContent {
+  position: relative;
+}
+
+.processHeading {
+  font-size: clamp(1.75rem, 2.8vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1.25;
+  color: #ffffff;
+  margin-bottom: 1.25rem;
+}
+
+.processSubheading {
+  font-size: 1.1rem;
+  color: var(--sn-accent-gold, #e5b869);
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+}
+
+.processBodyText {
+  font-size: 1rem;
+  color: #bbbbbb;
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+
+.processHighlights {
+  list-style: none;
+  padding: 0;
+  margin: 1.75rem 0 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.processHighlightItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: #e0e0e0;
+}
+
+.checkIcon {
+  color: var(--sn-accent-gold, #e5b869);
+  flex-shrink: 0;
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.galleryItem {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 180px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.galleryItem:first-child {
+  grid-column: span 2;
+  height: 240px;
+}
+
+.galleryImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.galleryItem:hover .galleryImg {
+  transform: scale(1.05);
+}
+
+.galleryCaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.85) 100%);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   Brands Marquee
+   ========================================================================== */
+.brandsWrapper {
+  overflow: hidden;
+  position: relative;
+  padding: 1.5rem 0;
+}
+
+.brandsWrapper::before,
+.brandsWrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.brandsWrapper::before {
+  left: 0;
+  background: linear-gradient(90deg, #0d0d0d 0%, transparent 100%);
+}
+
+.brandsWrapper::after {
+  right: 0;
+  background: linear-gradient(270deg, #0d0d0d 0%, transparent 100%);
+}
+
+.brandsTrack {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.brandsTrack:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.brandLogoBox {
+  width: 140px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  filter: grayscale(100%) brightness(0.8);
+  transition: all 0.3s ease;
+}
+
+.brandLogoBox:hover {
+  filter: grayscale(0%) brightness(1);
+  border-color: rgba(229, 184, 105, 0.4);
+}
+
+.brandImg {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* ==========================================================================
+   Testimonials Section
+   ========================================================================== */
+.testimonialsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.testimonialCard {
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.25s ease;
+}
+
+.testimonialCard:hover {
+  border-color: rgba(229, 184, 105, 0.35);
+  transform: translateY(-3px);
+}
+
+.starRating {
+  display: flex;
+  gap: 0.25rem;
+  color: var(--sn-accent-gold, #e5b869);
+  margin-bottom: 1.25rem;
+}
+
+.testimonialQuote {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #cccccc;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.authorInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1.25rem;
+}
+
+.authorAvatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(229, 184, 105, 0.4);
+}
+
+.authorName {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.authorRole {
+  font-size: 0.8rem;
+  color: #888888;
+}
+
+/* ==========================================================================
+   Bottom CTA Banner
+   ========================================================================== */
+.ctaBannerWrapper {
+  padding: 4rem 2rem 6rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.ctaCard {
+  position: relative;
+  background: linear-gradient(135deg, #181818 0%, #0f0f0f 100%);
+  border: 1px solid rgba(229, 184, 105, 0.35);
+  border-radius: 16px;
+  padding: 4rem 3rem;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.ctaCardGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(229, 184, 105, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ctaTitle {
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.ctaSubtitle {
+  font-size: 1.125rem;
+  color: #bbbbbb;
+  max-width: 650px;
+  margin: 0 auto 2.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.ctaButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .heroSection {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .processGrid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .pageContainer {
+    padding-top: 100px;
+  }
+
+  .heroSection {
+    padding: 2rem 1.25rem 3.5rem;
+  }
+
+  .sectionWrapper {
+    padding: 3.5rem 1.25rem;
+  }
+
+  .heroFormCard {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .ctaCard {
+    padding: 3rem 1.5rem;
+  }
+
+  .experienceGrid,
+  .featuresGrid,
+  .testimonialsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .galleryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .galleryItem:first-child {
+    grid-column: span 1;
+    height: 200px;
+  }
+}
