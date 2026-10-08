@@ -35,7 +35,7 @@ export default function ContactPageClient() {
       .then((data) => {
         if (data) setSiteSettings(data);
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   const currentPhone = siteSettings?.contact?.phone || contactData.businessInfo.phoneDisplay;
@@ -379,11 +379,11 @@ export default function ContactPageClient() {
                     </>
                   )}
                 </button>
-
+                {/* 
                 <div className={styles.formReassurance}>
                   <CheckCircle2 size={13} className={styles.reassuranceCheck} />
                   <span>Complimentary Site Survey • Zero Obligation • 100% Confidential</span>
-                </div>
+                </div> */}
               </form>
             </div>
           </div>

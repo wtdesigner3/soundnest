@@ -122,6 +122,25 @@ export default function TestimonialCarousel({ items = [] }) {
       aria-roledescription="carousel"
       aria-label="Customer Testimonials"
     >
+      {/* Floating Side Navigation Arrows */}
+      <button
+        type="button"
+        className={`${styles.sideNavBtn} ${styles.sidePrevBtn}`}
+        onClick={handlePrev}
+        aria-label="Previous testimonial slide"
+      >
+        <ChevronLeft size={22} />
+      </button>
+
+      <button
+        type="button"
+        className={`${styles.sideNavBtn} ${styles.sideNextBtn}`}
+        onClick={handleNext}
+        aria-label="Next testimonial slide"
+      >
+        <ChevronRight size={22} />
+      </button>
+
       <div
         className={styles.carouselViewport}
         onTouchStart={handleTouchStart}
@@ -175,8 +194,17 @@ export default function TestimonialCarousel({ items = [] }) {
         </div>
       </div>
 
-      {/* Carousel Navigation Controls */}
+      {/* Carousel Navigation Controls (Always Visible) */}
       <div className={styles.controlsRow}>
+        <button
+          type="button"
+          className={styles.navBtn}
+          onClick={handlePrev}
+          aria-label="Previous testimonial"
+        >
+          <ChevronLeft size={20} />
+        </button>
+
         <div className={styles.dotsWrapper}>
           {[...Array(maxIndex + 1)].map((_, dotIdx) => (
             <button
@@ -189,24 +217,14 @@ export default function TestimonialCarousel({ items = [] }) {
           ))}
         </div>
 
-        <div className={styles.navButtons}>
-          <button
-            type="button"
-            className={styles.navBtn}
-            onClick={handlePrev}
-            aria-label="Previous testimonial"
-          >
-            <ChevronLeft size={20} />
-          </button>
-          <button
-            type="button"
-            className={styles.navBtn}
-            onClick={handleNext}
-            aria-label="Next testimonial"
-          >
-            <ChevronRight size={20} />
-          </button>
-        </div>
+        <button
+          type="button"
+          className={styles.navBtn}
+          onClick={handleNext}
+          aria-label="Next testimonial"
+        >
+          <ChevronRight size={20} />
+        </button>
       </div>
     </div>
   );
