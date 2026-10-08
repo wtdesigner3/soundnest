@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -27,9 +27,58 @@ export default function Header({ onOpenConsultation }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(true);
+  const [desktopServicesOpen, setDesktopServicesOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [customService, setCustomService] = useState("");
   const [siteSettings, setSiteSettings] = useState(null);
+
+  const dropdownTimerRef = useRef(null);
+  const dropdownRef = useRef(null);
+
+  const handleServicesEnter = () => {
+    if (dropdownTimerRef.current) {
+      clearTimeout(dropdownTimerRef.current);
+      dropdownTimerRef.current = null;
+    }
+    setDesktopServicesOpen(true);
+  };
+
+  const handleServicesLeave = () => {
+    if (dropdownTimerRef.current) {
+      clearTimeout(dropdownTimerRef.current);
+    }
+    dropdownTimerRef.current = setTimeout(() => {
+      setDesktopServicesOpen(false);
+    }, 250);
+  };
+
+  // Close dropdown on route change
+  useEffect(() => {
+    setDesktopServicesOpen(false);
+  }, [pathname]);
+
+  // Close dropdown on outside click or Escape key
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDesktopServicesOpen(false);
+      }
+    };
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setDesktopServicesOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+      if (dropdownTimerRef.current) {
+        clearTimeout(dropdownTimerRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     fetch('/api/admin/settings/')
@@ -131,30 +180,58 @@ export default function Header({ onOpenConsultation }) {
                   Home
                 </Link>
               </li>
-              <li className={styles.hasDropdown}>
+              <li
+                ref={dropdownRef}
+                className={`${styles.hasDropdown} ${desktopServicesOpen ? styles.dropdownOpen : ""}`}
+                onMouseEnter={handleServicesEnter}
+                onMouseLeave={handleServicesLeave}
+              >
                 <button
                   type="button"
                   className={`${styles.navLink} ${pathname?.includes('automation') || pathname?.includes('curtain') || pathname?.includes('cinema') ? styles.navLinkActive : ''}`}
+                  onClick={() => setDesktopServicesOpen((prev) => !prev)}
+                  aria-expanded={desktopServicesOpen}
+                  aria-haspopup="true"
                 >
                   <span>Services</span>
                   <svg width="10" height="6" viewBox="0 0 10 6" fill="currentColor" className={styles.dropdownArrow}>
                     <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </button>
-                <div className={styles.dropdownMenu}>
-                  <Link href="/retro-fit-automation/" className={styles.dropdownItem}>
+                <div
+                  className={styles.dropdownMenu}
+                  onMouseEnter={handleServicesEnter}
+                  onMouseLeave={handleServicesLeave}
+                >
+                  <Link
+                    href="/retro-fit-automation/"
+                    className={`${styles.dropdownItem} ${pathname === '/retro-fit-automation/' ? styles.dropdownItemActive : ''}`}
+                    onClick={() => setDesktopServicesOpen(false)}
+                  >
                     <span className={styles.dropdownItemTitle}>Retro Fit Automation</span>
                     <span className={styles.dropdownItemDesc}>Wireless smart retrofitting without rewiring</span>
                   </Link>
-                  <Link href="/building-automation/" className={styles.dropdownItem}>
+                  <Link
+                    href="/building-automation/"
+                    className={`${styles.dropdownItem} ${pathname === '/building-automation/' ? styles.dropdownItemActive : ''}`}
+                    onClick={() => setDesktopServicesOpen(false)}
+                  >
                     <span className={styles.dropdownItemTitle}>Building Automation</span>
                     <span className={styles.dropdownItemDesc}>Commercial & villa centralized KNX control</span>
                   </Link>
-                  <Link href="/curtain-motor/" className={styles.dropdownItem}>
+                  <Link
+                    href="/curtain-motor/"
+                    className={`${styles.dropdownItem} ${pathname === '/curtain-motor/' ? styles.dropdownItemActive : ''}`}
+                    onClick={() => setDesktopServicesOpen(false)}
+                  >
                     <span className={styles.dropdownItemTitle}>Curtain Motor</span>
                     <span className={styles.dropdownItemDesc}>Motorized drape and blind automation</span>
                   </Link>
-                  <Link href="/home-cinema-audio-video/" className={styles.dropdownItem}>
+                  <Link
+                    href="/home-cinema-audio-video/"
+                    className={`${styles.dropdownItem} ${pathname === '/home-cinema-audio-video/' ? styles.dropdownItemActive : ''}`}
+                    onClick={() => setDesktopServicesOpen(false)}
+                  >
                     <span className={styles.dropdownItemTitle}>Home Cinema & AV</span>
                     <span className={styles.dropdownItemDesc}>Private Dolby Atmos theatres & multi-room audio</span>
                   </Link>

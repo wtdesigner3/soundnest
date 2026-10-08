@@ -136,21 +136,40 @@
   position: relative;
 }
 
+/* Invisible hover bridge extending downward and wider from the button */
+.hasDropdown::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: -50px;
+  right: -50px;
+  height: 24px;
+  background: transparent;
+  pointer-events: none;
+  z-index: 1009;
+}
+
+.hasDropdown:hover::after,
+.hasDropdown.dropdownOpen::after {
+  pointer-events: auto;
+}
+
 .dropdownArrow {
   transition: transform 0.25s ease;
   color: rgba(255, 255, 255, 0.6);
 }
 
-.hasDropdown:hover .dropdownArrow {
+.hasDropdown:hover .dropdownArrow,
+.hasDropdown.dropdownOpen .dropdownArrow {
   transform: rotate(180deg);
   color: var(--accent-gold);
 }
 
 .dropdownMenu {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 4px);
   left: 50%;
-  transform: translateX(-50%) translateY(14px);
+  transform: translateX(-50%) translateY(8px);
   width: 320px;
   background: rgba(14, 16, 24, 0.96);
   backdrop-filter: blur(28px);
@@ -162,19 +181,31 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.22s;
   display: flex;
   flex-direction: column;
   gap: 4px;
   z-index: 1010;
 }
 
+/* Invisible hover bridge on the dropdown menu extending upward towards the Services button */
+.dropdownMenu::before {
+  content: '';
+  position: absolute;
+  top: -24px;
+  left: -20px;
+  right: -20px;
+  height: 24px;
+  background: transparent;
+}
+
 .hasDropdown:hover .dropdownMenu,
-.dropdownMenu:hover {
+.dropdownMenu:hover,
+.hasDropdown.dropdownOpen .dropdownMenu {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translateX(-50%) translateY(6px);
+  transform: translateX(-50%) translateY(0);
 }
 
 .dropdownItem {
@@ -186,9 +217,14 @@
   text-decoration: none;
 }
 
-.dropdownItem:hover {
+.dropdownItem:hover,
+.dropdownItemActive {
   background: rgba(229, 184, 105, 0.12);
   transform: translateX(4px);
+}
+
+.dropdownItemActive {
+  border-left: 2px solid var(--accent-gold);
 }
 
 .dropdownItemTitle {
