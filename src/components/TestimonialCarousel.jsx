@@ -122,25 +122,6 @@ export default function TestimonialCarousel({ items = [] }) {
       aria-roledescription="carousel"
       aria-label="Customer Testimonials"
     >
-      {/* Floating Side Navigation Arrows */}
-      <button
-        type="button"
-        className={`${styles.sideNavBtn} ${styles.sidePrevBtn}`}
-        onClick={handlePrev}
-        aria-label="Previous testimonial slide"
-      >
-        <ChevronLeft size={22} />
-      </button>
-
-      <button
-        type="button"
-        className={`${styles.sideNavBtn} ${styles.sideNextBtn}`}
-        onClick={handleNext}
-        aria-label="Next testimonial slide"
-      >
-        <ChevronRight size={22} />
-      </button>
-
       <div
         className={styles.carouselViewport}
         onTouchStart={handleTouchStart}
