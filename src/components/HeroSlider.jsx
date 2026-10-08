@@ -13,7 +13,6 @@ import {
   MessageSquare,
   Sparkles,
   ShieldCheck,
-  CheckCircle2,
 } from "lucide-react";
 import { heroSlides, serviceTypes } from "@/data/homeData";
 import styles from "./HeroSlider.module.css";
@@ -257,10 +256,6 @@ export default function HeroSlider({ onOpenConsultation, slides = heroSlides }) 
             <div className={styles.cardAccentGlow} aria-hidden="true" />
 
             <div className={styles.formHeader}>
-              <div className={styles.formBadge}>
-                <span className={styles.badgeLiveDot} aria-hidden="true" />
-                <span>PRIORITY ACCESS • AVAILABLE TODAY</span>
-              </div>
               <h2 className={styles.formTitle}>Get a Free Quote</h2>
               <p className={styles.formSubtitle}>
                 Schedule your personalized smart home walkthrough
@@ -362,11 +357,6 @@ export default function HeroSlider({ onOpenConsultation, slides = heroSlides }) 
                   <span>{status.submitting ? "Submitting Request..." : "Request Free Consultation"}</span>
                   <ArrowRight size={16} />
                 </button>
-
-                <div className={styles.formReassurance}>
-                  <CheckCircle2 size={13} className={styles.reassuranceCheck} />
-                  <span>Complimentary Site Survey • Zero Obligation</span>
-                </div>
               </form>
             )}
           </div>
