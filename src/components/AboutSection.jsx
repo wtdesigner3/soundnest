@@ -1,15 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Phone, ShieldCheck, Cpu, Wifi, Film, Music, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Phone, ShieldCheck } from "lucide-react";
 import { aboutData, companyInfo } from "@/data/homeData";
 import styles from "./AboutSection.module.css";
-
-const domainPillars = [
-  { icon: Cpu, label: "KNX-Based Automation", sub: "Standardized protocols" },
-  { icon: Wifi, label: "Wireless Retro-Fit", sub: "Zero wall chipping" },
-  { icon: Film, label: "Private Home Theatres", sub: "Dolby Atmos 9.4.4" },
-  { icon: Music, label: "Multi-Room Audio", sub: "Audiophile streaming" },
-];
 
 export default function AboutSection({ onOpenConsultation, data = aboutData }) {
   const activeData = data || aboutData;
@@ -17,6 +10,9 @@ export default function AboutSection({ onOpenConsultation, data = aboutData }) {
     activeData.paragraphs && activeData.paragraphs.length > 0
       ? activeData.paragraphs
       : aboutData.paragraphs;
+
+  // The client requested removing the marked block (introductory lead paragraph and the 4 capability cards)
+  const visibleParagraphs = paragraphs.length > 1 ? paragraphs.slice(1) : paragraphs;
 
   return (
     <section className={styles.aboutSection} id="about-us" aria-label="About Soundnest">
@@ -64,7 +60,7 @@ export default function AboutSection({ onOpenConsultation, data = aboutData }) {
           </div>
         </div>
 
-        {/* Right Column: Architectural Narrative & Domain Grid */}
+        {/* Right Column: Architectural Narrative */}
         <div className={`${styles.contentWrapper} about-animate`}>
           <div className={styles.kickerBadge}>
             <span className={styles.badgePulse} aria-hidden="true" />
@@ -73,34 +69,9 @@ export default function AboutSection({ onOpenConsultation, data = aboutData }) {
 
           <h2 className={styles.title}>{activeData.title || aboutData.title}</h2>
 
-          {/* Lead Highlight Paragraph */}
-          {paragraphs.length > 0 && (
-            <p className={styles.leadParagraph}>
-              {paragraphs[0]}
-            </p>
-          )}
-
-          {/* 4 Core Domain Capabilities */}
-          <div className={styles.domainGrid}>
-            {domainPillars.map((domain, dIdx) => {
-              const IconComponent = domain.icon;
-              return (
-                <div key={dIdx} className={styles.domainCard}>
-                  <div className={styles.domainIconBox}>
-                    <IconComponent size={20} />
-                  </div>
-                  <div>
-                    <h3 className={styles.domainTitle}>{domain.label}</h3>
-                    <p className={styles.domainSub}>{domain.sub}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Remaining Story Paragraphs */}
+          {/* Story Paragraphs */}
           <div className={styles.paragraphs}>
-            {paragraphs.slice(1).map((p, idx) => (
+            {visibleParagraphs.map((p, idx) => (
               <p key={idx} className={styles.paragraph}>
                 {p}
               </p>
