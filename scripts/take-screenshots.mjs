@@ -44,6 +44,10 @@ async function capture() {
   console.log('Capturing desktop full page...');
   await page.screenshot({ path: path.join(outDir, 'nextjs_desktop_full_revealed.png'), fullPage: true });
 
+  // 1b. Capture Header + Hero viewport
+  console.log('Capturing Header + Hero viewport...');
+  await page.screenshot({ path: path.join(outDir, 'nextjs_hero_header.png') });
+
   // For individual section screenshots, temporarily hide the sticky header so it doesn't overlap section tops
   await page.evaluate(() => {
     const header = document.querySelector('header');

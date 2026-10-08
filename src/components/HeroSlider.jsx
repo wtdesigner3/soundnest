@@ -2,7 +2,19 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, ArrowRight, User, Mail, Phone, Layers, MessageSquare, Sparkles } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ArrowRight,
+  User,
+  Mail,
+  Phone,
+  Layers,
+  MessageSquare,
+  Sparkles,
+  ShieldCheck,
+  CheckCircle2,
+} from "lucide-react";
 import { heroSlides, serviceTypes } from "@/data/homeData";
 import styles from "./HeroSlider.module.css";
 
@@ -101,6 +113,20 @@ export default function HeroSlider({ onOpenConsultation, slides = heroSlides }) 
     }
   };
 
+  const renderStyledTitle = (title) => {
+    if (!title) return null;
+    if (title.includes(",")) {
+      const parts = title.split(",");
+      return (
+        <>
+          <span>{parts[0]},</span>{" "}
+          <span className={styles.goldGradientText}>{parts.slice(1).join(",").trim()}</span>
+        </>
+      );
+    }
+    return title;
+  };
+
   return (
     <section className={styles.heroSection} aria-label="Hero Showcase">
       {/* Background Slides */}
@@ -126,6 +152,7 @@ export default function HeroSlider({ onOpenConsultation, slides = heroSlides }) 
       {/* Cinematic Dual-layer Vignette & Ambient Radial Glow */}
       <div className={styles.overlay} />
       <div className={styles.ambientGlow} />
+      <div className={styles.ambientLightTop} />
 
       {/* Content Grid */}
       <div className={`container ${styles.heroContent}`}>
@@ -138,13 +165,30 @@ export default function HeroSlider({ onOpenConsultation, slides = heroSlides }) 
             </div>
 
             <h1 className={styles.title}>
-              {activeSlides[currentSlide]?.title}
+              {renderStyledTitle(activeSlides[currentSlide]?.title)}
             </h1>
 
             <p className={styles.description}>
               {activeSlides[currentSlide]?.description}
             </p>
 
+            {/* Luxury Trust Micro Pills */}
+            <div className={styles.trustPillsRow}>
+              <div className={styles.trustPill}>
+                <ShieldCheck size={14} className={styles.trustPillIcon} />
+                <span>KNX & CEDIA Certified</span>
+              </div>
+              <div className={styles.trustPill}>
+                <Sparkles size={14} className={styles.trustPillIcon} />
+                <span>Zero Wall Chipping</span>
+              </div>
+              <div className={styles.trustPill}>
+                <Layers size={14} className={styles.trustPillIcon} />
+                <span>Private Dolby Theatres</span>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
             <div className={styles.heroActions}>
               <button
                 type="button"
@@ -165,7 +209,7 @@ export default function HeroSlider({ onOpenConsultation, slides = heroSlides }) 
               </button>
             </div>
 
-            {/* Slider Controls with Numbered Progress */}
+            {/* Slider Controls with Numbered Progress & Dynamic Fill */}
             <div className={styles.sliderControls}>
               <div className={styles.slideCounter}>
                 <span className={styles.counterCurrent}>0{currentSlide + 1}</span>
@@ -210,10 +254,12 @@ export default function HeroSlider({ onOpenConsultation, slides = heroSlides }) 
 
           {/* Right Glassmorphism Form Card */}
           <div className={styles.formCard}>
+            <div className={styles.cardAccentGlow} aria-hidden="true" />
+
             <div className={styles.formHeader}>
               <div className={styles.formBadge}>
-                <Sparkles size={13} />
-                <span>PRIORITY ACCESS</span>
+                <span className={styles.badgeLiveDot} aria-hidden="true" />
+                <span>PRIORITY ACCESS • AVAILABLE TODAY</span>
               </div>
               <h2 className={styles.formTitle}>Get a Free Quote</h2>
               <p className={styles.formSubtitle}>
@@ -316,6 +362,11 @@ export default function HeroSlider({ onOpenConsultation, slides = heroSlides }) 
                   <span>{status.submitting ? "Submitting Request..." : "Request Free Consultation"}</span>
                   <ArrowRight size={16} />
                 </button>
+
+                <div className={styles.formReassurance}>
+                  <CheckCircle2 size={13} className={styles.reassuranceCheck} />
+                  <span>Complimentary Site Survey • Zero Obligation</span>
+                </div>
               </form>
             )}
           </div>
