@@ -9,12 +9,13 @@
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
-  padding-top: 130px; /* Offset fixed header */
+  padding-top: 86px;
+  /* Balanced offset below floating header */
 }
 
 /* Breadcrumbs */
 .breadcrumbNav {
-  padding: 1.25rem 2rem 0;
+  padding: 0.5rem 2rem 0.25rem;
   max-width: 1280px;
   margin: 0 auto;
 }
@@ -57,7 +58,7 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -76,12 +77,10 @@
 .heroOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(8, 8, 12, 0.58) 0%,
-    rgba(10, 10, 14, 0.30) 45%,
-    rgba(6, 6, 10, 0.62) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(8, 8, 12, 0.58) 0%,
+      rgba(10, 10, 14, 0.30) 45%,
+      rgba(6, 6, 10, 0.62) 100%);
 }
 
 .heroSection {
@@ -415,7 +414,8 @@
    Section Common
    ========================================================================== */
 .sectionWrapper {
-  padding: 5.5rem 2rem;
+  /* padding: 5.5rem 2rem; */
+  padding: 60px 2rem;
   position: relative;
 }
 
@@ -638,13 +638,11 @@
 .featureCardOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.05) 0%,
-    rgba(0, 0, 0, 0.2) 30%,
-    rgba(8, 8, 8, 0.78) 65%,
-    rgba(2, 2, 2, 0.94) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0.05) 0%,
+      rgba(0, 0, 0, 0.2) 30%,
+      rgba(8, 8, 8, 0.78) 65%,
+      rgba(2, 2, 2, 0.94) 100%);
   transition: background 0.4s ease;
 }
 
@@ -653,13 +651,11 @@
 }
 
 .featureCard:hover .featureCardOverlay {
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0.02) 0%,
-    rgba(0, 0, 0, 0.15) 30%,
-    rgba(8, 8, 8, 0.72) 65%,
-    rgba(2, 2, 2, 0.9) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0.02) 0%,
+      rgba(0, 0, 0, 0.15) 30%,
+      rgba(8, 8, 8, 0.72) 65%,
+      rgba(2, 2, 2, 0.9) 100%);
 }
 
 .featureCardContent {
@@ -841,6 +837,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -1022,7 +1019,11 @@
 
 @media (max-width: 768px) {
   .pageContainer {
-    padding-top: 100px;
+    padding-top: 76px;
+  }
+
+  .breadcrumbNav {
+    padding: 0.35rem 1rem 0.25rem;
   }
 
   .heroSection {

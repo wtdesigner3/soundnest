@@ -2,7 +2,7 @@
   background-color: #0c0d12;
   min-height: 100vh;
   padding-top: 140px;
-  padding-bottom: 90px;
+  /* padding-bottom: 90px; */
   color: #ffffff;
   position: relative;
   overflow-x: hidden;
@@ -432,7 +432,7 @@
 /* FAQ Section Wrap (Architectural Light Canvas) */
 .faqSectionWrap {
   background-color: #f8f9fc;
-  padding: 85px 0 95px 0;
+  padding: 60px 0 60px 0;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
   position: relative;
 }
@@ -495,4 +495,3 @@
 .faqContainerLight {
   margin-top: 24px;
 }
-
