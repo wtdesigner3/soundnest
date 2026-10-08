@@ -36,7 +36,7 @@ export default function Header({ onOpenConsultation }) {
       .then((data) => {
         if (data) setSiteSettings(data);
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   const currentPhone = siteSettings?.contact?.phone || companyInfo.phone;

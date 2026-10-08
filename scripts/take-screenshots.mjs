@@ -73,6 +73,12 @@ async function capture() {
     await testEl.screenshot({ path: path.join(outDir, 'nextjs_section_testimonials.png') });
   }
 
+  const ctaEl = await page.$('#cta-banner');
+  if (ctaEl) {
+    console.log('Capturing CTA banner section...');
+    await ctaEl.screenshot({ path: path.join(outDir, 'nextjs_section_cta.png') });
+  }
+
   const contactEl = await page.$('#contact');
   if (contactEl) {
     console.log('Capturing Contact section...');
