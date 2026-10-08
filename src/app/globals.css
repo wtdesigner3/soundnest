@@ -105,6 +105,21 @@ p {
   color: var(--text-secondary);
 }
 
+/* Editorial rich text typography on light background cards */
+.article-rich-text h1,
+.article-rich-text h2,
+.article-rich-text h3,
+.article-rich-text h4,
+.article-rich-text h5,
+.article-rich-text h6 {
+  color: #0e1017;
+}
+
+.article-rich-text p,
+.article-rich-text li {
+  color: #3b4252;
+}
+
 a {
   color: inherit;
   text-decoration: none;
