@@ -1,38 +1,56 @@
 .aboutSection {
-  background-color: #38393d;
-  padding: 100px 0;
+  background-color: #0d0f15;
+  padding: 120px 0;
   position: relative;
   overflow: hidden;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(229, 184, 105, 0.12);
+  border-bottom: 1px solid rgba(229, 184, 105, 0.12);
+}
+
+.ambientGlow {
+  position: absolute;
+  top: 30%;
+  left: -5%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(229, 184, 105, 0.08) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
 }
 
 .aboutGrid {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 60px;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 70px;
   align-items: center;
+  position: relative;
+  z-index: 2;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1040px) {
   .aboutGrid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 50px;
   }
 }
 
-/* Image Container */
-.imageWrapper {
+/* Left Column: Image Card with Floating Badges */
+.imageColumn {
   position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: transform 0.4s ease;
 }
 
-.imageWrapper:hover {
-  transform: translateY(-4px);
+.imageCard {
+  position: relative;
+  padding-bottom: 30px;
+}
+
+.imageWrapper {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(229, 184, 105, 0.25);
+  background: #151720;
 }
 
 .aboutImg {
@@ -40,11 +58,101 @@
   height: auto;
   display: block;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.imageWrapper:hover .aboutImg {
+.imageCard:hover .aboutImg {
   transform: scale(1.03);
+}
+
+.topBadge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(14, 16, 22, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(229, 184, 105, 0.35);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.badgeIcon {
+  color: var(--accent-gold);
+}
+
+/* Floating Stats Card (Overlapping bottom right of image) */
+.statsCard {
+  position: absolute;
+  bottom: 0;
+  right: -20px;
+  left: 20px;
+  background: rgba(18, 20, 28, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(229, 184, 105, 0.3);
+  border-radius: 20px;
+  padding: 20px 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 25px rgba(229, 184, 105, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 12px;
+  z-index: 3;
+}
+
+@media (max-width: 640px) {
+  .statsCard {
+    right: 0;
+    left: 0;
+    padding: 16px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.statNumber {
+  font-family: var(--font-heading);
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--accent-gold);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.statLabel {
+  font-size: 11px;
+  color: #c0c4ce;
+  font-weight: 500;
+  margin-top: 3px;
+  letter-spacing: 0.02em;
+}
+
+.statDivider {
+  width: 1px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+@media (max-width: 640px) {
+  .statDivider {
+    display: none;
+  }
 }
 
 /* Right Content */
@@ -53,49 +161,205 @@
   flex-direction: column;
 }
 
-.kicker {
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+.kickerBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(229, 184, 105, 0.1);
+  border: 1px solid rgba(229, 184, 105, 0.28);
+  color: var(--accent-gold);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 12px;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  margin-bottom: 18px;
+  align-self: flex-start;
+  backdrop-filter: blur(10px);
+}
+
+.badgePulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-gold);
+  box-shadow: 0 0 10px var(--accent-gold);
+  animation: pulseGlow 2s infinite ease-in-out;
 }
 
 .title {
-  font-size: 2.5rem;
-  font-weight: 500;
-  line-height: 1.25;
+  font-size: 2.85rem;
+  font-weight: 700;
+  line-height: 1.18;
   color: #ffffff;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
+  letter-spacing: -0.02em;
 }
 
 @media (max-width: 768px) {
   .title {
-    font-size: 1.95rem;
-    line-height: 1.3;
+    font-size: 2.15rem;
+    line-height: 1.25;
   }
 }
 
+.leadParagraph {
+  font-size: 1.12rem;
+  line-height: 1.7;
+  color: #e5e8f0;
+  font-weight: 400;
+  margin-bottom: 28px;
+  border-left: 3px solid var(--accent-gold);
+  padding-left: 18px;
+}
+
+/* 4 Domain Capability Cards */
+.domainGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+@media (max-width: 580px) {
+  .domainGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.domainCard {
+  background: rgba(22, 24, 34, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.25s ease;
+}
+
+.domainCard:hover {
+  background: rgba(229, 184, 105, 0.08);
+  border-color: rgba(229, 184, 105, 0.35);
+  transform: translateY(-2px);
+}
+
+.domainIconBox {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: rgba(229, 184, 105, 0.12);
+  border: 1px solid rgba(229, 184, 105, 0.25);
+  color: var(--accent-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.domainTitle {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.domainSub {
+  font-size: 11.5px;
+  color: #9aa1ad;
+  margin: 2px 0 0;
+}
+
+/* Remaining Narrative */
 .paragraphs {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
   margin-bottom: 34px;
 }
 
 .paragraph {
-  font-size: 15.5px;
-  line-height: 1.75;
-  color: rgba(255, 255, 255, 0.88);
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.78);
 }
 
-.paragraph strong {
-  color: #ffffff;
-  font-weight: 600;
-}
-
-.ctaWrapper {
+/* Actions Row */
+.ctaRow {
   display: flex;
   align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--gradient-gold);
+  color: #0c0d12;
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 14px 32px;
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+  box-shadow: var(--shadow-gold-soft);
+  text-decoration: none;
+}
+
+.primaryBtn:hover {
+  background: var(--gradient-gold-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold-glow);
+}
+
+.callBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 18px 8px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.callBadge:hover {
+  background: rgba(229, 184, 105, 0.1);
+  border-color: rgba(229, 184, 105, 0.35);
+  transform: translateY(-2px);
+}
+
+.callIconBox {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(229, 184, 105, 0.15);
+  color: var(--accent-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.callLabel {
+  display: block;
+  font-size: 11px;
+  color: #9aa1ad;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.callNumber {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #ffffff;
 }

@@ -1,9 +1,15 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { aboutData } from "@/data/homeData";
+import { ArrowRight, Phone, ShieldCheck, Cpu, Wifi, Film, Music, CheckCircle2 } from "lucide-react";
+import { aboutData, companyInfo } from "@/data/homeData";
 import styles from "./AboutSection.module.css";
+
+const domainPillars = [
+  { icon: Cpu, label: "KNX-Based Automation", sub: "Standardized protocols" },
+  { icon: Wifi, label: "Wireless Retro-Fit", sub: "Zero wall chipping" },
+  { icon: Film, label: "Private Home Theatres", sub: "Dolby Atmos 9.4.4" },
+  { icon: Music, label: "Multi-Room Audio", sub: "Audiophile streaming" },
+];
 
 export default function AboutSection({ onOpenConsultation, data = aboutData }) {
   const activeData = data || aboutData;
@@ -14,37 +20,99 @@ export default function AboutSection({ onOpenConsultation, data = aboutData }) {
 
   return (
     <section className={styles.aboutSection} id="about-us" aria-label="About Soundnest">
+      {/* Ambient background lighting */}
+      <div className={styles.ambientGlow} />
+
       <div className={`container ${styles.aboutGrid}`}>
-        {/* Left Image */}
-        <div className={`${styles.imageWrapper} about-animate`}>
-          <Image
-            src={activeData.image || aboutData.image}
-            alt="Best Home Automation Companies in India - Soundnest Smart Living"
-            width={650}
-            height={688}
-            className={styles.aboutImg}
-            loading="lazy"
-          />
+        {/* Left Column: Architectural Media Frame with Floating Stats */}
+        <div className={`${styles.imageColumn} about-animate`}>
+          <div className={styles.imageCard}>
+            <div className={styles.imageWrapper}>
+              <Image
+                src={activeData.image || aboutData.image}
+                alt="Best Home Automation Companies in India - Soundnest Smart Living"
+                width={700}
+                height={750}
+                className={styles.aboutImg}
+                priority
+              />
+            </div>
+
+            {/* Top Glass Badge */}
+            <div className={styles.topBadge}>
+              <ShieldCheck size={16} className={styles.badgeIcon} />
+              <span>Certified KNX & CEDIA Systems</span>
+            </div>
+
+            {/* Overlapping Floating Stats Card */}
+            <div className={styles.statsCard}>
+              <div className={styles.statItem}>
+                <span className={styles.statNumber}>10+</span>
+                <span className={styles.statLabel}>Years Industry Excellence</span>
+              </div>
+              <div className={styles.statDivider} />
+              <div className={styles.statItem}>
+                <span className={styles.statNumber}>500+</span>
+                <span className={styles.statLabel}>Luxury Homes Automated</span>
+              </div>
+              <div className={styles.statDivider} />
+              <div className={styles.statItem}>
+                <span className={styles.statNumber}>100%</span>
+                <span className={styles.statLabel}>Bespoke Engineering</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Right Content */}
+        {/* Right Column: Architectural Narrative & Domain Grid */}
         <div className={`${styles.contentWrapper} about-animate`}>
-          <span className={styles.kicker}>{activeData.kicker || aboutData.kicker}</span>
-          <h1 className={styles.title}>{activeData.title || aboutData.title}</h1>
+          <div className={styles.kickerBadge}>
+            <span className={styles.badgePulse} aria-hidden="true" />
+            <span>{activeData.kicker || aboutData.kicker}</span>
+          </div>
 
+          <h2 className={styles.title}>{activeData.title || aboutData.title}</h2>
+
+          {/* Lead Highlight Paragraph */}
+          {paragraphs.length > 0 && (
+            <p className={styles.leadParagraph}>
+              {paragraphs[0]}
+            </p>
+          )}
+
+          {/* 4 Core Domain Capabilities */}
+          <div className={styles.domainGrid}>
+            {domainPillars.map((domain, dIdx) => {
+              const IconComponent = domain.icon;
+              return (
+                <div key={dIdx} className={styles.domainCard}>
+                  <div className={styles.domainIconBox}>
+                    <IconComponent size={20} />
+                  </div>
+                  <div>
+                    <h3 className={styles.domainTitle}>{domain.label}</h3>
+                    <p className={styles.domainSub}>{domain.sub}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Remaining Story Paragraphs */}
           <div className={styles.paragraphs}>
-            {paragraphs.map((p, idx) => (
+            {paragraphs.slice(1).map((p, idx) => (
               <p key={idx} className={styles.paragraph}>
                 {p}
               </p>
             ))}
           </div>
 
-          <div className={styles.ctaWrapper}>
+          {/* Action Row */}
+          <div className={styles.ctaRow}>
             <Link
               href={activeData.ctaLink || aboutData.ctaLink || '/contact-us/'}
               title="Contact Us"
-              className="btn-pill-white"
+              className={styles.primaryBtn}
               onClick={(e) => {
                 if (onOpenConsultation) {
                   e.preventDefault();
@@ -52,8 +120,23 @@ export default function AboutSection({ onOpenConsultation, data = aboutData }) {
                 }
               }}
             >
-              {activeData.ctaText || aboutData.ctaText}
+              <span>{activeData.ctaText || aboutData.ctaText}</span>
+              <ArrowRight size={17} />
             </Link>
+
+            <a
+              href={`tel:${companyInfo.phoneRaw}`}
+              className={styles.callBadge}
+              title={`Call ${companyInfo.name}`}
+            >
+              <div className={styles.callIconBox}>
+                <Phone size={16} />
+              </div>
+              <div>
+                <span className={styles.callLabel}>Speak to an Engineer</span>
+                <span className={styles.callNumber}>{companyInfo.phone}</span>
+              </div>
+            </a>
           </div>
         </div>
       </div>

@@ -15,10 +15,10 @@ async function capture() {
 
   console.log('Navigating to http://localhost:3000...');
   await page.goto('http://localhost:3000', { waitUntil: 'networkidle2' });
-  await new Promise(r => setTimeout(r, 1500));
+  await new Promise(r => setTimeout(r, 1000));
 
-  // Scroll down smoothly through the page to trigger all GSAP ScrollTriggers
-  console.log('Scrolling through page to trigger animations...');
+  // Scroll down smoothly through the page to trigger all GSAP ScrollTriggers and image loads
+  console.log('Scrolling through page to trigger animations & load assets...');
   await page.evaluate(async () => {
     await new Promise((resolve) => {
       let totalHeight = 0;
@@ -37,39 +37,48 @@ async function capture() {
     });
   });
 
-  await new Promise(r => setTimeout(r, 1500));
+  // Short pause for settle
+  await new Promise(r => setTimeout(r, 2000));
 
   // 1. Desktop Full Page
   console.log('Capturing desktop full page...');
   await page.screenshot({ path: path.join(outDir, 'nextjs_desktop_full_revealed.png'), fullPage: true });
 
+  // For individual section screenshots, temporarily hide the sticky header so it doesn't overlap section tops
+  await page.evaluate(() => {
+    const header = document.querySelector('header');
+    if (header) header.style.display = 'none';
+  });
+
   // 2. Section by section screenshots:
-  // About Us
   const aboutEl = await page.$('#about-us');
   if (aboutEl) {
     console.log('Capturing About section...');
     await aboutEl.screenshot({ path: path.join(outDir, 'nextjs_section_about.png') });
   }
 
-  // Services
   const servicesEl = await page.$('#services');
   if (servicesEl) {
     console.log('Capturing Services section...');
     await servicesEl.screenshot({ path: path.join(outDir, 'nextjs_section_services.png') });
   }
 
-  // Testimonials
   const testEl = await page.$('#testimonials');
   if (testEl) {
     console.log('Capturing Testimonials section...');
     await testEl.screenshot({ path: path.join(outDir, 'nextjs_section_testimonials.png') });
   }
 
-  // Contact
   const contactEl = await page.$('#contact');
   if (contactEl) {
     console.log('Capturing Contact section...');
     await contactEl.screenshot({ path: path.join(outDir, 'nextjs_section_contact.png') });
+  }
+
+  const footerEl = await page.$('footer');
+  if (footerEl) {
+    console.log('Capturing Footer section...');
+    await footerEl.screenshot({ path: path.join(outDir, 'nextjs_section_footer.png') });
   }
 
   await browser.close();

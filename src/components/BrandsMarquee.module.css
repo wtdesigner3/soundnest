@@ -1,26 +1,66 @@
 .brandsSection {
-  background-color: #38393d;
-  padding: 60px 0 70px;
+  background-color: #0d0f15;
+  padding: 90px 0 100px;
   overflow: hidden;
   position: relative;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(229, 184, 105, 0.12);
+  border-bottom: 1px solid rgba(229, 184, 105, 0.12);
 }
 
 .headerWrapper {
   text-align: center;
-  margin-bottom: 40px;
+  max-width: 720px;
+  margin: 0 auto 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.kickerBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(229, 184, 105, 0.1);
+  border: 1px solid rgba(229, 184, 105, 0.28);
+  color: var(--accent-gold);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  margin-bottom: 16px;
+  backdrop-filter: blur(10px);
+}
+
+.badgePulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-gold);
+  box-shadow: 0 0 10px var(--accent-gold);
+  animation: pulseGlow 2s infinite ease-in-out;
 }
 
 .title {
-  font-size: 2.25rem;
-  font-weight: 400;
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1.18;
   color: #ffffff;
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
 }
 
 @media (max-width: 768px) {
   .title {
-    font-size: 1.85rem;
+    font-size: 2rem;
   }
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #9aa1ad;
+  line-height: 1.6;
 }
 
 /* Marquee Track */
@@ -29,6 +69,12 @@
   overflow: hidden;
   display: flex;
   user-select: none;
+  background: rgba(16, 18, 25, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 24px 0;
   mask-image: linear-gradient(
     to right,
     rgba(0, 0, 0, 0) 0%,
@@ -48,7 +94,7 @@
 .marqueeTrack {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
   animation: scrollMarquee 38s linear infinite;
   min-width: max-content;
 }
@@ -67,32 +113,41 @@
 }
 
 .brandCard {
-  background-color: #ffffff;
+  background: #ffffff;
+  border: 1px solid rgba(229, 184, 105, 0.35);
   border-radius: 12px;
-  width: 210px;
-  height: 82px;
+  padding: 10px 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
 .brandCard:hover {
-  transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+  background: #ffffff;
+  border-color: var(--accent-gold);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4), 0 0 16px rgba(229, 184, 105, 0.3);
+}
+
+.brandImgWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 130px;
+  height: 44px;
 }
 
 .brandImg {
   max-width: 100%;
   max-height: 100%;
+  width: auto;
+  height: auto;
   object-fit: contain;
-  filter: grayscale(15%);
-  transition: filter 0.25s ease;
+  transition: transform 0.3s ease;
 }
 
 .brandCard:hover .brandImg {
-  filter: grayscale(0%);
+  transform: scale(1.05);
 }

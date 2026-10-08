@@ -1,13 +1,15 @@
 .ctaSection {
   position: relative;
-  min-height: 480px;
+  min-height: 520px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 100px 24px;
+  padding: 120px 24px;
   overflow: hidden;
-  background-color: #1a1b1e;
+  background-color: #0c0d12;
+  border-top: 1px solid rgba(229, 184, 105, 0.15);
+  border-bottom: 1px solid rgba(229, 184, 105, 0.15);
 }
 
 .bgImage {
@@ -23,36 +25,165 @@
 .overlay {
   position: absolute;
   inset: 0;
-  background: rgba(18, 19, 23, 0.68);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+  background: radial-gradient(
+    circle at center,
+    rgba(12, 13, 18, 0.75) 0%,
+    rgba(10, 11, 15, 0.92) 75%
+  );
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   z-index: 2;
+}
+
+.ambientGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(229, 184, 105, 0.15) 0%, transparent 65%);
+  filter: blur(60px);
+  z-index: 3;
+  pointer-events: none;
 }
 
 .content {
   position: relative;
-  z-index: 3;
-  max-width: 800px;
+  z-index: 4;
+  max-width: 860px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.kickerBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(229, 184, 105, 0.12);
+  border: 1px solid rgba(229, 184, 105, 0.3);
+  color: var(--accent-gold);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  margin-bottom: 22px;
+  backdrop-filter: blur(12px);
+}
+
+.badgePulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-gold);
+  box-shadow: 0 0 10px var(--accent-gold);
+  animation: pulseGlow 2s infinite ease-in-out;
 }
 
 .title {
-  font-size: 2.65rem;
-  font-weight: 500;
-  line-height: 1.35;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.25;
   color: #ffffff;
-  margin-bottom: 34px;
-  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  margin-bottom: 26px;
+  letter-spacing: -0.02em;
+  text-shadow: 0 6px 30px rgba(0, 0, 0, 0.8);
 }
 
 @media (max-width: 768px) {
   .title {
-    font-size: 1.85rem;
-    margin-bottom: 24px;
+    font-size: 2.15rem;
+    line-height: 1.3;
   }
+}
+
+.valueRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 38px;
+}
+
+.valueItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  color: #d1d5db;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(10px);
+}
+
+.checkIcon {
+  color: var(--accent-gold);
 }
 
 .ctaBtnWrapper {
   display: flex;
+  align-items: center;
   justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--gradient-gold);
+  color: #0c0d12;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 15px 36px;
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+  box-shadow: var(--shadow-gold-glow);
+  text-decoration: none;
+}
+
+.primaryBtn:hover {
+  background: var(--gradient-gold-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(229, 184, 105, 0.45);
+}
+
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 14px 30px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all var(--transition-smooth);
+  text-decoration: none;
+}
+
+.secondaryBtn:hover {
+  background: rgba(37, 211, 102, 0.15);
+  border-color: rgba(37, 211, 102, 0.5);
+  color: #4ade80;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }

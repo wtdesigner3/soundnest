@@ -1,103 +1,275 @@
 .footer {
-  background-color: #0b0c0e;
+  position: relative;
+  background: #08090c;
   color: #ffffff;
-  padding-top: 60px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 80px;
+  overflow: hidden;
+  border-top: 1px solid rgba(229, 184, 105, 0.2);
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(229, 184, 105, 0.6), transparent);
 }
 
 .mainFooter {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 40px;
+  grid-template-columns: 1.4fr 1fr 0.9fr 1.3fr;
+  gap: 48px;
   align-items: flex-start;
-  padding-bottom: 50px;
+  padding-bottom: 60px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
   .mainFooter {
-    grid-template-columns: 1fr;
-    gap: 30px;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
   }
 }
 
-.title {
-  font-size: 1.45rem;
-  font-weight: 500;
+@media (max-width: 640px) {
+  .mainFooter {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding-bottom: 40px;
+  }
+}
+
+/* Column 1: Brand & Bio */
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.logoLink {
+  display: inline-block;
+  transition: opacity 0.3s ease;
+}
+
+.logoLink:hover {
+  opacity: 0.88;
+}
+
+.logoImg {
+  width: auto;
+  height: 38px;
+  object-fit: contain;
+}
+
+.brandBio {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+  max-width: 360px;
+}
+
+.socialRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.socialBtn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.85);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.socialBtn:hover {
+  background: rgba(229, 184, 105, 0.15);
+  border-color: rgba(229, 184, 105, 0.5);
+  color: #e5b869;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(229, 184, 105, 0.2);
+}
+
+/* Titles */
+.colTitle {
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  color: #e5b869;
+  margin-bottom: 24px;
+  position: relative;
+  display: inline-block;
+}
+
+.colTitle::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 24px;
+  height: 2px;
+  background: #e5b869;
+  border-radius: 2px;
+}
+
+/* Columns 2 & 3: Links */
+.linksCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.linksList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.linksList li a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.linkArrow {
+  color: rgba(229, 184, 105, 0.5);
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.linksList li a:hover {
   color: #ffffff;
-  margin-bottom: 22px;
+  transform: translateX(4px);
+}
+
+.linksList li a:hover .linkArrow {
+  color: #e5b869;
+  transform: translateX(3px);
+}
+
+/* Column 4: Contact & Studio */
+.contactCol {
+  display: flex;
+  flex-direction: column;
 }
 
 .contactList {
   list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 }
 
 .contactItem {
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 15px;
-  line-height: 1.6;
 }
 
-.icon {
-  width: 18px;
-  height: 18px;
-  color: #ffffff;
-  flex-shrink: 0;
-  margin-top: 3px;
-}
-
-.contactItem a {
-  color: rgba(255, 255, 255, 0.9);
-  transition: color 0.2s ease;
-}
-
-.contactItem a:hover {
-  color: #ffffff;
-  text-decoration: underline;
-}
-
-.socialWrapper {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-@media (max-width: 768px) {
-  .socialWrapper {
-    justify-content: flex-start;
-  }
-}
-
-.socialLink {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+.iconBox {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(229, 184, 105, 0.08);
+  border: 1px solid rgba(229, 184, 105, 0.2);
+  color: #e5b869;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
+  flex-shrink: 0;
   transition: all 0.25s ease;
 }
 
-.socialLink:hover {
-  background: #e1306c; /* Instagram brand color on hover */
-  border-color: #e1306c;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(225, 48, 108, 0.4);
+.contactItem:hover .iconBox {
+  background: rgba(229, 184, 105, 0.16);
+  border-color: rgba(229, 184, 105, 0.4);
+  transform: scale(1.05);
 }
 
+.contactItemLabel {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 2px;
+}
+
+.contactItemVal {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a.contactItemVal:hover {
+  color: #e5b869;
+  text-decoration: none;
+}
+
+/* Bottom Bar */
 .copyrightBar {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
   padding: 24px 0;
-  text-align: center;
-  font-size: 13.5px;
-  letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 640px) {
+  .copyrightBar {
+    flex-direction: column;
+    text-align: center;
+    gap: 14px;
+  }
+}
+
+.copyrightText {
+  margin: 0;
+}
+
+.backToTopBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.75);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.backToTopBtn:hover {
+  background: rgba(229, 184, 105, 0.12);
+  border-color: rgba(229, 184, 105, 0.4);
+  color: #e5b869;
+  transform: translateY(-2px);
 }

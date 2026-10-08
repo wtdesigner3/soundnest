@@ -113,25 +113,90 @@ export default function Header({ onOpenConsultation }) {
             <Link href="/" className={styles.logoLink} aria-label={`${currentSiteName} Home`}>
               <Image
                 src={currentLogo}
-                alt={`${currentSiteName} - Home Automation`}
-                width={240}
-                height={42}
+                alt={`${currentSiteName} - Luxury Smart Home Automation`}
+                width={220}
+                height={38}
                 priority
                 className={styles.logoImg}
               />
             </Link>
           </div>
 
-          {/* Right Navigation Controls */}
+          {/* Desktop Center Navigation */}
+          <nav className={styles.desktopNav} aria-label="Main Navigation">
+            <ul className={styles.desktopNavList}>
+              <li>
+                <Link href="/" className={`${styles.navLink} ${pathname === '/' ? styles.navLinkActive : ''}`}>
+                  Home
+                </Link>
+              </li>
+              <li className={styles.hasDropdown}>
+                <button
+                  type="button"
+                  className={`${styles.navLink} ${pathname?.includes('automation') || pathname?.includes('curtain') || pathname?.includes('cinema') ? styles.navLinkActive : ''}`}
+                >
+                  <span>Services</span>
+                  <svg width="10" height="6" viewBox="0 0 10 6" fill="currentColor" className={styles.dropdownArrow}>
+                    <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+                <div className={styles.dropdownMenu}>
+                  <Link href="/retro-fit-automation/" className={styles.dropdownItem}>
+                    <span className={styles.dropdownItemTitle}>Retro Fit Automation</span>
+                    <span className={styles.dropdownItemDesc}>Wireless smart retrofitting without rewiring</span>
+                  </Link>
+                  <Link href="/building-automation/" className={styles.dropdownItem}>
+                    <span className={styles.dropdownItemTitle}>Building Automation</span>
+                    <span className={styles.dropdownItemDesc}>Commercial & villa centralized KNX control</span>
+                  </Link>
+                  <Link href="/curtain-motor/" className={styles.dropdownItem}>
+                    <span className={styles.dropdownItemTitle}>Curtain Motor</span>
+                    <span className={styles.dropdownItemDesc}>Motorized drape and blind automation</span>
+                  </Link>
+                  <Link href="/home-cinema-audio-video/" className={styles.dropdownItem}>
+                    <span className={styles.dropdownItemTitle}>Home Cinema & AV</span>
+                    <span className={styles.dropdownItemDesc}>Private Dolby Atmos theatres & multi-room audio</span>
+                  </Link>
+                </div>
+              </li>
+              <li>
+                <Link href="/#about-us" className={styles.navLink}>
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/" className={`${styles.navLink} ${pathname?.startsWith('/blog') ? styles.navLinkActive : ''}`}>
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact-us/" className={`${styles.navLink} ${pathname === '/contact-us/' ? styles.navLinkActive : ''}`}>
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </nav>
+
+          {/* Right Controls: Phone, Consultation CTA & Menu Hamburger */}
           <div className={styles.navRight}>
             <a
               href={`tel:${currentPhoneRaw}`}
               className={styles.phoneLink}
               title={`Call ${currentSiteName}`}
             >
+              <span className={styles.phoneDot} aria-hidden="true" />
               <Phone className={styles.phoneIcon} />
               <span>{currentPhone}</span>
             </a>
+
+            <button
+              type="button"
+              className={styles.headerCtaBtn}
+              onClick={handleConsultationClick}
+              id="header-consultation-btn"
+            >
+              <span>Book Consultation</span>
+            </button>
 
             <button
               type="button"
@@ -144,7 +209,7 @@ export default function Header({ onOpenConsultation }) {
                 <span className={styles.burgerLine}></span>
                 <span className={styles.burgerLine}></span>
               </span>
-              <span>Menu</span>
+              <span className={styles.menuBtnText}>Menu</span>
             </button>
           </div>
         </div>

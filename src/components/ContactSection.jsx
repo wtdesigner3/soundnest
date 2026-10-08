@@ -1,8 +1,7 @@
-"use client";
-
 import { useState } from "react";
 import Image from "next/image";
-import { contactSectionData, serviceTypes } from "@/data/homeData";
+import { User, Mail, Phone, MapPin, Clock, Layers, MessageSquare, ArrowRight, Sparkles } from "lucide-react";
+import { contactSectionData, serviceTypes, companyInfo } from "@/data/homeData";
 import styles from "./ContactSection.module.css";
 
 export default function ContactSection({ data = contactSectionData }) {
@@ -64,30 +63,97 @@ export default function ContactSection({ data = contactSectionData }) {
 
   return (
     <section className={styles.contactSection} id="contact" aria-label="Contact Soundnest">
+      <div className={styles.ambientGlow} />
+
       <div className="container">
         <div className={styles.grid}>
-          {/* Left Column: Heading, Subtitle & Home Cinema Demo Visual */}
+          {/* Left Column: Heading, Cinema Demo Visual & Direct Studio Details */}
           <div className={`${styles.leftColumn} contact-animate`}>
+            <div className={styles.kickerBadge}>
+              <span className={styles.badgePulse} aria-hidden="true" />
+              <span>EXPERIENCE STUDIO</span>
+            </div>
+
             <h2 className={styles.title}>{activeData.title || contactSectionData.title}</h2>
             <p className={styles.subtitle}>{activeData.subtitle || contactSectionData.subtitle}</p>
 
-            <div className={styles.imageWrapper}>
-              <Image
-                src={activeData.image || contactSectionData.image}
-                alt="Soundnest Home Cinema Audio Video Demo Setup"
-                width={700}
-                height={400}
-                className={styles.demoImg}
-                loading="lazy"
-              />
+            <div className={styles.imageCard}>
+              <div className={styles.imageWrapper}>
+                <Image
+                  src={activeData.image || contactSectionData.image}
+                  alt="Soundnest Home Cinema Audio Video Demo Setup"
+                  width={700}
+                  height={420}
+                  className={styles.demoImg}
+                  priority
+                />
+              </div>
+              <div className={styles.demoBadge}>
+                <Sparkles size={14} className={styles.demoBadgeIcon} />
+                <span>Private 4K HDR & Dolby Atmos Lounge</span>
+              </div>
+            </div>
+
+            {/* Quick Contact Chips Grid */}
+            <div className={styles.contactChipsGrid}>
+              <a href={`tel:${companyInfo.phoneRaw}`} className={styles.contactChip}>
+                <div className={styles.chipIconBox}>
+                  <Phone size={16} />
+                </div>
+                <div>
+                  <span className={styles.chipLabel}>Direct Phone</span>
+                  <span className={styles.chipValue}>{companyInfo.phone}</span>
+                </div>
+              </a>
+
+              <a href={`mailto:${companyInfo.email}`} className={styles.contactChip}>
+                <div className={styles.chipIconBox}>
+                  <Mail size={16} />
+                </div>
+                <div>
+                  <span className={styles.chipLabel}>Email Studio</span>
+                  <span className={styles.chipValue}>{companyInfo.email}</span>
+                </div>
+              </a>
+
+              <div className={styles.contactChip}>
+                <div className={styles.chipIconBox}>
+                  <MapPin size={16} />
+                </div>
+                <div>
+                  <span className={styles.chipLabel}>Delhi Experience Centre</span>
+                  <span className={styles.chipValue}>{companyInfo.address}</span>
+                </div>
+              </div>
+
+              <div className={styles.contactChip}>
+                <div className={styles.chipIconBox}>
+                  <Clock size={16} />
+                </div>
+                <div>
+                  <span className={styles.chipLabel}>Consultation Hours</span>
+                  <span className={styles.chipValue}>Mon - Sat: 10:00 AM - 7:00 PM</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Right Column: Contact Form */}
+          {/* Right Column: Luxury Glassmorphic Contact Form */}
           <div className={`${styles.rightColumn} contact-animate`}>
+            <div className={styles.formHeader}>
+              <h3 className={styles.formTitle}>Schedule Your Demo</h3>
+              <p className={styles.formSubtitle}>
+                Our senior automation consultants will tailor a private walkthrough for your residence.
+              </p>
+            </div>
+
             {status.success ? (
               <div className={styles.successAlert}>
-                <strong>Thank you!</strong> Your message has been sent successfully. Our automation specialists will reach out to you shortly to schedule your demo.
+                <div className={styles.successIcon}>✓</div>
+                <div>
+                  <strong>Demo Request Received!</strong>
+                  <p>Our automation specialists will reach out to you within 2 business hours.</p>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className={styles.form} noValidate>
@@ -95,46 +161,50 @@ export default function ContactSection({ data = contactSectionData }) {
                   <div className={styles.errorAlert}>{status.error}</div>
                 )}
 
-                <div className={styles.formGroup}>
+                <div className={styles.inputWrapper}>
+                  <User size={16} className={styles.inputIcon} />
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder="Name"
+                    placeholder="Full Name *"
                     required
                     className={styles.inputField}
                     aria-label="Name"
                   />
                 </div>
 
-                <div className={styles.formGroup}>
+                <div className={styles.inputWrapper}>
+                  <Mail size={16} className={styles.inputIcon} />
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="Email"
+                    placeholder="Email Address *"
                     required
                     className={styles.inputField}
                     aria-label="Email"
                   />
                 </div>
 
-                <div className={styles.formGroup}>
+                <div className={styles.inputWrapper}>
+                  <Phone size={16} className={styles.inputIcon} />
                   <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="Phone"
+                    placeholder="Phone Number *"
                     required
                     className={styles.inputField}
                     aria-label="Phone"
                   />
                 </div>
 
-                <div className={styles.formGroup}>
+                <div className={styles.inputWrapper}>
+                  <Layers size={16} className={styles.inputIcon} />
                   <select
                     name="serviceType"
                     value={formData.serviceType}
@@ -151,12 +221,13 @@ export default function ContactSection({ data = contactSectionData }) {
                   </select>
                 </div>
 
-                <div className={styles.formGroup}>
+                <div className={styles.inputWrapper}>
+                  <MessageSquare size={16} className={`${styles.inputIcon} ${styles.textareaIcon}`} />
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Message"
+                    placeholder="Tell us about your project, timeline, and requirements..."
                     rows={4}
                     className={styles.textareaField}
                     aria-label="Message"
@@ -168,7 +239,8 @@ export default function ContactSection({ data = contactSectionData }) {
                   disabled={status.submitting}
                   className={styles.submitBtn}
                 >
-                  {status.submitting ? "Submitting..." : "Submit"}
+                  <span>{status.submitting ? "Booking Demo..." : "Confirm Demo Request"}</span>
+                  <ArrowRight size={16} />
                 </button>
               </form>
             )}

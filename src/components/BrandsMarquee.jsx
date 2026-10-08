@@ -13,7 +13,14 @@ export default function BrandsMarquee({ brands = brandsList }) {
     <section className={styles.brandsSection} aria-label="Brands We Deal In">
       <div className="container">
         <div className={styles.headerWrapper}>
-          <h2 className={styles.title}>Brands we deal in</h2>
+          <div className={styles.kickerBadge}>
+            <span className={styles.badgePulse} aria-hidden="true" />
+            <span>AUTHORIZED PARTNERS</span>
+          </div>
+          <h2 className={styles.title}>Brands We Deal In</h2>
+          <p className={styles.subtitle}>
+            Soundnest is an authorized systems integrator for premier global audio, cinema, and automation manufacturers.
+          </p>
         </div>
       </div>
 
@@ -21,14 +28,16 @@ export default function BrandsMarquee({ brands = brandsList }) {
         <div className={styles.marqueeTrack}>
           {duplicatedBrands.map((brand, idx) => (
             <div key={idx} className={styles.brandCard}>
-              <Image
-                src={brand.image}
-                alt={`Soundnest Partner Brand ${idx + 1}`}
-                width={170}
-                height={60}
-                className={styles.brandImg}
-                loading="lazy"
-              />
+              <div className={styles.brandImgWrapper}>
+                <Image
+                  src={brand.image}
+                  alt={brand.name || `Authorized Partner Brand ${idx + 1}`}
+                  width={150}
+                  height={50}
+                  className={styles.brandImg}
+                  loading="lazy"
+                />
+              </div>
             </div>
           ))}
         </div>

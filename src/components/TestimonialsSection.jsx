@@ -1,7 +1,5 @@
-"use client";
-
 import Image from "next/image";
-import { Star } from "lucide-react";
+import { Star, CheckCircle2, Quote } from "lucide-react";
 import { testimonialsData } from "@/data/homeData";
 import styles from "./TestimonialsSection.module.css";
 
@@ -11,42 +9,68 @@ export default function TestimonialsSection({ data = testimonialsData }) {
 
   return (
     <section className={styles.testimonialsSection} id="testimonials" aria-label="Customer Reviews">
+      <div className={styles.ambientGlow} />
+
       <div className="container">
-        {/* Header */}
+        {/* Header with Trust Rating */}
         <div className={styles.headerWrapper}>
-          <span className={styles.kicker}>{activeData.kicker || testimonialsData.kicker}</span>
+          <div className={styles.kickerBadge}>
+            <span className={styles.badgePulse} aria-hidden="true" />
+            <span>{activeData.kicker || testimonialsData.kicker}</span>
+          </div>
+
           <h2 className={styles.title}>{activeData.title || testimonialsData.title}</h2>
+          
+          <div className={styles.trustBar}>
+            <div className={styles.trustStars} aria-label="5 stars rating">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} size={15} className={styles.starFilled} />
+              ))}
+            </div>
+            <span className={styles.trustText}>
+              4.9 / 5 Rating across 200+ Smart Home Integrations
+            </span>
+          </div>
         </div>
 
-        {/* Review Cards */}
+        {/* Review Cards Grid */}
         <div className={styles.grid}>
           {items.map((item, idx) => (
             <div key={item.id || idx} className={styles.card}>
+              <div className={styles.cardGlowTop} aria-hidden="true" />
+
               <div className={styles.topRow}>
-                <span className={styles.quoteIcon}>“</span>
-                <div className={styles.stars} aria-label="5 stars rating">
-                  {[...Array(item.rating)].map((_, i) => (
-                    <Star key={i} size={17} className={styles.starFilled} />
+                <div className={styles.quoteIconBox}>
+                  <Quote size={22} className={styles.quoteIcon} />
+                </div>
+                <div className={styles.stars} aria-label={`${item.rating || 5} stars rating`}>
+                  {[...Array(item.rating || 5)].map((_, i) => (
+                    <Star key={i} size={15} className={styles.starFilled} />
                   ))}
                 </div>
               </div>
 
               <blockquote className={styles.quote}>
-                {item.quote}
+                &ldquo;{item.quote}&rdquo;
               </blockquote>
 
               <footer className={styles.authorRow}>
-                <Image
-                  src={item.avatar}
-                  alt={item.author}
-                  width={46}
-                  height={46}
-                  className={styles.avatarImg}
-                  loading="lazy"
-                />
-                <div>
+                <div className={styles.avatarWrapper}>
+                  <Image
+                    src={item.avatar}
+                    alt={item.author}
+                    width={48}
+                    height={48}
+                    className={styles.avatarImg}
+                    loading="lazy"
+                  />
+                </div>
+                <div className={styles.authorMeta}>
                   <div className={styles.authorName}>{item.author}</div>
-                  <div className={styles.verifiedBadge}>Verified Customer</div>
+                  <div className={styles.verifiedBadge}>
+                    <CheckCircle2 size={13} className={styles.checkIcon} />
+                    <span>Verified Client</span>
+                  </div>
                 </div>
               </footer>
             </div>

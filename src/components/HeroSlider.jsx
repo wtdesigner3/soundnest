@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { ChevronLeft, ChevronRight, ArrowRight, User, Mail, Phone, Layers, MessageSquare, Sparkles } from "lucide-react";
 import { heroSlides, serviceTypes } from "@/data/homeData";
 import styles from "./HeroSlider.module.css";
 
@@ -22,7 +23,7 @@ export default function HeroSlider({ onOpenConsultation, slides = heroSlides }) 
   useEffect(() => {
     timerRef.current = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
-    }, 6000);
+    }, 6500);
 
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
@@ -35,8 +36,16 @@ export default function HeroSlider({ onOpenConsultation, slides = heroSlides }) 
       clearInterval(timerRef.current);
       timerRef.current = setInterval(() => {
         setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
-      }, 6000);
+      }, 6500);
     }
+  };
+
+  const nextSlide = () => {
+    goToSlide((currentSlide + 1) % activeSlides.length);
+  };
+
+  const prevSlide = () => {
+    goToSlide((currentSlide - 1 + activeSlides.length) % activeSlides.length);
   };
 
   const handleInputChange = (e) => {
@@ -85,6 +94,13 @@ export default function HeroSlider({ onOpenConsultation, slides = heroSlides }) 
     }
   };
 
+  const scrollToServices = () => {
+    const el = document.getElementById("services");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section className={styles.heroSection} aria-label="Hero Showcase">
       {/* Background Slides */}
@@ -97,7 +113,7 @@ export default function HeroSlider({ onOpenConsultation, slides = heroSlides }) 
           >
             <Image
               src={slide.image}
-              alt="Soundnest Smart Home Automation Solutions"
+              alt="Soundnest Luxury Smart Home Automation"
               fill
               priority={idx === 0}
               className={styles.slideImage}
@@ -107,37 +123,99 @@ export default function HeroSlider({ onOpenConsultation, slides = heroSlides }) 
         ))}
       </div>
 
-      {/* Dark Ambient Overlay */}
+      {/* Cinematic Dual-layer Vignette & Ambient Radial Glow */}
       <div className={styles.overlay} />
+      <div className={styles.ambientGlow} />
 
       {/* Content Grid */}
       <div className={`container ${styles.heroContent}`}>
         <div className={styles.heroGrid}>
           {/* Left Text Content */}
           <div className={styles.textContent}>
-            <span className={styles.kicker}>
-              {activeSlides[currentSlide]?.kicker}
-            </span>
-            <h2 className={styles.title}>
+            <div className={styles.kickerBadge}>
+              <span className={styles.badgePulse} aria-hidden="true" />
+              <span>{activeSlides[currentSlide]?.kicker || "ALWAYS IN CONTROL"}</span>
+            </div>
+
+            <h1 className={styles.title}>
               {activeSlides[currentSlide]?.title}
-            </h2>
+            </h1>
+
             <p className={styles.description}>
               {activeSlides[currentSlide]?.description}
             </p>
-            <button
-              type="button"
-              className="btn-pill-white"
-              onClick={onOpenConsultation}
-              id="hero-consultation-btn"
-            >
-              {activeSlides[currentSlide]?.ctaText || "Get Free Consultation"}
-            </button>
+
+            <div className={styles.heroActions}>
+              <button
+                type="button"
+                className={styles.primaryCtaBtn}
+                onClick={onOpenConsultation}
+                id="hero-consultation-btn"
+              >
+                <span>{activeSlides[currentSlide]?.ctaText || "Get Free Consultation"}</span>
+                <ArrowRight size={17} />
+              </button>
+
+              <button
+                type="button"
+                className={styles.secondaryCtaBtn}
+                onClick={scrollToServices}
+              >
+                <span>Explore Services</span>
+              </button>
+            </div>
+
+            {/* Slider Controls with Numbered Progress */}
+            <div className={styles.sliderControls}>
+              <div className={styles.slideCounter}>
+                <span className={styles.counterCurrent}>0{currentSlide + 1}</span>
+                <span className={styles.counterDivider}>/</span>
+                <span className={styles.counterTotal}>0{activeSlides.length}</span>
+              </div>
+
+              <div className={styles.progressBars}>
+                {activeSlides.map((_, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => goToSlide(idx)}
+                    className={`${styles.progressBar} ${idx === currentSlide ? styles.progressBarActive : ""}`}
+                    aria-label={`Go to slide ${idx + 1}`}
+                  >
+                    <span className={styles.progressFill} />
+                  </button>
+                ))}
+              </div>
+
+              <div className={styles.arrowButtons}>
+                <button
+                  type="button"
+                  onClick={prevSlide}
+                  className={styles.arrowBtn}
+                  aria-label="Previous Slide"
+                >
+                  <ChevronLeft size={18} />
+                </button>
+                <button
+                  type="button"
+                  onClick={nextSlide}
+                  className={styles.arrowBtn}
+                  aria-label="Next Slide"
+                >
+                  <ChevronRight size={18} />
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Right Glassmorphism Form Card */}
           <div className={styles.formCard}>
             <div className={styles.formHeader}>
-              <h3 className={styles.formTitle}>Get a Free Quote</h3>
+              <div className={styles.formBadge}>
+                <Sparkles size={13} />
+                <span>PRIORITY ACCESS</span>
+              </div>
+              <h2 className={styles.formTitle}>Get a Free Quote</h2>
               <p className={styles.formSubtitle}>
                 Schedule your personalized smart home walkthrough
               </p>
@@ -145,7 +223,11 @@ export default function HeroSlider({ onOpenConsultation, slides = heroSlides }) 
 
             {status.success ? (
               <div className={styles.successMessage}>
-                ✓ Thank you! Your request has been received. Our team will contact you shortly.
+                <div className={styles.successIcon}>✓</div>
+                <div>
+                  <strong>Inquiry Submitted!</strong>
+                  <p>Our automation engineering team will contact you shortly.</p>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className={styles.form} noValidate>
@@ -153,46 +235,50 @@ export default function HeroSlider({ onOpenConsultation, slides = heroSlides }) 
                   <div className={styles.errorMessage}>{status.error}</div>
                 )}
 
-                <div className={styles.formGroup}>
+                <div className={styles.inputWrapper}>
+                  <User size={16} className={styles.inputIcon} />
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    placeholder="Name *"
+                    placeholder="Full Name *"
                     required
                     className={styles.inputField}
                     aria-label="Your Name"
                   />
                 </div>
 
-                <div className={styles.formGroup}>
+                <div className={styles.inputWrapper}>
+                  <Mail size={16} className={styles.inputIcon} />
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    placeholder="Email *"
+                    placeholder="Email Address *"
                     required
                     className={styles.inputField}
                     aria-label="Your Email"
                   />
                 </div>
 
-                <div className={styles.formGroup}>
+                <div className={styles.inputWrapper}>
+                  <Phone size={16} className={styles.inputIcon} />
                   <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    placeholder="Phone *"
+                    placeholder="Phone Number *"
                     required
                     className={styles.inputField}
                     aria-label="Your Phone Number"
                   />
                 </div>
 
-                <div className={styles.formGroup}>
+                <div className={styles.inputWrapper}>
+                  <Layers size={16} className={styles.inputIcon} />
                   <select
                     name="serviceType"
                     value={formData.serviceType}
@@ -209,12 +295,13 @@ export default function HeroSlider({ onOpenConsultation, slides = heroSlides }) 
                   </select>
                 </div>
 
-                <div className={styles.formGroup}>
+                <div className={styles.inputWrapper}>
+                  <MessageSquare size={16} className={`${styles.inputIcon} ${styles.textareaIcon}`} />
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleInputChange}
-                    placeholder="Message (Optional)"
+                    placeholder="Tell us about your villa, apartment, or project..."
                     rows={3}
                     className={styles.textareaField}
                     aria-label="Your Message"
@@ -226,25 +313,13 @@ export default function HeroSlider({ onOpenConsultation, slides = heroSlides }) 
                   disabled={status.submitting}
                   className={styles.submitBtn}
                 >
-                  {status.submitting ? "Submitting..." : "Submit"}
+                  <span>{status.submitting ? "Submitting Request..." : "Request Free Consultation"}</span>
+                  <ArrowRight size={16} />
                 </button>
               </form>
             )}
           </div>
         </div>
-      </div>
-
-      {/* Slide Navigation Bullets */}
-      <div className={styles.indicators}>
-        {activeSlides.map((_, idx) => (
-          <button
-            key={idx}
-            type="button"
-            className={`${styles.bullet} ${idx === currentSlide ? styles.activeBullet : ""}`}
-            onClick={() => goToSlide(idx)}
-            aria-label={`Go to slide ${idx + 1}`}
-          />
-        ))}
       </div>
     </section>
   );
