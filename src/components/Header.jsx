@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Phone, X } from "lucide-react";
+import { Phone, X, ChevronDown, ChevronRight } from "lucide-react";
 import styles from "./Header.module.css";
 import { companyInfo, navItems } from "@/data/homeData";
 import ConsultationModal from "@/components/ConsultationModal";
@@ -26,6 +26,7 @@ export default function Header({ onOpenConsultation }) {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [customService, setCustomService] = useState("");
   const [siteSettings, setSiteSettings] = useState(null);
@@ -246,17 +247,111 @@ export default function Header({ onOpenConsultation }) {
         </div>
 
         <nav className={styles.drawerNav}>
-          <ul className={styles.navLinksList}>
-            {navItems.map((item, idx) => (
-              <li key={idx} className={styles.navItem}>
-                <Link
-                  href={item.href}
-                  onClick={() => setDrawerOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+          <ul className={styles.drawerList}>
+            <li className={styles.drawerItem}>
+              <Link
+                href="/"
+                className={`${styles.drawerNavLink} ${pathname === '/' ? styles.drawerNavLinkActive : ''}`}
+                onClick={() => setDrawerOpen(false)}
+              >
+                <span>Home</span>
+                <ChevronRight size={16} className={styles.drawerArrow} />
+              </Link>
+            </li>
+
+            {/* Collapsible Services Submenu */}
+            <li className={styles.drawerItem}>
+              <button
+                type="button"
+                className={`${styles.drawerNavLink} ${styles.drawerAccordionBtn} ${pathname?.includes('automation') || pathname?.includes('curtain') || pathname?.includes('cinema') ? styles.drawerNavLinkActive : ''}`}
+                onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                aria-expanded={mobileServicesOpen}
+              >
+                <span>Services</span>
+                <ChevronDown
+                  size={16}
+                  className={`${styles.drawerChevron} ${mobileServicesOpen ? styles.drawerChevronRotated : ''}`}
+                />
+              </button>
+
+              {mobileServicesOpen && (
+                <ul className={styles.drawerSubList}>
+                  <li className={styles.drawerSubItem}>
+                    <Link
+                      href="/retro-fit-automation/"
+                      className={`${styles.drawerSubLink} ${pathname === '/retro-fit-automation/' ? styles.drawerSubLinkActive : ''}`}
+                      onClick={() => setDrawerOpen(false)}
+                    >
+                      <span className={styles.subLinkDot} />
+                      <span>Retro Fit Automation</span>
+                    </Link>
+                  </li>
+                  <li className={styles.drawerSubItem}>
+                    <Link
+                      href="/building-automation/"
+                      className={`${styles.drawerSubLink} ${pathname === '/building-automation/' ? styles.drawerSubLinkActive : ''}`}
+                      onClick={() => setDrawerOpen(false)}
+                    >
+                      <span className={styles.subLinkDot} />
+                      <span>Building Automation</span>
+                    </Link>
+                  </li>
+                  <li className={styles.drawerSubItem}>
+                    <Link
+                      href="/curtain-motor/"
+                      className={`${styles.drawerSubLink} ${pathname === '/curtain-motor/' ? styles.drawerSubLinkActive : ''}`}
+                      onClick={() => setDrawerOpen(false)}
+                    >
+                      <span className={styles.subLinkDot} />
+                      <span>Curtain Motor</span>
+                    </Link>
+                  </li>
+                  <li className={styles.drawerSubItem}>
+                    <Link
+                      href="/home-cinema-audio-video/"
+                      className={`${styles.drawerSubLink} ${pathname === '/home-cinema-audio-video/' ? styles.drawerSubLinkActive : ''}`}
+                      onClick={() => setDrawerOpen(false)}
+                    >
+                      <span className={styles.subLinkDot} />
+                      <span>Home Cinema & AV</span>
+                    </Link>
+                  </li>
+                </ul>
+              )}
+            </li>
+
+            <li className={styles.drawerItem}>
+              <Link
+                href="/about-us/"
+                className={`${styles.drawerNavLink} ${pathname === '/about-us/' ? styles.drawerNavLinkActive : ''}`}
+                onClick={() => setDrawerOpen(false)}
+              >
+                <span>About Us</span>
+                <ChevronRight size={16} className={styles.drawerArrow} />
+              </Link>
+            </li>
+
+            <li className={styles.drawerItem}>
+              <Link
+                href="/blog/"
+                className={`${styles.drawerNavLink} ${pathname?.startsWith('/blog') ? styles.drawerNavLinkActive : ''}`}
+                onClick={() => setDrawerOpen(false)}
+              >
+                <span>Blog</span>
+                <ChevronRight size={16} className={styles.drawerArrow} />
+              </Link>
+            </li>
+
+            <li className={styles.drawerItem}>
+              <Link
+                href="/contact-us/"
+                className={`${styles.drawerNavLink} ${pathname === '/contact-us/' ? styles.drawerNavLinkActive : ''}`}
+                onClick={() => setDrawerOpen(false)}
+              >
+                <span>Contact</span>
+                <ChevronRight size={16} className={styles.drawerArrow} />
+              </Link>
+            </li>
           </ul>
         </nav>
 
@@ -265,15 +360,15 @@ export default function Header({ onOpenConsultation }) {
             href={`tel:${currentPhoneRaw}`}
             className={styles.drawerPhone}
           >
-            <Phone size={18} />
+            <Phone size={17} />
             <span>{currentPhone}</span>
           </a>
           <button
             type="button"
-            className={`btn-pill-white ${styles.drawerCta}`}
+            className={styles.drawerCtaBtn}
             onClick={handleConsultationClick}
           >
-            Get Free Consultation
+            Book Free Consultation
           </button>
         </div>
       </aside>

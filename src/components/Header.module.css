@@ -377,8 +377,9 @@
   box-shadow: none;
   visibility: hidden;
   pointer-events: none;
-  padding: 28px 24px;
+  padding: 22px 18px;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .drawerOpen {
@@ -420,83 +421,187 @@
 .drawerNav {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
+}
+
+.drawerList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.drawerItem {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .drawerNavLink {
   font-family: var(--font-heading);
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 500;
   color: #ffffff;
   text-decoration: none;
-  transition: color 0.2s ease, transform 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  cursor: pointer;
 }
 
 .drawerNavLink:hover {
+  background: rgba(229, 184, 105, 0.1);
+  border-color: rgba(229, 184, 105, 0.3);
   color: var(--accent-gold);
-  transform: translateX(4px);
 }
 
-.drawerSubNav {
+.drawerNavLinkActive {
+  background: rgba(229, 184, 105, 0.14);
+  border-color: rgba(229, 184, 105, 0.45);
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+
+.drawerArrow {
+  color: rgba(255, 255, 255, 0.4);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.drawerNavLink:hover .drawerArrow {
+  color: var(--accent-gold);
+  transform: translateX(3px);
+}
+
+.drawerAccordionBtn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  outline: none;
+}
+
+.drawerChevron {
+  color: rgba(255, 255, 255, 0.5);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+}
+
+.drawerChevronRotated {
+  transform: rotate(180deg);
+  color: var(--accent-gold);
+}
+
+.drawerSubList {
+  list-style: none;
+  margin: 8px 0 6px 12px;
+  padding: 4px 0 4px 12px;
+  border-left: 2px solid rgba(229, 184, 105, 0.35);
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding-left: 14px;
-  margin-top: 8px;
-  border-left: 2px solid rgba(229, 184, 105, 0.3);
+  gap: 4px;
+}
+
+.drawerSubItem {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .drawerSubLink {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.92rem;
+  color: #c4c9d4;
   text-decoration: none;
-  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
 .drawerSubLink:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.drawerSubLinkActive {
   color: var(--accent-gold);
+  font-weight: 600;
+  background: rgba(229, 184, 105, 0.1);
+}
+
+.subLinkDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(229, 184, 105, 0.5);
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.drawerSubLinkActive .subLinkDot,
+.drawerSubLink:hover .subLinkDot {
+  background: var(--accent-gold);
+  box-shadow: 0 0 6px var(--accent-gold);
+  transform: scale(1.2);
 }
 
 .drawerFooter {
-  margin-top: auto;
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding-top: 24px;
+  gap: 12px;
+  padding-top: 18px;
+  padding-bottom: 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .drawerPhone {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  color: rgba(255, 255, 255, 0.85);
+  color: #ffffff;
   font-size: 0.95rem;
+  font-weight: 500;
   text-decoration: none;
+  padding: 11px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.2s ease;
 }
 
 .drawerPhone:hover {
+  background: rgba(229, 184, 105, 0.12);
+  border-color: rgba(229, 184, 105, 0.35);
   color: var(--accent-gold);
 }
 
 .drawerCtaBtn {
   width: 100%;
-  padding: 14px;
+  padding: 13px 20px;
   border-radius: var(--radius-full);
   background: var(--gradient-gold);
   color: #0c0d12;
   font-weight: 700;
-  font-size: 0.9rem;
-  letter-spacing: 0.04em;
+  font-size: 0.92rem;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   border: none;
   cursor: pointer;
   box-shadow: var(--shadow-gold-soft);
   transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .drawerCtaBtn:hover {
