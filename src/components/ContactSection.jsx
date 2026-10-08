@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
-import { User, Mail, Phone, MapPin, Clock, Layers, MessageSquare, ArrowRight, Sparkles } from "lucide-react";
+import { User, Mail, Phone, Layers, MessageSquare, ArrowRight, Sparkles } from "lucide-react";
 import { contactSectionData, serviceTypes, companyInfo } from "@/data/homeData";
 import styles from "./ContactSection.module.css";
 
@@ -91,49 +91,6 @@ export default function ContactSection({ data = contactSectionData }) {
               <div className={styles.demoBadge}>
                 <Sparkles size={14} className={styles.demoBadgeIcon} />
                 <span>Private 4K HDR & Dolby Atmos Lounge</span>
-              </div>
-            </div>
-
-            {/* Quick Contact Chips Grid */}
-            <div className={styles.contactChipsGrid}>
-              <a href={`tel:${companyInfo.phoneRaw}`} className={styles.contactChip}>
-                <div className={styles.chipIconBox}>
-                  <Phone size={16} />
-                </div>
-                <div>
-                  <span className={styles.chipLabel}>Direct Phone</span>
-                  <span className={styles.chipValue}>{companyInfo.phone}</span>
-                </div>
-              </a>
-
-              <a href={`mailto:${companyInfo.email}`} className={styles.contactChip}>
-                <div className={styles.chipIconBox}>
-                  <Mail size={16} />
-                </div>
-                <div>
-                  <span className={styles.chipLabel}>Email Studio</span>
-                  <span className={styles.chipValue}>{companyInfo.email}</span>
-                </div>
-              </a>
-
-              <div className={styles.contactChip}>
-                <div className={styles.chipIconBox}>
-                  <MapPin size={16} />
-                </div>
-                <div>
-                  <span className={styles.chipLabel}>Delhi Experience Centre</span>
-                  <span className={styles.chipValue}>{companyInfo.address}</span>
-                </div>
-              </div>
-
-              <div className={styles.contactChip}>
-                <div className={styles.chipIconBox}>
-                  <Clock size={16} />
-                </div>
-                <div>
-                  <span className={styles.chipLabel}>Consultation Hours</span>
-                  <span className={styles.chipValue}>Mon - Sat: 10:00 AM - 7:00 PM</span>
-                </div>
               </div>
             </div>
           </div>

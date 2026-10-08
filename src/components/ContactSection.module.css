@@ -22,7 +22,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
-  align-items: flex-start;
+  align-items: center;
   position: relative;
   z-index: 2;
 }
@@ -95,7 +95,7 @@
 /* Cinema Demo Media Card */
 .imageCard {
   position: relative;
-  margin-bottom: 28px;
+  margin-bottom: 0;
 }
 
 .imageWrapper {
@@ -139,69 +139,6 @@
 
 .demoBadgeIcon {
   color: var(--accent-gold);
-}
-
-/* Quick Contact Chips Grid */
-.contactChipsGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-}
-
-@media (max-width: 580px) {
-  .contactChipsGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.contactChip {
-  background: #f8f9fc;
-  border: 1px solid rgba(0, 0, 0, 0.07);
-  border-radius: 14px;
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  text-decoration: none;
-  transition: all 0.25s ease;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
-}
-
-.contactChip:hover {
-  background: #ffffff;
-  border-color: #b88636;
-  box-shadow: 0 8px 24px rgba(184, 134, 54, 0.12);
-  transform: translateY(-2px);
-}
-
-.chipIconBox {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: rgba(184, 134, 54, 0.1);
-  border: 1px solid rgba(184, 134, 54, 0.22);
-  color: #b88636;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.chipLabel {
-  display: block;
-  font-size: 11px;
-  color: #647082;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.chipValue {
-  display: block;
-  font-size: 13px;
-  font-weight: 700;
-  color: #111318;
-  margin-top: 2px;
-  line-height: 1.35;
 }
 
 /* Right Column - Luxury Form Card */
