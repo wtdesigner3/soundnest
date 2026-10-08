@@ -1,10 +1,10 @@
 .aboutSection {
-  background-color: #0d0f15;
+  background-color: #f7f8fa;
   padding: 120px 0;
   position: relative;
   overflow: hidden;
-  border-top: 1px solid rgba(229, 184, 105, 0.12);
-  border-bottom: 1px solid rgba(229, 184, 105, 0.12);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .ambientGlow {
@@ -13,7 +13,7 @@
   left: -5%;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(229, 184, 105, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(229, 184, 105, 0.12) 0%, transparent 70%);
   filter: blur(80px);
   pointer-events: none;
 }
@@ -48,9 +48,9 @@
   position: relative;
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
-  border: 1px solid rgba(229, 184, 105, 0.25);
-  background: #151720;
+  box-shadow: 0 24px 60px rgba(18, 24, 40, 0.14);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #eaecef;
 }
 
 .aboutImg {
@@ -75,14 +75,14 @@
   background: rgba(14, 16, 22, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(229, 184, 105, 0.35);
+  border: 1px solid rgba(229, 184, 105, 0.4);
   padding: 8px 16px;
   border-radius: var(--radius-full);
   color: #ffffff;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.04em;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
 .badgeIcon {
@@ -95,13 +95,11 @@
   bottom: 0;
   right: -20px;
   left: 20px;
-  background: rgba(18, 20, 28, 0.92);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(229, 184, 105, 0.3);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 20px;
-  padding: 20px 24px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 25px rgba(229, 184, 105, 0.1);
+  padding: 22px 26px;
+  box-shadow: 0 20px 50px rgba(18, 24, 40, 0.12), 0 0 20px rgba(184, 134, 54, 0.08);
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -130,23 +128,23 @@
   font-family: var(--font-heading);
   font-size: 1.85rem;
   font-weight: 800;
-  color: var(--accent-gold);
+  color: #b88636;
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
 
 .statLabel {
-  font-size: 11px;
-  color: #c0c4ce;
-  font-weight: 500;
-  margin-top: 3px;
+  font-size: 11.5px;
+  color: #555d6e;
+  font-weight: 600;
+  margin-top: 4px;
   letter-spacing: 0.02em;
 }
 
 .statDivider {
   width: 1px;
   height: 36px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.08);
 }
 
 @media (max-width: 640px) {
@@ -165,9 +163,9 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(229, 184, 105, 0.1);
-  border: 1px solid rgba(229, 184, 105, 0.28);
-  color: var(--accent-gold);
+  background: rgba(184, 134, 54, 0.09);
+  border: 1px solid rgba(184, 134, 54, 0.28);
+  color: #a36e1c;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -176,23 +174,27 @@
   border-radius: var(--radius-full);
   margin-bottom: 18px;
   align-self: flex-start;
-  backdrop-filter: blur(10px);
 }
 
 .badgePulse {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--accent-gold);
-  box-shadow: 0 0 10px var(--accent-gold);
-  animation: pulseGlow 2s infinite ease-in-out;
+  background: #b88636;
+  box-shadow: 0 0 10px rgba(184, 134, 54, 0.5);
+  animation: pulseGlowLight 2s infinite ease-in-out;
+}
+
+@keyframes pulseGlowLight {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.4); opacity: 1; }
 }
 
 .title {
   font-size: 2.85rem;
   font-weight: 700;
   line-height: 1.18;
-  color: #ffffff;
+  color: #111318;
   margin-bottom: 22px;
   letter-spacing: -0.02em;
 }
@@ -207,10 +209,10 @@
 .leadParagraph {
   font-size: 1.12rem;
   line-height: 1.7;
-  color: #e5e8f0;
-  font-weight: 400;
+  color: #373f4e;
+  font-weight: 500;
   margin-bottom: 28px;
-  border-left: 3px solid var(--accent-gold);
+  border-left: 3px solid #b88636;
   padding-left: 18px;
 }
 
@@ -229,21 +231,20 @@
 }
 
 .domainCard {
-  background: rgba(22, 24, 34, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.07);
   border-radius: 14px;
   padding: 14px 16px;
   display: flex;
   align-items: center;
   gap: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
   transition: all 0.25s ease;
 }
 
 .domainCard:hover {
-  background: rgba(229, 184, 105, 0.08);
-  border-color: rgba(229, 184, 105, 0.35);
+  border-color: #b88636;
+  box-shadow: 0 8px 24px rgba(184, 134, 54, 0.12);
   transform: translateY(-2px);
 }
 
@@ -251,9 +252,9 @@
   width: 42px;
   height: 42px;
   border-radius: 10px;
-  background: rgba(229, 184, 105, 0.12);
-  border: 1px solid rgba(229, 184, 105, 0.25);
-  color: var(--accent-gold);
+  background: rgba(184, 134, 54, 0.1);
+  border: 1px solid rgba(184, 134, 54, 0.22);
+  color: #b88636;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -263,13 +264,13 @@
 .domainTitle {
   font-size: 13.5px;
   font-weight: 600;
-  color: #ffffff;
+  color: #111318;
   margin: 0;
 }
 
 .domainSub {
   font-size: 11.5px;
-  color: #9aa1ad;
+  color: #647082;
   margin: 2px 0 0;
 }
 
@@ -284,7 +285,7 @@
 .paragraph {
   font-size: 14.5px;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.78);
+  color: #4b5563;
 }
 
 /* Actions Row */
@@ -310,14 +311,14 @@
   border: none;
   cursor: pointer;
   transition: all var(--transition-smooth);
-  box-shadow: var(--shadow-gold-soft);
+  box-shadow: 0 6px 20px rgba(184, 134, 54, 0.28);
   text-decoration: none;
 }
 
 .primaryBtn:hover {
   background: var(--gradient-gold-hover);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-gold-glow);
+  box-shadow: 0 10px 28px rgba(184, 134, 54, 0.4);
 }
 
 .callBadge {
@@ -326,15 +327,16 @@
   gap: 12px;
   padding: 8px 18px 8px 10px;
   border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
   transition: all 0.25s ease;
   text-decoration: none;
 }
 
 .callBadge:hover {
-  background: rgba(229, 184, 105, 0.1);
-  border-color: rgba(229, 184, 105, 0.35);
+  border-color: #b88636;
+  box-shadow: 0 8px 22px rgba(184, 134, 54, 0.15);
   transform: translateY(-2px);
 }
 
@@ -342,8 +344,8 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(229, 184, 105, 0.15);
-  color: var(--accent-gold);
+  background: rgba(184, 134, 54, 0.12);
+  color: #b88636;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -352,7 +354,7 @@
 .callLabel {
   display: block;
   font-size: 11px;
-  color: #9aa1ad;
+  color: #647082;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
@@ -360,6 +362,6 @@
 .callNumber {
   display: block;
   font-size: 13.5px;
-  font-weight: 600;
-  color: #ffffff;
+  font-weight: 700;
+  color: #111318;
 }

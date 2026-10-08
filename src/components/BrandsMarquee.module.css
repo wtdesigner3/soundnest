@@ -1,10 +1,10 @@
 .brandsSection {
-  background-color: #0d0f15;
+  background-color: #ffffff;
   padding: 90px 0 100px;
   overflow: hidden;
   position: relative;
-  border-top: 1px solid rgba(229, 184, 105, 0.12);
-  border-bottom: 1px solid rgba(229, 184, 105, 0.12);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .headerWrapper {
@@ -20,9 +20,9 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(229, 184, 105, 0.1);
-  border: 1px solid rgba(229, 184, 105, 0.28);
-  color: var(--accent-gold);
+  background: rgba(184, 134, 54, 0.09);
+  border: 1px solid rgba(184, 134, 54, 0.28);
+  color: #a36e1c;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -30,23 +30,27 @@
   padding: 6px 16px;
   border-radius: var(--radius-full);
   margin-bottom: 16px;
-  backdrop-filter: blur(10px);
 }
 
 .badgePulse {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--accent-gold);
-  box-shadow: 0 0 10px var(--accent-gold);
-  animation: pulseGlow 2s infinite ease-in-out;
+  background: #b88636;
+  box-shadow: 0 0 10px rgba(184, 134, 54, 0.5);
+  animation: pulseGlowLight 2s infinite ease-in-out;
+}
+
+@keyframes pulseGlowLight {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.4); opacity: 1; }
 }
 
 .title {
   font-size: 2.75rem;
   font-weight: 700;
   line-height: 1.18;
-  color: #ffffff;
+  color: #111318;
   margin-bottom: 14px;
   letter-spacing: -0.02em;
 }
@@ -59,7 +63,7 @@
 
 .subtitle {
   font-size: 1rem;
-  color: #9aa1ad;
+  color: #555e70;
   line-height: 1.6;
 }
 
@@ -69,11 +73,9 @@
   overflow: hidden;
   display: flex;
   user-select: none;
-  background: rgba(16, 18, 25, 0.5);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: #f8f9fb;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   padding: 24px 0;
   mask-image: linear-gradient(
     to right,
@@ -114,21 +116,21 @@
 
 .brandCard {
   background: #ffffff;
-  border: 1px solid rgba(229, 184, 105, 0.35);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 12px;
-  padding: 10px 24px;
+  padding: 12px 26px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
 }
 
 .brandCard:hover {
   background: #ffffff;
-  border-color: var(--accent-gold);
+  border-color: #b88636;
   transform: translateY(-3px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4), 0 0 16px rgba(229, 184, 105, 0.3);
+  box-shadow: 0 10px 24px rgba(184, 134, 54, 0.16);
 }
 
 .brandImgWrapper {

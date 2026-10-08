@@ -30,6 +30,18 @@
   --gradient-glass-card: linear-gradient(145deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.015) 100%);
   --gradient-dark-mesh: radial-gradient(circle at 50% 0%, rgba(229, 184, 105, 0.08) 0%, transparent 60%);
 
+  /* Light Theme Section Tokens */
+  --bg-light-primary: #f8f9fa;
+  --bg-light-secondary: #ffffff;
+  --bg-light-muted: #f1f3f7;
+  --text-dark-primary: #111318;
+  --text-dark-secondary: #4a5260;
+  --text-dark-muted: #747d8c;
+  --border-light: rgba(0, 0, 0, 0.08);
+  --border-light-subtle: rgba(0, 0, 0, 0.04);
+  --shadow-light-card: 0 10px 30px rgba(0, 0, 0, 0.05);
+  --shadow-light-hover: 0 18px 45px rgba(0, 0, 0, 0.09);
+
   /* Shadows */
   --shadow-gold-glow: 0 8px 30px rgba(229, 184, 105, 0.28);
   --shadow-gold-soft: 0 4px 20px rgba(229, 184, 105, 0.16);
