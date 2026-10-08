@@ -74,7 +74,7 @@ export default function CtaBanner({ onOpenConsultation, data = ctaBannerData }) 
                   className={styles.secondaryBtn}
                   title="Chat on WhatsApp"
                 >
-                  <span className={styles.waDot} aria-hidden="true" />
+                  {/* <span className={styles.waDot} aria-hidden="true" /> */}
                   <MessageSquare size={16} />
                   <span>Chat on WhatsApp</span>
                 </a>

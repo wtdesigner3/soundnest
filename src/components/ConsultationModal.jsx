@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { X } from "lucide-react";
+import { X, User, Mail, Phone, Layers, MessageSquare, ArrowRight, CheckCircle2 } from "lucide-react";
 import { serviceTypes } from "@/data/homeData";
 import styles from "./ConsultationModal.module.css";
 
@@ -100,27 +100,38 @@ export default function ConsultationModal({ isOpen, onClose, defaultService = "S
       aria-labelledby="modal-title"
     >
       <div className={styles.modal}>
+        {/* Top Accent Glow Laser */}
+        <div className={styles.cardAccentGlow} aria-hidden="true" />
+
         <button
           type="button"
           className={styles.closeBtn}
           onClick={onClose}
           aria-label="Close dialog"
         >
-          <X size={20} />
+          <X size={18} />
         </button>
 
         <div className={styles.header}>
+          <div className={styles.kickerBadge}>
+            <span className={styles.badgePulse} aria-hidden="true" />
+            <span>PRIVATE WALKTHROUGH & SURVEY</span>
+          </div>
           <h2 id="modal-title" className={styles.title}>
-            Get Free Consultation
+            Book Your Free <span className={styles.goldGradient}>Consultation</span>
           </h2>
           <p className={styles.subtitle}>
-            Speak directly with our smart home and automation engineers.
+            Speak directly with our senior automation architects to explore bespoke solutions for your space.
           </p>
         </div>
 
         {status.success ? (
           <div className={styles.successMessage}>
-            <strong>Thank you!</strong> Your consultation request has been submitted. Our team will contact you shortly.
+            <div className={styles.successIcon}>✓</div>
+            <div>
+              <strong>Consultation Request Received!</strong>
+              <p>Our engineering team will contact you shortly to confirm your walkthrough time.</p>
+            </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className={styles.form} noValidate>
@@ -128,46 +139,50 @@ export default function ConsultationModal({ isOpen, onClose, defaultService = "S
               <div className={styles.errorMessage}>{status.error}</div>
             )}
 
-            <div>
+            <div className={styles.inputWrapper}>
+              <User size={16} className={styles.inputIcon} />
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="Name *"
+                placeholder="Full Name *"
                 required
                 className={styles.inputField}
-                aria-label="Name"
+                aria-label="Your Name"
               />
             </div>
 
-            <div>
+            <div className={styles.inputWrapper}>
+              <Mail size={16} className={styles.inputIcon} />
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="Email *"
+                placeholder="Email Address *"
                 required
                 className={styles.inputField}
-                aria-label="Email"
+                aria-label="Your Email"
               />
             </div>
 
-            <div>
+            <div className={styles.inputWrapper}>
+              <Phone size={16} className={styles.inputIcon} />
               <input
                 type="tel"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder="Phone *"
+                placeholder="Phone Number *"
                 required
                 className={styles.inputField}
-                aria-label="Phone"
+                aria-label="Your Phone Number"
               />
             </div>
 
-            <div>
+            <div className={styles.inputWrapper}>
+              <Layers size={16} className={styles.inputIcon} />
               <select
                 name="serviceType"
                 value={formData.serviceType}
@@ -184,15 +199,16 @@ export default function ConsultationModal({ isOpen, onClose, defaultService = "S
               </select>
             </div>
 
-            <div>
+            <div className={styles.inputWrapper}>
+              <MessageSquare size={16} className={`${styles.inputIcon} ${styles.textareaIcon}`} />
               <textarea
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                placeholder="Message (Optional)"
+                placeholder="Tell us about your villa, apartment, or project requirements..."
                 rows={3}
                 className={styles.textareaField}
-                aria-label="Message"
+                aria-label="Your Message"
               />
             </div>
 
@@ -201,8 +217,14 @@ export default function ConsultationModal({ isOpen, onClose, defaultService = "S
               disabled={status.submitting}
               className={styles.submitBtn}
             >
-              {status.submitting ? "Submitting..." : "Submit"}
+              <span>{status.submitting ? "Booking Consultation..." : "Request Free Consultation"}</span>
+              <ArrowRight size={16} />
             </button>
+
+            <div className={styles.formReassurance}>
+              <CheckCircle2 size={13} className={styles.reassuranceCheck} />
+              <span>Complimentary Site Survey • Zero Obligation • 100% Confidential</span>
+            </div>
           </form>
         )}
       </div>

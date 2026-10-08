@@ -48,6 +48,18 @@ async function capture() {
   console.log('Capturing Header + Hero viewport...');
   await page.screenshot({ path: path.join(outDir, 'nextjs_hero_header.png') });
 
+  // 1c. Open Consultation Modal and capture
+  console.log('Opening Consultation Modal...');
+  const consultBtn = await page.$('#header-consultation-btn');
+  if (consultBtn) {
+    await consultBtn.click();
+    await new Promise(r => setTimeout(r, 600));
+    console.log('Capturing popup modal...');
+    await page.screenshot({ path: path.join(outDir, 'nextjs_popup_modal.png') });
+    await page.keyboard.press('Escape');
+    await new Promise(r => setTimeout(r, 400));
+  }
+
   // For individual section screenshots, temporarily hide the sticky header so it doesn't overlap section tops
   await page.evaluate(() => {
     const header = document.querySelector('header');
