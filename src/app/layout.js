@@ -62,9 +62,12 @@ export const metadata = {
     images: ["/images/slider-1.jpg"],
   },
   icons: {
-    icon: "/images/favicon.png",
-    shortcut: "/images/favicon.png",
-    apple: "/images/favicon.png",
+    icon: [
+      { url: "/favicon.ico?v=2", sizes: "any" },
+      { url: "/images/favicon.png?v=2", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico?v=2",
+    apple: "/images/favicon.png?v=2",
   },
   robots: {
     index: true,
@@ -167,9 +170,11 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en" className={`${poppins.variable} ${inter.variable}`}>
       <head>
-        <link rel="icon" href={settings.branding?.favicon || "/images/favicon.png"} />
-        <link rel="shortcut icon" href={settings.branding?.favicon || "/images/favicon.png"} />
-        <link rel="apple-touch-icon" href={settings.branding?.favicon || "/images/favicon.png"} />
+        <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
+        <link rel="icon" type="image/png" sizes="32x32" href={settings.branding?.favicon ? `${settings.branding.favicon}?v=2` : "/images/favicon.png?v=2"} />
+        <link rel="icon" type="image/png" sizes="192x192" href={settings.branding?.favicon ? `${settings.branding.favicon}?v=2` : "/images/favicon.png?v=2"} />
+        <link rel="shortcut icon" href="/favicon.ico?v=2" />
+        <link rel="apple-touch-icon" href={settings.branding?.favicon ? `${settings.branding.favicon}?v=2` : "/images/favicon.png?v=2"} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
