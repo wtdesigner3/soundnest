@@ -1,6 +1,6 @@
 .servicesSection {
   background-color: #0c0d12;
-  padding: 120px 0;
+  padding: 60px 0;
   position: relative;
   overflow: hidden;
 }
@@ -134,12 +134,10 @@
 .cardOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(12, 13, 18, 0.35) 0%,
-    rgba(12, 13, 18, 0.6) 40%,
-    rgba(10, 11, 16, 0.95) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(12, 13, 18, 0.35) 0%,
+      rgba(12, 13, 18, 0.6) 40%,
+      rgba(10, 11, 16, 0.95) 100%);
   transition: opacity 0.3s ease;
 }
 

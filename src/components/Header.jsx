@@ -184,7 +184,7 @@ export default function Header({ onOpenConsultation }) {
               className={styles.phoneLink}
               title={`Call ${currentSiteName}`}
             >
-              <span className={styles.phoneDot} aria-hidden="true" />
+              {/* <span className={styles.phoneDot} aria-hidden="true" /> */}
               <Phone className={styles.phoneIcon} />
               <span>{currentPhone}</span>
             </a>

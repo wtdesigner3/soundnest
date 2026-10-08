@@ -36,6 +36,10 @@ import {
   PhoneCall,
   Clock,
   ShieldAlert,
+  User,
+  Mail,
+  Phone,
+  MessageSquare,
 } from 'lucide-react';
 import FaqAccordion from '@/components/FaqAccordion';
 import ConsultationModal from '@/components/ConsultationModal';
@@ -286,6 +290,7 @@ export default function ServiceTemplate({ service }) {
 
         {/* Hero Quick Consultation Form */}
         <div className={styles.heroFormCard}>
+          <div className={styles.cardAccentGlow} aria-hidden="true" />
           <div className={styles.formHeader}>
             <h2 className={styles.formTitle}>Book Free Consultation</h2>
             <p className={styles.formSubtitle}>
@@ -304,7 +309,8 @@ export default function ServiceTemplate({ service }) {
                 <div className={styles.errorAlert}>{submitStatus.error}</div>
               )}
 
-              <div className={styles.inputGroup}>
+              <div className={styles.inputWrapper}>
+                <User size={16} className={styles.inputIcon} />
                 <input
                   type="text"
                   name="name"
@@ -317,7 +323,8 @@ export default function ServiceTemplate({ service }) {
                 />
               </div>
 
-              <div className={styles.inputGroup}>
+              <div className={styles.inputWrapper}>
+                <Phone size={16} className={styles.inputIcon} />
                 <input
                   type="tel"
                   name="phone"
@@ -330,7 +337,8 @@ export default function ServiceTemplate({ service }) {
                 />
               </div>
 
-              <div className={styles.inputGroup}>
+              <div className={styles.inputWrapper}>
+                <Mail size={16} className={styles.inputIcon} />
                 <input
                   type="email"
                   name="email"
@@ -343,7 +351,8 @@ export default function ServiceTemplate({ service }) {
                 />
               </div>
 
-              <div className={styles.inputGroup}>
+              <div className={styles.inputWrapper}>
+                <Layers size={16} className={styles.inputIcon} />
                 <select
                   name="serviceType"
                   value={formState.serviceType}
@@ -362,7 +371,8 @@ export default function ServiceTemplate({ service }) {
                 </select>
               </div>
 
-              <div className={styles.inputGroup}>
+              <div className={styles.inputWrapper}>
+                <MessageSquare size={16} className={`${styles.inputIcon} ${styles.textareaIcon}`} />
                 <textarea
                   name="message"
                   value={formState.message}
@@ -379,11 +389,13 @@ export default function ServiceTemplate({ service }) {
                 disabled={submitStatus.submitting}
                 className={styles.formSubmitBtn}
               >
-                {submitStatus.submitting ? 'Submitting...' : 'Book Free Consultation'}
+                <span>{submitStatus.submitting ? 'Submitting...' : 'Book Free Consultation'}</span>
+                <ArrowRight size={16} />
               </button>
 
               <div className={styles.formPrivacy}>
-                🔒 100% confidential. No spam guaranteed.
+                <CheckCircle2 size={13} className={styles.reassuranceCheck} />
+                <span>Complimentary Site Survey • 100% Confidential</span>
               </div>
             </form>
           )}
@@ -392,10 +404,10 @@ export default function ServiceTemplate({ service }) {
       </section>
 
       {/* ==================================================================
-          SOUNDNEST EXPERIENCE (Why Choose Us)
+          SOUNDNEST EXPERIENCE (Why Choose Us) - Alternating Light Luxury Section
           ================================================================== */}
       {service.experiencePoints && service.experiencePoints.length > 0 && (
-        <section className={`${styles.sectionWrapper} ${styles.sectionDarker}`}>
+        <section className={`${styles.sectionWrapper} ${styles.sectionLight}`}>
           <div className={styles.sectionInner}>
             <div className={styles.sectionHeader}>
               <span className={styles.sectionKicker}>{service.experienceKicker}</span>
@@ -461,9 +473,9 @@ export default function ServiceTemplate({ service }) {
       )}
 
       {/* ==================================================================
-          OUR PROCESS / DEEP DIVE SHOWCASE & GALLERY
+          OUR PROCESS / DEEP DIVE SHOWCASE & GALLERY - Alternating Light Alt Section
           ================================================================== */}
-      <section className={`${styles.sectionWrapper} ${styles.sectionDarker}`}>
+      <section className={`${styles.sectionWrapper} ${styles.sectionLightAlt}`}>
         <div className={styles.sectionInner}>
           <div className={styles.processGrid}>
             <div className={styles.processContent}>
@@ -526,9 +538,9 @@ export default function ServiceTemplate({ service }) {
       </section>
 
       {/* ==================================================================
-          AUTHORIZED BRANDS MARQUEE
+          AUTHORIZED BRANDS MARQUEE - Alternating Light Section
           ================================================================== */}
-      <section className={styles.sectionWrapper}>
+      <section className={`${styles.sectionWrapper} ${styles.sectionLight}`}>
         <div className={styles.sectionInner}>
           <div className={styles.sectionHeader}>
             <span className={styles.sectionKicker}>PARTNERSHIPS</span>
@@ -557,9 +569,9 @@ export default function ServiceTemplate({ service }) {
       </section>
 
       {/* ==================================================================
-          CLIENT TESTIMONIALS
+          CLIENT TESTIMONIALS - Alternating Light Alt Section
           ================================================================== */}
-      <section className={`${styles.sectionWrapper} ${styles.sectionDarker}`}>
+      <section className={`${styles.sectionWrapper} ${styles.sectionLightAlt}`}>
         <div className={styles.sectionInner}>
           <div className={styles.sectionHeader}>
             <span className={styles.sectionKicker}>{currentTestimonials?.kicker}</span>
@@ -571,10 +583,10 @@ export default function ServiceTemplate({ service }) {
       </section>
 
       {/* ==================================================================
-          FREQUENTLY ASKED QUESTIONS
+          FREQUENTLY ASKED QUESTIONS - Alternating Light Section
           ================================================================== */}
       {service.faqs && service.faqs.length > 0 && (
-        <section className={styles.sectionWrapper}>
+        <section className={`${styles.sectionWrapper} ${styles.sectionLight}`}>
           <div className={styles.sectionInner}>
             <div className={styles.sectionHeader}>
               <span className={styles.sectionKicker}>FAQ</span>
@@ -596,6 +608,7 @@ export default function ServiceTemplate({ service }) {
           ================================================================== */}
       <div className={styles.ctaBannerWrapper}>
         <div className={styles.ctaCard}>
+          <div className={styles.cardAccentGlow} aria-hidden="true" />
           <div className={styles.ctaCardGlow} aria-hidden="true" />
           <h2 className={styles.ctaTitle}>Ready to Upgrade Your Living Experience?</h2>
           <p className={styles.ctaSubtitle}>

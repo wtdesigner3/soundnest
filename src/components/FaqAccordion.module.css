@@ -86,6 +86,42 @@
   margin: 0;
 }
 
+/* ==========================================================================
+   LIGHT THEME ACCORDION VARIANT
+   ========================================================================== */
+.themeLight .faqItem {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(18, 24, 40, 0.03);
+}
+
+.themeLight .faqItem:hover {
+  border-color: rgba(184, 134, 54, 0.4);
+  box-shadow: 0 8px 24px rgba(18, 24, 40, 0.07);
+  background: #ffffff;
+}
+
+.themeLight .faqItem.active {
+  border-color: #b88636;
+  box-shadow: 0 8px 25px rgba(184, 134, 54, 0.12);
+  background: #ffffff;
+}
+
+.themeLight .faqQuestion {
+  color: #0e1017;
+  font-weight: 600;
+}
+
+.themeLight .active .faqQuestion {
+  color: #b88636;
+}
+
+.themeLight .faqAnswer {
+  color: #555d6e;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+
 @media (max-width: 640px) {
   .faqTrigger {
     padding: 18px 20px;

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import styles from './FaqAccordion.module.css';
 
-export default function FaqAccordion({ faqs = [] }) {
+export default function FaqAccordion({ faqs = [], theme = 'dark' }) {
   // First item active by default (matching WordPress Woodmart behavior)
   const [openIndex, setOpenIndex] = useState(0);
 
@@ -15,7 +15,7 @@ export default function FaqAccordion({ faqs = [] }) {
   if (!faqs.length) return null;
 
   return (
-    <div className={styles.faqWrapper}>
+    <div className={`${styles.faqWrapper} ${theme === 'light' ? styles.themeLight : ''}`}>
       {faqs.map((faq, index) => {
         const isOpen = openIndex === index;
         const panelId = `faq-panel-${faq.id || index}`;

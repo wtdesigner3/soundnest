@@ -20,11 +20,9 @@
 .overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    circle at center,
-    rgba(12, 13, 18, 0.68) 0%,
-    rgba(10, 11, 15, 0.92) 80%
-  );
+  background: radial-gradient(circle at center,
+      rgba(12, 13, 18, 0.68) 0%,
+      rgba(10, 11, 15, 0.92) 80%);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   z-index: 2;
@@ -91,6 +89,7 @@
   .ctaCard {
     padding: 40px 28px;
   }
+
   .cardGrid {
     grid-template-columns: 1fr;
     gap: 40px;

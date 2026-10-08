@@ -2,7 +2,20 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { Phone, Mail, Clock, ShieldCheck, Send } from 'lucide-react';
+import {
+  Phone,
+  Mail,
+  Clock,
+  MapPin,
+  ShieldCheck,
+  Send,
+  User,
+  Layers,
+  MessageSquare,
+  Sparkles,
+  ArrowRight,
+  CheckCircle2,
+} from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import FaqAccordion from '@/components/FaqAccordion';
@@ -29,6 +42,7 @@ export default function ContactPageClient() {
   const currentPhoneRaw = siteSettings?.contact?.phoneRaw || contactData.businessInfo.phone;
   const currentEmail = siteSettings?.contact?.email || contactData.businessInfo.email;
   const currentHours = siteSettings?.contact?.businessHours || contactData.businessInfo.hours;
+  const currentAddress = siteSettings?.contact?.address || "Q 24, Block Q, Lajpat Nagar IV, New Delhi, Delhi 110024";
 
   const [formData, setFormData] = useState({
     name: '',
@@ -174,115 +188,155 @@ export default function ContactPageClient() {
       <div className={styles.container}>
         {/* Header Title & Subtitle */}
         <div className={styles.headerSection} ref={headerRef}>
-          <div className={styles.titleWrapper}>
-            <span className={styles.line} aria-hidden="true" />
-            <h1 className={styles.pageTitle}>{contactData.header.title}</h1>
-            <span className={styles.lineRight} aria-hidden="true" />
+          <div className={styles.kickerBadge}>
+            <span className={styles.badgePulse} aria-hidden="true" />
+            <span>EXPERIENCE STUDIO & INQUIRIES</span>
           </div>
-          <p className={styles.pageSubtitle}>{contactData.header.subtitle}</p>
+
+          <h1 className={styles.pageTitle}>
+            Connect with <span className={styles.goldGradient}>Soundnest</span>
+          </h1>
+          <p className={styles.pageSubtitle}>
+            Visit our flagship Experience Studio in New Delhi or schedule an on-site villa consultation anywhere across India.
+          </p>
         </div>
 
         {/* Two-Column Grid */}
         <div className={styles.mainGrid}>
-          {/* Left Column: Image with Experience Badge */}
+          {/* Left Column: Image with Experience Badge & Quick Info Tiles */}
           <div className={styles.imageColumn} ref={leftColRef}>
-            <div className={styles.imageWrapper}>
-              <Image
-                src={contactData.businessInfo.image}
-                alt={contactData.businessInfo.imageAlt}
-                fill
-                priority
-                sizes="(max-width: 991px) 100vw, 50vw"
-                className={styles.featureImage}
-              />
+            <div className={styles.imageCard}>
+              <div className={styles.imageWrapper}>
+                <Image
+                  src={contactData.businessInfo.image}
+                  alt={contactData.businessInfo.imageAlt}
+                  fill
+                  priority
+                  sizes="(max-width: 991px) 100vw, 50vw"
+                  className={styles.featureImage}
+                />
+              </div>
+              <div className={styles.imageBadge}>
+                <Sparkles className={styles.badgeIcon} size={18} />
+                <p className={styles.badgeText}>
+                  Private 4K HDR & Dolby Atmos Lounge • Delhi Studio
+                </p>
+              </div>
             </div>
-            <div className={styles.imageBadge}>
-              <ShieldCheck className={styles.badgeIcon} size={28} />
-              <p className={styles.badgeText}>
-                Experience Bespoke Smart Home & Audio Engineering at Our Studio
-              </p>
+
+            {/* Quick Contact Information Tiles */}
+            <div className={styles.infoTilesGrid}>
+              <a href={`tel:${currentPhoneRaw}`} className={styles.infoTile}>
+                <div className={styles.infoIconBox}>
+                  <Phone size={18} />
+                  <span className={styles.livePulseDot} aria-hidden="true" />
+                </div>
+                <div className={styles.infoContent}>
+                  <span className={styles.infoLabel}>Direct Line</span>
+                  <span className={styles.infoValue}>{currentPhone}</span>
+                </div>
+              </a>
+
+              <a href={`mailto:${currentEmail}`} className={styles.infoTile}>
+                <div className={styles.infoIconBox}>
+                  <Mail size={18} />
+                </div>
+                <div className={styles.infoContent}>
+                  <span className={styles.infoLabel}>Email Inquiries</span>
+                  <span className={styles.infoValue}>{currentEmail}</span>
+                </div>
+              </a>
+
+              <div className={styles.infoTile}>
+                <div className={styles.infoIconBox}>
+                  <Clock size={18} />
+                </div>
+                <div className={styles.infoContent}>
+                  <span className={styles.infoLabel}>Studio Hours</span>
+                  <span className={styles.infoValue}>{currentHours}</span>
+                </div>
+              </div>
+
+              <div className={styles.infoTile}>
+                <div className={styles.infoIconBox}>
+                  <MapPin size={18} />
+                </div>
+                <div className={styles.infoContent}>
+                  <span className={styles.infoLabel}>Flagship Studio</span>
+                  <span className={styles.infoValue}>{currentAddress}</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Right Column: Business Info & Lead Form */}
+          {/* Right Column: Luxury Form Terminal */}
           <div className={styles.contentColumn} ref={rightColRef}>
-            {/* Business Hours Card */}
-            <div className={styles.businessHoursCard}>
-              <h2 className={styles.businessHeading}>
-                <Clock size={20} />
-                {contactData.businessInfo.heading}
-              </h2>
-              <div className={styles.hoursText}>
-                <div>{currentHours}</div>
-                <div className={styles.hoursHighlight}>{contactData.businessInfo.closed}</div>
-              </div>
-              <div className={styles.contactLinks}>
-                <a href={`tel:${currentPhoneRaw}`} className={styles.contactLink}>
-                  <Phone size={16} />
-                  <span>{currentPhone}</span>
-                </a>
-                <span className={styles.linkDivider} aria-hidden="true">|</span>
-                <a href={`mailto:${currentEmail}`} className={styles.contactLink}>
-                  <Mail size={16} />
-                  <span>{currentEmail}</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Interactive Form */}
             <div className={styles.formCard}>
-              <form onSubmit={handleSubmit} className={styles.formGrid}>
-                {status.message && (
-                  <div
-                    className={status.type === 'success' ? styles.successMessage : styles.errorMessage}
-                    role="alert"
-                  >
-                    {status.message}
-                  </div>
-                )}
+              <div className={styles.cardAccentGlow} aria-hidden="true" />
 
-                <div className={styles.inputGroup}>
+              <div className={styles.formHeader}>
+                <h2 className={styles.formTitle}>Schedule a Private Demo</h2>
+                <p className={styles.formSubtitle}>
+                  Speak directly with our smart home and acoustic architects to design your system.
+                </p>
+              </div>
+
+              {status.message && (
+                <div
+                  className={status.type === 'success' ? styles.successMessage : styles.errorMessage}
+                  role="alert"
+                >
+                  {status.message}
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className={styles.formGrid}>
+                <div className={styles.inputWrapper}>
+                  <User size={16} className={styles.inputIcon} />
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder="Name"
+                    placeholder="Full Name *"
                     required
                     className={styles.inputField}
                     aria-label="Your Name"
                   />
                 </div>
 
-                <div className={styles.inputGroup}>
+                <div className={styles.inputWrapper}>
+                  <Mail size={16} className={styles.inputIcon} />
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="Email"
+                    placeholder="Email Address *"
                     required
                     className={styles.inputField}
                     aria-label="Your Email"
                   />
                 </div>
 
-                <div className={styles.inputGroup}>
+                <div className={styles.inputWrapper}>
+                  <Phone size={16} className={styles.inputIcon} />
                   <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="Phone"
+                    placeholder="Phone Number *"
                     minLength={10}
-                    maxLength={12}
+                    maxLength={14}
                     required
                     className={styles.inputField}
                     aria-label="Your Phone Number"
                   />
                 </div>
 
-                <div className={styles.inputGroup}>
+                <div className={styles.inputWrapper}>
+                  <Layers size={16} className={styles.inputIcon} />
                   <select
                     name="serviceType"
                     value={formData.serviceType}
@@ -299,12 +353,13 @@ export default function ContactPageClient() {
                   </select>
                 </div>
 
-                <div className={styles.inputGroup}>
+                <div className={styles.inputWrapper}>
+                  <MessageSquare size={16} className={`${styles.inputIcon} ${styles.textareaIcon}`} />
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Message"
+                    placeholder="Tell us about your residence, floor plan, or project timeline..."
                     rows={4}
                     className={styles.textareaField}
                     aria-label="Your Message"
@@ -315,36 +370,47 @@ export default function ContactPageClient() {
                   {loading ? (
                     <>
                       <span className={styles.spinner} aria-hidden="true" />
-                      <span>Sending...</span>
+                      <span>Sending Request...</span>
                     </>
                   ) : (
                     <>
-                      <Send size={16} />
-                      <span>Submit</span>
+                      <span>Confirm Consultation Request</span>
+                      <ArrowRight size={16} />
                     </>
                   )}
                 </button>
+
+                <div className={styles.formReassurance}>
+                  <CheckCircle2 size={13} className={styles.reassuranceCheck} />
+                  <span>Complimentary Site Survey • Zero Obligation • 100% Confidential</span>
+                </div>
               </form>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Separator */}
-        <div className={styles.sectionDivider} aria-hidden="true" />
+      {/* FAQs Section (Architectural Light Canvas) */}
+      <section className={styles.faqSectionWrap}>
+        <div className={styles.faqInnerContainer}>
+          <div className={styles.faqSection} ref={faqRef}>
+            <div className={styles.faqHeader}>
+              <div className={styles.kickerBadgeLight}>
+                <span className={styles.badgePulseGold} aria-hidden="true" />
+                <span>FREQUENTLY ASKED QUESTIONS</span>
+              </div>
+              <h2 className={styles.faqTitleLight}>Everything You Need to Know</h2>
+              <p className={styles.faqSubtitleLight}>
+                Helpful answers before scheduling your smart home consultation and studio visit.
+              </p>
+            </div>
 
-        {/* FAQs Section */}
-        <div className={styles.faqSection} ref={faqRef}>
-          <div className={styles.headerSection}>
-            <div className={styles.titleWrapper}>
-              <span className={styles.line} aria-hidden="true" />
-              <h2 className={styles.pageTitle}>FAQs</h2>
-              <span className={styles.lineRight} aria-hidden="true" />
+            <div className={styles.faqContainerLight}>
+              <FaqAccordion faqs={contactData.faqs} theme="light" />
             </div>
           </div>
-
-          <FaqAccordion faqs={contactData.faqs} />
         </div>
-      </div>
+      </section>
     </div>
   );
 }

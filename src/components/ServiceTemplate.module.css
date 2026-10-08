@@ -78,9 +78,9 @@
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(8, 8, 8, 0.72) 0%,
-    rgba(10, 10, 10, 0.52) 45%,
-    rgba(6, 6, 6, 0.78) 100%
+    rgba(8, 8, 12, 0.58) 0%,
+    rgba(10, 10, 14, 0.30) 45%,
+    rgba(6, 6, 10, 0.62) 100%
   );
 }
 
@@ -233,13 +233,26 @@
 .heroFormCard {
   position: relative;
   z-index: 2;
-  background: rgba(18, 18, 18, 0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(18, 20, 28, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(229, 184, 105, 0.35);
-  border-radius: 16px;
-  padding: 2.25rem;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 25px rgba(229, 184, 105, 0.1);
+  border-radius: 24px;
+  padding: 2.25rem 2rem;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.75), 0 0 30px rgba(229, 184, 105, 0.1);
+  overflow: hidden;
+}
+
+.cardAccentGlow {
+  position: absolute;
+  top: 0;
+  left: 20px;
+  right: 20px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(229, 184, 105, 0.85), transparent);
+  box-shadow: 0 0 16px rgba(229, 184, 105, 0.7);
+  pointer-events: none;
+  border-radius: 999px;
 }
 
 .formHeader {
@@ -265,24 +278,36 @@
   gap: 1rem;
 }
 
-.inputGroup {
+.inputWrapper {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 14px;
+  color: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+.textareaIcon {
+  top: 13px;
 }
 
 .formInput,
 .formSelect,
 .formTextarea {
   width: 100%;
-  background: #1e1e1e;
-  border: 1px solid #333333;
+  background: rgba(10, 11, 16, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   color: #ffffff;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
+  padding: 12px 14px 12px 42px;
+  border-radius: 12px;
   font-size: 0.9rem;
   font-family: inherit;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.25s ease;
   box-sizing: border-box;
 }
 
@@ -290,27 +315,58 @@
 .formSelect:focus,
 .formTextarea:focus {
   outline: none;
+  background: rgba(14, 16, 24, 0.95);
   border-color: var(--sn-accent-gold, #e5b869);
-  box-shadow: 0 0 0 3px rgba(229, 184, 105, 0.15);
+  box-shadow: 0 0 0 3px rgba(229, 184, 105, 0.18), 0 0 15px rgba(229, 184, 105, 0.1);
+}
+
+.inputWrapper:focus-within .inputIcon {
+  color: var(--sn-accent-gold, #e5b869);
+}
+
+.formSelect {
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.6)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+}
+
+.formSelect option {
+  background: #141620;
+  color: #ffffff;
+}
+
+.formTextarea {
+  min-height: 70px;
+  resize: vertical;
+  line-height: 1.45;
 }
 
 .formSubmitBtn {
   width: 100%;
-  background: var(--sn-accent-gold, #e5b869);
-  color: #0a0a0a;
+  background: var(--gradient-gold);
+  color: #0c0d12;
   border: none;
-  padding: 0.85rem 1rem;
-  border-radius: 8px;
+  padding: 13px 18px;
+  border-radius: 12px;
   font-weight: 700;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.2s ease;
-  margin-top: 0.5rem;
+  transition: all 0.25s ease;
+  margin-top: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: var(--shadow-gold-soft);
 }
 
 .formSubmitBtn:hover:not(:disabled) {
-  background: #f0c578;
-  transform: translateY(-1px);
+  background: var(--gradient-gold-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold-glow);
 }
 
 .formSubmitBtn:disabled {
@@ -319,10 +375,20 @@
 }
 
 .formPrivacy {
-  font-size: 0.75rem;
-  color: #777777;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.6);
   text-align: center;
   margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+.reassuranceCheck {
+  color: var(--sn-accent-gold, #e5b869);
+  flex-shrink: 0;
 }
 
 .successAlert {
@@ -349,12 +415,93 @@
    Section Common
    ========================================================================== */
 .sectionWrapper {
-  padding: 5rem 2rem;
+  padding: 5.5rem 2rem;
   position: relative;
 }
 
 .sectionDarker {
-  background: #0d0d0d;
+  background: #0c0d12;
+}
+
+.sectionDark {
+  background: #0e1017;
+  color: #ffffff;
+}
+
+/* Light Architectural Sections */
+.sectionLight {
+  background-color: #ffffff;
+  color: #111318;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.sectionLight .sectionTitle,
+.sectionLight .cardTitle {
+  color: #111318;
+}
+
+.sectionLight .sectionSubtitle,
+.sectionLight .cardText {
+  color: #555e70;
+}
+
+.sectionLight .sectionKicker {
+  color: #a36e1c;
+}
+
+.sectionLight .experienceCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.sectionLight .experienceCard:hover {
+  border-color: rgba(184, 134, 54, 0.4);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+}
+
+.sectionLight .cardIconBox {
+  background: rgba(184, 134, 54, 0.09);
+  border-color: rgba(184, 134, 54, 0.25);
+  color: #a36e1c;
+}
+
+.sectionLight .brandLogoBox {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  filter: grayscale(100%) opacity(0.85);
+}
+
+.sectionLight .brandLogoBox:hover {
+  filter: none;
+  border-color: var(--accent-gold);
+}
+
+/* Light Alt Section (e.g. Process & Gallery, Testimonials) */
+.sectionLightAlt {
+  background-color: #f8f9fc;
+  color: #111318;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.sectionLightAlt .sectionTitle,
+.sectionLightAlt .processHeading {
+  color: #111318;
+}
+
+.sectionLightAlt .sectionSubtitle,
+.sectionLightAlt .processBodyText {
+  color: #555e70;
+}
+
+.sectionLightAlt .sectionKicker {
+  color: #a36e1c;
+}
+
+.sectionLightAlt .processHighlightItem {
+  color: #2d3748;
 }
 
 .sectionInner {
@@ -792,13 +939,21 @@
 
 .ctaCard {
   position: relative;
-  background: linear-gradient(135deg, #181818 0%, #0f0f0f 100%);
-  border: 1px solid rgba(229, 184, 105, 0.35);
-  border-radius: 16px;
-  padding: 4rem 3rem;
+  background: linear-gradient(135deg, rgba(18, 20, 28, 0.88) 0%, rgba(12, 14, 20, 0.96) 100%);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(229, 184, 105, 0.32);
+  border-radius: 28px;
+  padding: 4.5rem 3rem;
   text-align: center;
   overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.65), 0 0 30px rgba(229, 184, 105, 0.08);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ctaCard:hover {
+  border-color: rgba(229, 184, 105, 0.5);
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.75), 0 0 40px rgba(229, 184, 105, 0.12);
 }
 
 .ctaCardGlow {
