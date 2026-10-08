@@ -44,15 +44,15 @@
   object-position: center;
 }
 
-/* Dual-layer Overlay: Dark vignette + Ambient radial glow */
+/* Dual-layer Overlay: Lightened cinematic vignette to keep BG image clearly visible */
 .overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     90deg,
-    rgba(10, 11, 15, 0.94) 0%,
-    rgba(10, 11, 15, 0.75) 45%,
-    rgba(10, 11, 15, 0.88) 100%
+    rgba(10, 11, 15, 0.58) 0%,
+    rgba(10, 11, 15, 0.25) 45%,
+    rgba(10, 11, 15, 0.45) 100%
   );
   z-index: 2;
 }
@@ -144,7 +144,7 @@
   color: #ffffff;
   margin-bottom: 22px;
   letter-spacing: -0.025em;
-  text-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.85), 0 2px 10px rgba(0, 0, 0, 0.65);
 }
 
 .goldGradientText {
@@ -165,10 +165,11 @@
 .description {
   font-size: 1.15rem;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.95);
   margin-bottom: 26px;
-  font-weight: 300;
+  font-weight: 350;
   max-width: 580px;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.85);
 }
 
 @media (max-width: 768px) {
